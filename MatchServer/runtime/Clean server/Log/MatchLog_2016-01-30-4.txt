@@ -1,0 +1,156 @@
+Load XML from memory : strings.xml(0x0052) - SUCCESS
+Load XML from memory : cserror.xml(0x0052) - SUCCESS
+[01/30/16 18:09:53] DBMS connected
+
+[01/30/16 18:09:55] Command registeration completed
+
+
+10
+MBMatchServer::AddClanServerSwitchDownSchedule - make close clan mode schedule success. next close clan mode time is 16-1-31 23:50
+
+10
+init GameOn success.
+success init security.
+FILE PATH : C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\MatchServer\runtime\Clean server\MD5HashValue.txt
+MD5 Hash Value => 60 93 72 4e e2 3a 30 a2 9d b8 6d a3 6e 03 a0 db 
+
+================================== Server configure info ==================================
+[01/30/16 18:09:55] Release Date : Dec  3 2015
+[01/30/16 18:09:55] MD5 Check Off
+[01/30/16 18:09:55] Loop Log Save Off
+[01/30/16 18:09:55] Server Country : KOREA
+[01/30/16 18:09:55] Command version : (58)
+[01/30/16 18:09:55] Event usable state : (true)
+[01/30/16 18:09:55] Load event size : (0)
+[01/30/16 18:09:55] FileCRCCheckSum usable state : (false)
+[01/30/16 18:09:55] FileCRC size : (0)
+[01/30/16 18:09:55] Country Code Filter usalbe state : (false)
+[01/30/16 18:09:55] Accept Invalied IP state : (false)
+[01/30/16 18:09:55] Keeper IP : (127.0.0.1)
+[01/30/16 18:09:55] Monitor IP : (127.0.0.1)
+[01/30/16 18:09:55] Ticket use : 0
+
+===========================================================================================
+
+[01/30/16 18:09:55] Match Server Created (Port:6000)
+
+Dueltournament Service Open(2016-1-30 Hour18, Min9) 
+Daily Survival Ranking Request [month1 day30 hour18 min9]
+success to update CustomIP
+[01/30/16 18:10:01] MDuelTournamentTimeChecker::Current Month - 1, Day - 30
+[01/30/16 18:10:01] Time Stamp Changed! - 69      
+
+[01/30/16 18:10:58]  MMatchDBMgr::ExceptionHandler
+ErrSQL( {CALL spInsertConnLog (1, 68, 60, 177, 191, '')} ), ErrCode( -1 )
+ErrMsg - Invalid object name 'LogDB.dbo.ConnLog'.
+State:S0002,Native:208,Origin:[Microsoft][ODBC SQL Server Driver][SQL Server]
+
+
+[01/30/16 18:12:48]  MMatchDBMgr::ExceptionHandler
+ErrSQL( {CALL spInsertTPLogNetmarble (32, 64)} ), ErrCode( -1 )
+ErrMsg - Could not find stored procedure 'spInsertTPLogNetmarble'.
+State:37000,Native:2812,Origin:[Microsoft][ODBC SQL Server Driver][SQL Server]
+
+[18:12:48] Async DB Query(OnAsyncCharFinalize) Failed
+[01/30/16 18:12:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=1, SessionCount=1, AgentCount=0, CommandPool=15, objHistoryCount=4
+
+
+[01/30/16 18:13:03]  MMatchDBMgr::ExceptionHandler
+ErrSQL( {CALL spInsertGameLog2 (33, 'Mansion', 'Death Match(Team)')} ), ErrCode( -1 )
+ErrMsg - Invalid object name 'LogDB.dbo.GameLog'.
+State:S0002,Native:208,Origin:[Microsoft][ODBC SQL Server Driver][SQL Server]
+
+[18:13:03] Async DB Query(OnAsyncInsertGameLog) Failed
+[01/30/16 18:15:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=1, SessionCount=1, AgentCount=0, CommandPool=15, objHistoryCount=4
+
+[01/30/16 18:18:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=1, SessionCount=1, AgentCount=0, CommandPool=15, objHistoryCount=4
+
+[01/30/16 18:21:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=1, SessionCount=1, AgentCount=0, CommandPool=15, objHistoryCount=2
+
+[01/30/16 18:24:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=1, SessionCount=1, AgentCount=0, CommandPool=15, objHistoryCount=1
+
+
+[01/30/16 18:26:37]  MMatchDBMgr::ExceptionHandler
+ErrSQL( {CALL spInsertTPLogNetmarble (33, 829)} ), ErrCode( -1 )
+ErrMsg - Could not find stored procedure 'spInsertTPLogNetmarble'.
+State:37000,Native:2812,Origin:[Microsoft][ODBC SQL Server Driver][SQL Server]
+
+[18:26:37] Async DB Query(OnAsyncCharFinalize) Failed
+[01/30/16 18:27:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=1
+
+[01/30/16 18:30:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=1
+
+[01/30/16 18:33:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=1
+
+[01/30/16 18:36:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 18:39:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 18:42:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 18:45:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 18:48:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 18:51:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 18:54:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 18:57:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:00:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:03:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:06:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+success to update CustomIP
+[01/30/16 19:09:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:12:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:15:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:18:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:21:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:24:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:27:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:30:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:33:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:36:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:39:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:42:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:45:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:48:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:51:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:54:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 19:57:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 20:00:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 20:03:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+[01/30/16 20:06:55] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=15, objHistoryCount=0
+
+RealCPNet> SessionCreated=4, SessionDestroyed=3 
+RealCPNet> Begin Destroy 
+RealCPNet> Destroy Process 1/4 
+RealCPNet> Destroy Process 2/4 
+RealCPNet> Destroy Process 3/4 
+RealCPNet> Destroy Process 4/4 
+RealCPNet> Destroy End 
+[01/30/16 20:08:05] Match Server Destoryed
+

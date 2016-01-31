@@ -1,0 +1,153 @@
+Load XML from memory : strings.xml(0x0052) - SUCCESS
+Load XML from memory : cserror.xml(0x0052) - SUCCESS
+[01/30/16 17:58:05] DBMS connected
+
+[01/30/16 17:58:05] Command registeration completed
+
+
+10
+MBMatchServer::AddClanServerSwitchDownSchedule - make close clan mode schedule success. next close clan mode time is 16-1-31 23:50
+
+10
+init GameOn success.
+success init security.
+FILE PATH : C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\MatchServer\runtime\Clean server\MD5HashValue.txt
+MD5 Hash Value => 60 93 72 4e e2 3a 30 a2 9d b8 6d a3 6e 03 a0 db 
+
+================================== Server configure info ==================================
+[01/30/16 17:58:05] Release Date : Dec  3 2015
+[01/30/16 17:58:05] MD5 Check Off
+[01/30/16 17:58:05] Loop Log Save Off
+[01/30/16 17:58:05] Server Country : KOREA
+[01/30/16 17:58:05] Command version : (58)
+[01/30/16 17:58:05] Event usable state : (true)
+[01/30/16 17:58:05] Load event size : (0)
+[01/30/16 17:58:05] FileCRCCheckSum usable state : (false)
+[01/30/16 17:58:05] FileCRC size : (0)
+[01/30/16 17:58:05] Country Code Filter usalbe state : (false)
+[01/30/16 17:58:05] Accept Invalied IP state : (false)
+[01/30/16 17:58:05] Keeper IP : (127.0.0.1)
+[01/30/16 17:58:05] Monitor IP : (127.0.0.1)
+[01/30/16 17:58:05] Ticket use : 0
+
+===========================================================================================
+
+[01/30/16 17:58:05] Match Server Created (Port:6000)
+
+Dueltournament Service Open(2016-1-30 Hour17, Min58) 
+Daily Survival Ranking Request [month1 day30 hour17 min58]
+success to update CustomIP
+
+[01/30/16 18:00:58]  MMatchDBMgr::ExceptionHandler
+ErrSQL( {CALL spGetLoginInfo ('sohchienmin')} ), ErrCode( -1 )
+ErrMsg - Invalid column name 'PasswordEncrypted'.
+State:S0022,Native:207,Origin:[Microsoft][ODBC SQL Server Driver][SQL Server]
+
+[01/30/16 18:01:05] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=4, objHistoryCount=1
+
+
+[01/30/16 18:01:10]  MMatchDBMgr::ExceptionHandler
+ErrSQL( {CALL spGetLoginInfo ('sohchienmin1')} ), ErrCode( -1 )
+ErrMsg - Invalid column name 'PasswordEncrypted'.
+State:S0022,Native:207,Origin:[Microsoft][ODBC SQL Server Driver][SQL Server]
+
+
+[01/30/16 18:02:05]  MMatchDBMgr::ExceptionHandler
+ErrSQL( {CALL spGetBattleTimeRewardDescription} ), ErrCode( -1 )
+ErrMsg - ConnectionWrite (WrapperWrite()).
+General network error. Check your network documentation.
+State:01000,Native:233,Origin:[Microsoft][ODBC SQL Server Driver][DBMSLPCN]
+State:08S01,Native:11,Origin:[Microsoft][ODBC SQL Server Driver][DBMSLPCN]
+
+MMatchServer::OnAsyncResponse_GetBR_Description - 실패
+
+[01/30/16 18:02:05]  MMatchDBMgr::ExceptionHandler
+ErrSQL( {CALL spInsertServerLog (1, 0, 0, 0, 0)} ), ErrCode( -1 )
+ErrMsg - ConnectionWrite (WrapperWrite()).
+General network error. Check your network documentation.
+State:01000,Native:233,Origin:[Microsoft][ODBC SQL Server Driver][DBMSLPCN]
+State:08S01,Native:11,Origin:[Microsoft][ODBC SQL Server Driver][DBMSLPCN]
+
+
+[01/30/16 18:02:05]  MMatchDBMgr::ExceptionHandler
+ErrSQL( {CALL spUpdateServerStatus (0, 1)} ), ErrCode( -1 )
+ErrMsg - Communication link failure
+State:08S01,Native:0,Origin:[Microsoft][ODBC SQL Server Driver]
+
+[01/30/16 18:02:05] [CRITICAL ERROR] DB Connection Lost.
+
+MDatabase::Connect - Cannot open database "GunzDB" requested by the login. The login failed.
+
+[01/30/16 18:02:05] Can't Connect To DBMS
+
+MDatabase::Connect - Cannot open database "GunzDB" requested by the login. The login failed.
+
+MDatabase::CheckOpen - Reconnect database
+[01/30/16 18:02:35] [CRITICAL ERROR] DB Connection Lost.
+
+MDatabase::Connect - Cannot open database "GunzDB" requested by the login. The login failed.
+
+[01/30/16 18:02:35] Can't Connect To DBMS
+
+
+[01/30/16 18:03:05]  MMatchDBMgr::ExceptionHandler
+ErrSQL( {CALL spGetBattleTimeRewardDescription} ), ErrCode( -1 )
+ErrMsg - Communication link failure
+State:08S01,Native:0,Origin:[Microsoft][ODBC SQL Server Driver]
+
+MMatchServer::OnAsyncResponse_GetBR_Description - 실패
+MDatabase::Connect - Cannot open database "GunzDB" requested by the login. The login failed.
+
+MDatabase::CheckOpen - Reconnect database
+MDatabase::Connect - Cannot open database "GunzDB" requested by the login. The login failed.
+
+MDatabase::CheckOpen - Reconnect database
+[01/30/16 18:03:05] [CRITICAL ERROR] DB Connection Lost.
+
+MDatabase::Connect - Cannot open database "GunzDB" requested by the login. The login failed.
+
+[01/30/16 18:03:05] Can't Connect To DBMS
+
+MDatabase::Connect - Cannot open database "GunzDB" requested by the login. The login failed.
+
+MDatabase::CheckOpen - Reconnect database
+[01/30/16 18:03:35] [CRITICAL ERROR] DB Connection Lost.
+
+MDatabase::Connect - Cannot open database "GunzDB" requested by the login. The login failed.
+
+[01/30/16 18:03:35] Can't Connect To DBMS
+
+
+[01/30/16 18:04:05]  MMatchDBMgr::ExceptionHandler
+ErrSQL( {CALL spGetBattleTimeRewardDescription} ), ErrCode( -1 )
+ErrMsg - Communication link failure
+State:08S01,Native:0,Origin:[Microsoft][ODBC SQL Server Driver]
+
+MMatchServer::OnAsyncResponse_GetBR_Description - 실패
+[01/30/16 18:04:05] GARBAGE SESSION CLEANING : m_This(02), ClientCount=0, SessionCount=0, AgentCount=0, CommandPool=4, objHistoryCount=2
+
+MDatabase::Connect - Cannot open database "GunzDB" requested by the login. The login failed.
+
+MDatabase::CheckOpen - Reconnect database
+MDatabase::Connect - Cannot open database "GunzDB" requested by the login. The login failed.
+
+MDatabase::CheckOpen - Reconnect database
+[01/30/16 18:04:05] [CRITICAL ERROR] DB Connection Lost.
+
+MDatabase::Connect - Cannot open database "GunzDB" requested by the login. The login failed.
+
+[01/30/16 18:04:05] Can't Connect To DBMS
+
+MDatabase::Connect - Cannot open database "GunzDB" requested by the login. The login failed.
+
+MDatabase::CheckOpen - Reconnect database
+[01/30/16 18:04:35] [CRITICAL ERROR] DB Connection Lost.
+
+MDatabase::Connect - Cannot open database "GunzDB" requested by the login. The login failed.
+
+[01/30/16 18:04:35] Can't Connect To DBMS
+
+[01/30/16 18:04:35] [CRITICAL ERROR] UpdateServerStatusDB - Shutdown
+
+[01/30/16 18:04:35] MatchServer Shutting down...
+

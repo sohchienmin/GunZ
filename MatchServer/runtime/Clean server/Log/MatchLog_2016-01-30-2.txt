@@ -1,0 +1,6 @@
+Load XML from memory : strings.xml(0x0052) - SUCCESS
+Load XML from memory : cserror.xml(0x0052) - SUCCESS
+MDatabase::Connect - Login failed for user 'sa'.
+
+[01/30/16 17:52:17] Can't Connect To DBMS
+

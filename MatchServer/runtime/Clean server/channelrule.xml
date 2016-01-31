@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" ?>
+<!--
+	GAMETYPE_DEATHMATCH_SOLO	= 0
+ 	GAMETYPE_DEATHMATCH_TEAM	= 1
+	GAMETYPE_GLADIATOR_SOLO		= 2
+	GAMETYPE_GLADIATOR_TEAM		= 3
+	GAMETYPE_ASSASSINATE		= 4
+	GAMETYPE_TRAINING		= 5
+	GAMETYPE_SURVIVAL		= 6
+	GAMETYPE_QUEST			= 7
+	GAMETYPE_BERSERKER		= 8 
+	GAMETYPE_DEATHMATCH_TEAM2	= 9
+	GAMETYPE_DEATHMATCH_DUEL	= 10
+	GAMETYPE_QUEST_CHALLENGE 	= 12
+	GAMETYPE_CAPTURE_THE_FLAG = 12
+-->
+
+<XML id="channelrule">
+
+	<CHANNELRULE id="0" name="novice">
+		<GAMETYPE id="0" />			<!-- GAMETYPE_DEATHMATCH_SOLO -->
+		<GAMETYPE id="1" />			<!-- GAMETYPE_DEATHMATCH_TEAM -->
+		<GAMETYPE id="9" />			<!-- GAMETYPE_DEATHMATCH_TEAM2 -->
+		<GAMETYPE id="12" />			<!-- CTF -->
+		<GAMETYPE id="2" />			<!-- GAMETYPE_GLADIATOR_SOLO -->
+		<GAMETYPE id="3" />			<!-- GAMETYPE_GLADIATOR_TEAM -->
+		<GAMETYPE id="10" />			<!-- GAMETYPE_DUEL -->
+		<GAMETYPE id="4" />			<!-- GAMETYPE_ASSASSINATE -->
+		<GAMETYPE id="5" />			<!-- GAMETYPE_TRAINING -->
+
+		<MAP name="RelayMap" />
+		<MAP name="Mansion" />
+		<MAP name="Prison" />
+		<MAP name="Prison II" />
+		<MAP name="Island" />
+		<MAP name="Garden" />
+		<MAP name="Station" />
+		<MAP name="Battle Arena" />
+		<MAP name="Factory" />
+		<MAP name="Town" />
+		<MAP name="Halloween Town" />
+		<MAP name="High_Haven" />
+		<MAP name="Citadel" />
+		<MAP name="WeaponShop" />
+		<MAP name="Shower Room" />
+		<MAP name="Ruin" />
+		<MAP name="Port" />
+		<MAP name="Castle" />
+		<MAP name="Dungeon" />
+		<MAP name="Lost Shrine" />
+		<MAP name="Stairway" />
+		<MAP name="Snow_Town" />
+		<MAP name="Pavilion" />
+		
+		<MAP name="1vs1" />
+		<MAP name="awp_india" />
+		<MAP name="BlitzKrieg" />
+		<MAP name="Cave" />
+		<MAP name="cs_assault_new" />
+		<MAP name="de_dust2" />
+		<MAP name="Dojo" />
+		<MAP name="DusteRskillTrail_V1" />
+		<MAP name="DusteRSkillTrail_V2" />
+		<MAP name="DusteRSkillTrail_V3" />
+		<MAP name="DusteRSkillTrail_V4" />
+		<MAP name="Eventroom" />
+		<MAP name="HallNoMeds" />
+		<MAP name="Mansion-Library" />
+		<MAP name="MasterSkillerV2" />
+		<MAP name="MasterSkillerv3" />
+		<MAP name="Master_Skiller" />
+		<MAP name="minecraft" />
+		<MAP name="Mystery Maze" />
+		<MAP name="Nagrand-Underground" />
+		<MAP name="RaceMode" />
+		<MAP name="Raitem" />
+		<MAP name="Skillmap" />
+		<MAP name="SkillmapV2" />
+		<MAP name="SkillMapV3" />
+		<MAP name="SkillmapV4" />
+		<MAP name="SkillTronic" />
+		<MAP name="Skyline" />
+		<MAP name="SniperDrop" />
+		<MAP name="Snow_Loutie" />
+		<MAP name="Stairway2" />
+		<MAP name="Street_Duel" />
+		<MAP name="Superflip" />
+		<MAP name="SwordArena" />
+		<MAP name="TrickAndDie" />
+		<MAP name="Under" />
+		<MAP name="WonderLand" />
+
+	</CHANNELRULE>
+	
+	<CHANNELRULE id="1" name="newbie">
+		<GAMETYPE id="0" />			<!-- GAMETYPE_DEATHMATCH_SOLO -->
+		<GAMETYPE id="1" />			<!-- GAMETYPE_DEATHMATCH_TEAM -->
+		<GAMETYPE id="9" />			<!-- GAMETYPE_DEATHMATCH_TEAM2 -->
+		<GAMETYPE id="12" />			<!-- CTF -->
+		<GAMETYPE id="2" />			<!-- GAMETYPE_GLADIATOR_SOLO -->
+		<GAMETYPE id="3" />			<!-- GAMETYPE_GLADIATOR_TEAM -->
+		<GAMETYPE id="10" />			<!-- GAMETYPE_DUEL -->
+		<GAMETYPE id="4" />			<!-- GAMETYPE_ASSASSINATE -->
+		<GAMETYPE id="5" />			<!-- GAMETYPE_TRAINING -->
+
+		<MAP name="RelayMap" />
+		<MAP name="Mansion" />
+		<MAP name="Prison" />
+		<MAP name="Prison II" />
+		<MAP name="Island" />
+		<MAP name="Garden" />
+		<MAP name="Station" />
+		<MAP name="Battle Arena" />
+		<MAP name="Factory" />
+		<MAP name="Town" />
+		<MAP name="Halloween Town" />
+		<MAP name="High_Haven" />
+		<MAP name="Citadel" />
+		<MAP name="WeaponShop" />
+		<MAP name="Shower Room" />
+		<MAP name="Ruin" />
+		<MAP name="Port" />
+		<MAP name="Castle" />
+		<MAP name="Dungeon" />
+		<MAP name="Lost Shrine" />
+		<MAP name="Stairway" />
+		<MAP name="Snow_Town" />
+		<MAP name="Pavilion" />
+		
+		<MAP name="1vs1" />
+		<MAP name="awp_india" />
+		<MAP name="BlitzKrieg" />
+		<MAP name="Cave" />
+		<MAP name="cs_assault_new" />
+		<MAP name="de_dust2" />
+		<MAP name="Dojo" />
+		<MAP name="DusteRskillTrail_V1" />
+		<MAP name="DusteRSkillTrail_V2" />
+		<MAP name="DusteRSkillTrail_V3" />
+		<MAP name="DusteRSkillTrail_V4" />
+		<MAP name="Eventroom" />
+		<MAP name="HallNoMeds" />
+		<MAP name="Mansion-Library" />
+		<MAP name="MasterSkillerV2" />
+		<MAP name="MasterSkillerv3" />
+		<MAP name="Master_Skiller" />
+		<MAP name="minecraft" />
+		<MAP name="Mystery Maze" />
+		<MAP name="Nagrand-Underground" />
+		<MAP name="RaceMode" />
+		<MAP name="Raitem" />
+		<MAP name="Skillmap" />
+		<MAP name="SkillmapV2" />
+		<MAP name="SkillMapV3" />
+		<MAP name="SkillmapV4" />
+		<MAP name="SkillTronic" />
+		<MAP name="Skyline" />
+		<MAP name="SniperDrop" />
+		<MAP name="Snow_Loutie" />
+		<MAP name="Stairway2" />
+		<MAP name="Street_Duel" />
+		<MAP name="Superflip" />
+		<MAP name="SwordArena" />
+		<MAP name="TrickAndDie" />
+		<MAP name="Under" />
+		<MAP name="WonderLand" />
+
+	</CHANNELRULE>
+
+
+	<CHANNELRULE id="2" name="rookie">
+		<GAMETYPE id="0" />			<!-- GAMETYPE_DEATHMATCH_SOLO -->
+		<GAMETYPE id="8" />			<!-- GAMETYPE_BERSERKER -->
+		<GAMETYPE id="1" />			<!-- GAMETYPE_DEATHMATCH_TEAM -->
+		<GAMETYPE id="9" />			<!-- GAMETYPE_DEATHMATCH_TEAM2 -->
+		<GAMETYPE id="10" />		<!-- GAMETYPE_DEATHMATCH_DUEL -->
+		<GAMETYPE id="2" />			<!-- GAMETYPE_GLADIATOR_SOLO -->
+		<GAMETYPE id="3" />			<!-- GAMETYPE_GLADIATOR_TEAM -->
+		<GAMETYPE id="4" />			<!-- GAMETYPE_ASSASSINATE -->
+		<GAMETYPE id="5" />			<!-- GAMETYPE_TRAINING -->
+		<GAMETYPE id="12" />		<!-- GAMETYPE_QUEST_CHALLENGE -->
+
+		<MAP name="RelayMap" />
+		<MAP name="Mansion" />
+		<MAP name="Prison" />
+		<MAP name="Prison II" />
+		<MAP name="Island" />
+		<MAP name="Garden" />
+		<MAP name="Station" />
+		<MAP name="Battle Arena" />
+		<MAP name="Factory" />
+		<MAP name="Town" />
+		<MAP name="Halloween Town" />
+		<MAP name="High_Haven" />
+		<MAP name="Citadel" />
+		<MAP name="WeaponShop" />
+		<MAP name="Shower Room" />
+		<MAP name="Ruin" />
+		<MAP name="Port" />
+		<MAP name="Castle" />
+		<MAP name="Dungeon" />
+		<MAP name="Lost Shrine" />
+		<MAP name="Stairway" />
+		<MAP name="Snow_Town" />
+		<MAP name="Pavilion" />
+		
+		<MAP name="1vs1" />
+		<MAP name="awp_india" />
+		<MAP name="BlitzKrieg" />
+		<MAP name="Cave" />
+		<MAP name="cs_assault_new" />
+		<MAP name="de_dust2" />
+		<MAP name="Dojo" />
+		<MAP name="DusteRskillTrail_V1" />
+		<MAP name="DusteRSkillTrail_V2" />
+		<MAP name="DusteRSkillTrail_V3" />
+		<MAP name="DusteRSkillTrail_V4" />
+		<MAP name="Eventroom" />
+		<MAP name="HallNoMeds" />
+		<MAP name="Mansion-Library" />
+		<MAP name="MasterSkillerV2" />
+		<MAP name="MasterSkillerv3" />
+		<MAP name="Master_Skiller" />
+		<MAP name="minecraft" />
+		<MAP name="Mystery Maze" />
+		<MAP name="Nagrand-Underground" />
+		<MAP name="RaceMode" />
+		<MAP name="Raitem" />
+		<MAP name="Skillmap" />
+		<MAP name="SkillmapV2" />
+		<MAP name="SkillMapV3" />
+		<MAP name="SkillmapV4" />
+		<MAP name="SkillTronic" />
+		<MAP name="Skyline" />
+		<MAP name="SniperDrop" />
+		<MAP name="Snow_Loutie" />
+		<MAP name="Stairway2" />
+		<MAP name="Street_Duel" />
+		<MAP name="Superflip" />
+		<MAP name="SwordArena" />
+		<MAP name="TrickAndDie" />
+		<MAP name="Under" />
+		<MAP name="WonderLand" />
+
+	</CHANNELRULE>
+
+
+	<CHANNELRULE id="3" name="mastery">
+		<GAMETYPE id="0" />			<!-- GAMETYPE_DEATHMATCH_SOLO -->
+		<GAMETYPE id="8" />			<!-- GAMETYPE_BERSERKER -->
+		<GAMETYPE id="1" />			<!-- GAMETYPE_DEATHMATCH_TEAM -->
+		<GAMETYPE id="9" />			<!-- GAMETYPE_DEATHMATCH_TEAM2 -->
+		<GAMETYPE id="10" />		<!-- GAMETYPE_DEATHMATCH_DUEL -->
+		<GAMETYPE id="2" />			<!-- GAMETYPE_GLADIATOR_SOLO -->
+		<GAMETYPE id="3" />			<!-- GAMETYPE_GLADIATOR_TEAM -->
+		<GAMETYPE id="4" />			<!-- GAMETYPE_ASSASSINATE -->
+		<GAMETYPE id="5" />			<!-- GAMETYPE_TRAINING -->
+		<GAMETYPE id="12" />		<!-- GAMETYPE_QUEST_CHALLENGE -->
+
+		<MAP name="RelayMap" />
+		<MAP name="Mansion" />
+		<MAP name="Prison" />
+		<MAP name="Prison II" />
+		<MAP name="Island" />
+		<MAP name="Garden" />
+		<MAP name="Station" />
+		<MAP name="Battle Arena" />
+		<MAP name="Factory" />
+		<MAP name="Town" />
+		<MAP name="Halloween Town" />
+		<MAP name="High_Haven" />
+		<MAP name="Citadel" />
+		<MAP name="WeaponShop" />
+		<MAP name="Shower Room" />
+		<MAP name="Ruin" />
+		<MAP name="Port" />
+		<MAP name="Castle" />
+		<MAP name="Dungeon" />
+		<MAP name="Lost Shrine" />
+		<MAP name="Stairway" />
+		<MAP name="Snow_Town" />
+		<MAP name="Pavilion" />
+		
+		<MAP name="1vs1" />
+		<MAP name="awp_india" />
+		<MAP name="BlitzKrieg" />
+		<MAP name="Cave" />
+		<MAP name="cs_assault_new" />
+		<MAP name="de_dust2" />
+		<MAP name="Dojo" />
+		<MAP name="DusteRskillTrail_V1" />
+		<MAP name="DusteRSkillTrail_V2" />
+		<MAP name="DusteRSkillTrail_V3" />
+		<MAP name="DusteRSkillTrail_V4" />
+		<MAP name="Eventroom" />
+		<MAP name="HallNoMeds" />
+		<MAP name="Mansion-Library" />
+		<MAP name="MasterSkillerV2" />
+		<MAP name="MasterSkillerv3" />
+		<MAP name="Master_Skiller" />
+		<MAP name="minecraft" />
+		<MAP name="Mystery Maze" />
+		<MAP name="Nagrand-Underground" />
+		<MAP name="RaceMode" />
+		<MAP name="Raitem" />
+		<MAP name="Skillmap" />
+		<MAP name="SkillmapV2" />
+		<MAP name="SkillMapV3" />
+		<MAP name="SkillmapV4" />
+		<MAP name="SkillTronic" />
+		<MAP name="Skyline" />
+		<MAP name="SniperDrop" />
+		<MAP name="Snow_Loutie" />
+		<MAP name="Stairway2" />
+		<MAP name="Street_Duel" />
+		<MAP name="Superflip" />
+		<MAP name="SwordArena" />
+		<MAP name="TrickAndDie" />
+		<MAP name="Under" />
+		<MAP name="WonderLand" />
+
+	</CHANNELRULE>
+	
+	<CHANNELRULE id="4" name="elite">
+		<GAMETYPE id="0" />			<!-- GAMETYPE_DEATHMATCH_SOLO -->
+		<GAMETYPE id="8" />			<!-- GAMETYPE_BERSERKER -->
+		<GAMETYPE id="1" />			<!-- GAMETYPE_DEATHMATCH_TEAM -->
+		<GAMETYPE id="9" />			<!-- GAMETYPE_DEATHMATCH_TEAM2 -->
+		<GAMETYPE id="10" />		<!-- GAMETYPE_DEATHMATCH_DUEL -->
+		<GAMETYPE id="2" />			<!-- GAMETYPE_GLADIATOR_SOLO -->
+		<GAMETYPE id="3" />			<!-- GAMETYPE_GLADIATOR_TEAM -->
+		<GAMETYPE id="4" />			<!-- GAMETYPE_ASSASSINATE -->
+		<GAMETYPE id="5" />			<!-- GAMETYPE_TRAINING -->
+		<GAMETYPE id="12" />		<!-- GAMETYPE_QUEST_CHALLENGE -->
+		
+		<MAP name="RelayMap" />
+		<MAP name="Mansion" />
+		<MAP name="Prison" />
+		<MAP name="Prison II" />
+		<MAP name="Island" />
+		<MAP name="Garden" />
+		<MAP name="Station" />
+		<MAP name="Battle Arena" />
+		<MAP name="Factory" />
+		<MAP name="Town" />
+		<MAP name="Halloween Town" />
+		<MAP name="High_Haven" />
+		<MAP name="Citadel" />
+		<MAP name="WeaponShop" />
+		<MAP name="Shower Room" />
+		<MAP name="Ruin" />
+		<MAP name="Port" />
+		<MAP name="Castle" />
+		<MAP name="Dungeon" />
+		<MAP name="Lost Shrine" />
+		<MAP name="Stairway" />
+		<MAP name="Snow_Town" />
+		<MAP name="Pavilion" />
+		
+		<MAP name="1vs1" />
+		<MAP name="awp_india" />
+		<MAP name="BlitzKrieg" />
+		<MAP name="Cave" />
+		<MAP name="cs_assault_new" />
+		<MAP name="de_dust2" />
+		<MAP name="Dojo" />
+		<MAP name="DusteRskillTrail_V1" />
+		<MAP name="DusteRSkillTrail_V2" />
+		<MAP name="DusteRSkillTrail_V3" />
+		<MAP name="DusteRSkillTrail_V4" />
+		<MAP name="Eventroom" />
+		<MAP name="HallNoMeds" />
+		<MAP name="Mansion-Library" />
+		<MAP name="MasterSkillerV2" />
+		<MAP name="MasterSkillerv3" />
+		<MAP name="Master_Skiller" />
+		<MAP name="minecraft" />
+		<MAP name="Mystery Maze" />
+		<MAP name="Nagrand-Underground" />
+		<MAP name="RaceMode" />
+		<MAP name="Raitem" />
+		<MAP name="Skillmap" />
+		<MAP name="SkillmapV2" />
+		<MAP name="SkillMapV3" />
+		<MAP name="SkillmapV4" />
+		<MAP name="SkillTronic" />
+		<MAP name="Skyline" />
+		<MAP name="SniperDrop" />
+		<MAP name="Snow_Loutie" />
+		<MAP name="Stairway2" />
+		<MAP name="Street_Duel" />
+		<MAP name="Superflip" />
+		<MAP name="SwordArena" />
+		<MAP name="TrickAndDie" />
+		<MAP name="Under" />
+		<MAP name="WonderLand" />
+
+		
+	</CHANNELRULE>
+
+	
+</XML>
