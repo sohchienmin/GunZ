@@ -1,0 +1,22 @@
+﻿Build started 1/30/2016 5:47:43 PM.
+     1>Project "C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\StringLiteral\StringLiteral.vcxproj" on node 4 (Build target(s)).
+     1>PreBuildEvent:
+         ..\Gunz\StringLiteralEncrypt\Encrypt.bat
+         :VCEnd
+         Starting CXR, the literal string encryptor. Copyright 2002, Smaller Animals Software Inc.
+         CXR created: cxr_test.h
+         Starting CXR, the literal string encryptor. Copyright 2002, Smaller Animals Software Inc.
+         CXR created: cxr_MMatchItem.h
+         Starting CXR, the literal string encryptor. Copyright 2002, Smaller Animals Software Inc.
+         CXR created: cxr_MMatchBuff.h
+       ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oy- /D WIN32 /D NDEBUG /D _LIB /D _MBCS /Gm- /EHsc /MT /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /wd4244 /wd4996 /wd4819 /wd4005 /wd4800 /wd4293 /wd4627 /wd4018 /wd4172 /wd4509 /wd4065 /wd4101 /analyze- /errorReport:prompt StringLiteral.cpp
+         StringLiteral.cpp
+       Lib:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"Release\StringLiteral.lib" /NOLOGO Release\StringLiteral.obj
+         StringLiteral.vcxproj -> C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\StringLiteral\Release\StringLiteral.lib
+     1>Done Building Project "C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\StringLiteral\StringLiteral.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.49

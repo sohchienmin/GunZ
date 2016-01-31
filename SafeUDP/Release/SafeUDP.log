@@ -1,0 +1,17 @@
+﻿Build started 1/30/2016 5:45:12 PM.
+     1>Project "C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\SafeUDP\SafeUDP.vcxproj" on node 3 (Rebuild target(s)).
+     1>ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IInclude /I../CML/Include /Zi /nologo /W3 /WX- /O2 /Ob1 /Oy- /D WIN32 /D NDEBUG /D _LIB /D _MBCS /GF /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Release\SafeUDP.pch" /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /wd4244 /wd4996 /wd4819 /wd4005 /wd4800 /wd4293 /wd4627 /wd4018 /wd4172 /wd4509 /wd4065 /wd4101 /analyze- /errorReport:prompt source\stdafx.cpp
+         stdafx.cpp
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IInclude /I../CML/Include /Zi /nologo /W3 /WX- /O2 /Ob1 /Oy- /D WIN32 /D NDEBUG /D _LIB /D _MBCS /GF /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Release\SafeUDP.pch" /Fo"Release\\" /Fd"Release\vc120.pdb" /Gd /TP /wd4244 /wd4996 /wd4819 /wd4005 /wd4800 /wd4293 /wd4627 /wd4018 /wd4172 /wd4509 /wd4065 /wd4101 /analyze- /errorReport:prompt Source\MSafeUDP.cpp
+         MSafeUDP.cpp
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(1354,5): warning MSB8012: TargetPath(C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\SafeUDP\.\Release\SafeUDP.lib) does not match the Library's OutputFile property value (C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\SafeUDP\lib\SafeUDP.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+       Lib:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"lib\SafeUDP.lib" /NOLOGO /NODEFAULTLIB Release\MSafeUDP.obj
+         Release\stdafx.obj
+         SafeUDP.vcxproj -> C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\SafeUDP\.\Release\SafeUDP.lib
+     1>Done Building Project "C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\SafeUDP\SafeUDP.vcxproj" (Rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:01.88
