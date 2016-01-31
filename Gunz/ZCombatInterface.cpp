@@ -751,7 +751,7 @@ void ZCombatInterface::DrawHPAPNumbers(MDrawContext* pDC)
 		for (ZCharacterManager::iterator itor = ZGetGame()->m_CharacterManager.begin(); itor != ZGetGame()->m_CharacterManager.end(); ++itor)
 		{
 			ZCharacter* pChar = (ZCharacter*)(*itor).second;
-			if (pChar->GetTeamID() == ZGetGame()->m_pMyCharacter->GetTeamID()) {
+			if (pChar->GetTeamID() == ZGetGame()->m_pMyCharacter->GetTeamID() && pChar != ZGetGame()->m_pMyCharacter) {
 				float itemy = y + linespace;
 				float texty = itemy + (linespace - (float)pDC->GetFont()->GetHeight() / (float)MGetWorkspaceHeight())*.5f;
 				char szBuffer[64];
@@ -765,7 +765,7 @@ void ZCombatInterface::DrawHPAPNumbers(MDrawContext* pDC)
 				{
 					pDC->SetColor(MCOLOR(0x30000000));
 					pDC->FillRectangleW((x*MGetWorkspaceWidth()), texty*MGetWorkspaceHeight() + 1, 0.08*MGetWorkspaceWidth(), 7);
-					float nValue = (0.08 * (pCharacter->GetStatus().Ref().nHP / pChar->GetMaxHP()));
+					float nValue = (0.08 * (pChar->GetStatus().Ref().nHP / pChar->GetMaxHP()));
 					pDC->SetColor(MCOLOR(0xFFFF0000));
 					pDC->FillRectangleW((x*MGetWorkspaceWidth()), texty*MGetWorkspaceHeight() + 1, nValue*MGetWorkspaceWidth(), 7);
 				}
@@ -773,7 +773,7 @@ void ZCombatInterface::DrawHPAPNumbers(MDrawContext* pDC)
 				{
 					pDC->SetColor(MCOLOR(0x30000000));
 					pDC->FillRectangleW((x*MGetWorkspaceWidth()), texty*MGetWorkspaceHeight() + 9, 0.08*MGetWorkspaceWidth(), 3);
-					float nValuee = (0.08 * (pCharacter->GetStatus().Ref().nAP / pChar->GetMaxAP()));
+					float nValuee = (0.08 * (pChar->GetStatus().Ref().nAP / pChar->GetMaxAP()));
 					pDC->SetColor(MCOLOR(0xFF00FF00));
 					pDC->FillRectangleW((x*MGetWorkspaceWidth()), texty*MGetWorkspaceHeight() + 9, nValuee*MGetWorkspaceWidth(), 3);
 				}
