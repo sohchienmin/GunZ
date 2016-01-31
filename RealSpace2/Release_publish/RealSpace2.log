@@ -1,0 +1,118 @@
+﻿Build started 1/30/2016 5:45:12 PM.
+     1>Project "C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\RealSpace2\RealSpace2.vcxproj" on node 5 (Rebuild target(s)).
+     1>ClCompile:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IInclude /I../CML/Include /I../MAI/Include /I../RealSpace/Include /I../sdk/dx9/include /Zi /nologo /W3 /WX- /O2 /Ob1 /Oy- /D NDEBUG /D WIN32 /D _LIB /D _USE_GDIPLUS /D _PUBLISH /D _MBCS /GF /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Release_publish\RealSpace2.pch" /Fo"Release_publish\\" /Fd"Release_publish\vc120.pdb" /Gd /TP /wd4244 /wd4996 /wd4819 /wd4005 /wd4800 /wd4293 /wd4627 /wd4018 /wd4172 /wd4509 /wd4065 /wd4101 /analyze- /errorReport:prompt Source\stdafx.cpp
+         stdafx.cpp
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /IInclude /I../CML/Include /I../MAI/Include /I../RealSpace/Include /I../sdk/dx9/include /Zi /nologo /W3 /WX- /O2 /Ob1 /Oy- /D NDEBUG /D WIN32 /D _LIB /D _USE_GDIPLUS /D _PUBLISH /D _MBCS /GF /Gm- /EHsc /MT /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Release_publish\RealSpace2.pch" /Fo"Release_publish\\" /Fd"Release_publish\vc120.pdb" /Gd /TP /wd4244 /wd4996 /wd4819 /wd4005 /wd4800 /wd4293 /wd4627 /wd4018 /wd4172 /wd4509 /wd4065 /wd4101 /analyze- /errorReport:prompt Source\RAniEventInfo.cpp source\RAnimation.cpp Source\RAnimationFile.cpp source\RAnimationMgr.cpp Source\RAnimationNode.cpp Source\RAStar.cpp Source\RBaseTexture.cpp Source\RBoundary.cpp Source\RBspObject.cpp Source\RCamera.cpp Source\RCharCloth.cpp Source\RCloth.cpp Source\RCollisionDetection.cpp Source\RCylinder.cpp Source\RDummyList.cpp Source\RDynamicLight.cpp Source\RealSpace2.cpp Source\RError.cpp Source\RFont.cpp Source\RFrameWork.cpp Source\RHalfEdgeMesh.cpp Source\RLenzFlare.cpp Source\RLightList.cpp Source\RMaterialList.cpp Source\RMesh.cpp source\RMeshMgr.cpp source\RMeshNode.cpp Source\RMeshNodeData.cpp Source\RMeshNodeStringTable.cpp source\RMeshUtil.cpp source\RMesh_Frame.cpp source\RMesh_Load.cpp source\RMesh_Mtrl.cpp source\RMesh_Render.cpp Source\RMtrl.cpp Source\RNavigationMesh.cpp Source\RNavigationNode.cpp Source\ROcclusionList.cpp Source\RParticleSystem.cpp Source\RPVS.cpp Source\RRoam.cpp Source\RShaderMgr.cpp Source\RSolidBsp.cpp Source\RSphere.cpp Source\RToken.cpp Source\RTypes.cpp source\RVisualMesh.cpp source\RVisualMeshMgr.cpp source\RVisualMeshUtil.cpp
+         RAniEventInfo.cpp
+         RAnimation.cpp
+         RAnimationFile.cpp
+         RAnimationMgr.cpp
+         RAnimationNode.cpp
+         RAStar.cpp
+         RBaseTexture.cpp
+         RBoundary.cpp
+         RBspObject.cpp
+         RCamera.cpp
+         RCharCloth.cpp
+         RCloth.cpp
+         RCollisionDetection.cpp
+         RCylinder.cpp
+         RDummyList.cpp
+         RDynamicLight.cpp
+         RealSpace2.cpp
+         RError.cpp
+         RFont.cpp
+         RFrameWork.cpp
+         Generating Code...
+         Compiling...
+         RHalfEdgeMesh.cpp
+         RLenzFlare.cpp
+         RLightList.cpp
+         RMaterialList.cpp
+         RMesh.cpp
+         RMeshMgr.cpp
+         RMeshNode.cpp
+         RMeshNodeData.cpp
+         RMeshNodeStringTable.cpp
+         RMeshUtil.cpp
+         RMesh_Frame.cpp
+         RMesh_Load.cpp
+         RMesh_Mtrl.cpp
+         RMesh_Render.cpp
+         RMtrl.cpp
+         RNavigationMesh.cpp
+         RNavigationNode.cpp
+         ROcclusionList.cpp
+         RParticleSystem.cpp
+         RPVS.cpp
+         Generating Code...
+         Compiling...
+         RRoam.cpp
+         RShaderMgr.cpp
+         RSolidBsp.cpp
+         RSphere.cpp
+         RToken.cpp
+         RTypes.cpp
+         RVisualMesh.cpp
+         RVisualMeshMgr.cpp
+         RVisualMeshUtil.cpp
+         Generating Code...
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V120\Microsoft.CppBuild.targets(1354,5): warning MSB8012: TargetPath(C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\RealSpace2\Release_publish\RealSpace2.lib) does not match the Library's OutputFile property value (C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\RealSpace2\Lib\RealSpace2.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+       Lib:
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\Lib.exe /OUT:"Lib\RealSpace2.lib" /NOLOGO Release_publish\RAniEventInfo.obj
+         Release_publish\RAnimation.obj
+         Release_publish\RAnimationFile.obj
+         Release_publish\RAnimationMgr.obj
+         Release_publish\RAnimationNode.obj
+         Release_publish\RAStar.obj
+         Release_publish\RBaseTexture.obj
+         Release_publish\RBoundary.obj
+         Release_publish\RBspObject.obj
+         Release_publish\RCamera.obj
+         Release_publish\RCharCloth.obj
+         Release_publish\RCloth.obj
+         Release_publish\RCollisionDetection.obj
+         Release_publish\RCylinder.obj
+         Release_publish\RDummyList.obj
+         Release_publish\RDynamicLight.obj
+         Release_publish\RealSpace2.obj
+         Release_publish\RError.obj
+         Release_publish\RFont.obj
+         Release_publish\RFrameWork.obj
+         Release_publish\RHalfEdgeMesh.obj
+         Release_publish\RLenzFlare.obj
+         Release_publish\RLightList.obj
+         Release_publish\RMaterialList.obj
+         Release_publish\RMesh.obj
+         Release_publish\RMeshMgr.obj
+         Release_publish\RMeshNode.obj
+         Release_publish\RMeshNodeData.obj
+         Release_publish\RMeshNodeStringTable.obj
+         Release_publish\RMeshUtil.obj
+         Release_publish\RMesh_Frame.obj
+         Release_publish\RMesh_Load.obj
+         Release_publish\RMesh_Mtrl.obj
+         Release_publish\RMesh_Render.obj
+         Release_publish\RMtrl.obj
+         Release_publish\RNavigationMesh.obj
+         Release_publish\RNavigationNode.obj
+         Release_publish\ROcclusionList.obj
+         Release_publish\RParticleSystem.obj
+         Release_publish\RPVS.obj
+         Release_publish\RRoam.obj
+         Release_publish\RShaderMgr.obj
+         Release_publish\RSolidBsp.obj
+         Release_publish\RSphere.obj
+         Release_publish\RToken.obj
+         Release_publish\RTypes.obj
+         Release_publish\RVisualMesh.obj
+         Release_publish\RVisualMeshMgr.obj
+         Release_publish\RVisualMeshUtil.obj
+         Release_publish\stdafx.obj
+         RealSpace2.vcxproj -> C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\RealSpace2\Release_publish\RealSpace2.lib
+     1>Done Building Project "C:\Users\ChienMin\Desktop\GZF GUNZ SOURCE\RealSpace2\RealSpace2.vcxproj" (Rebuild target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:13.69
