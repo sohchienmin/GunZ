@@ -1,0 +1,3 @@
+LIBRARY DLL
+EXPORTS
+    DllMain @16
