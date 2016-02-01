@@ -389,7 +389,7 @@ public:
 	// 로비 UI 설정
 //	void SetupPlayerListButton(int index=-1);
 //	void SetupPlayerListTab();
-	void OnArrangedTeamGameUI(bool bFinding);
+	void OnArrangedTeamGameUI(bool bFinding, bool isvote);
 	void OnDuelTournamentGameUI(bool bWaiting);
 
 	void InitLobbyUIByChannelType();

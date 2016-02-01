@@ -1,13 +1,13 @@
 #include "stdafx.h"
 #include "MMatchServer.h"
-
+#include "MMatchConfig.h"
 #include "MLadderMgr.h"
 #include "MLadderPicker.h"
 #include "MMatchGlobal.h"
 #include "MThread.h"
 #include "MSharedCommandTable.h"
 #include "MMatchUtil.h"
-
+#include "MTeamGameStrategy.h"
 
 MLadderGroupMap* MLadderMgr::GetWaitGroupContainer(MLADDERTYPE nLadderType)
 {
@@ -265,10 +265,183 @@ void MLadderMgr::LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB)
 #endif
 		return;
 	}
-
+	
+	LadderGameMapVoteInfo* m = new LadderGameMapVoteInfo();
+	for(int i = 0; i < 3; i++)
+	{
+		m->Votes[i] = 0;
+		m->Maps[i] = -1;
+	}
+	MBaseTeamGameStrategy* pTeamGameStrategy = MBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
+	if (pTeamGameStrategy)
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			int index = pTeamGameStrategy->GetPlayerWarsRandomMap((int)pGroupA->GetPlayerCount());
+			while(index == m->Maps[0] || index == m->Maps[1] || index == m->Maps[2])
+				index = pTeamGameStrategy->GetPlayerWarsRandomMap((int)pGroupA->GetPlayerCount());
+			m->Maps[i] = index;
+		}
+	};
+	int ID = counter++;
+	m->RegisterTime = timeGetTime();
 	MMatchServer* pServer = MMatchServer::GetInstance();
-	pServer->LadderGameLaunch(pGroupA, pGroupB);
+	MCommand* pCommand = pServer->CreateCommand(MC_MATCH_PLAYERWARS_RANDOM_MAPS,  MUID(0,0));
+	pCommand->AddParameter(new MCmdParamInt(m->Maps[0]));
+	pCommand->AddParameter(new MCmdParamInt(m->Maps[1]));
+	pCommand->AddParameter(new MCmdParamInt(m->Maps[2]));
+	for (list<MUID>::iterator i=pGroupA->GetPlayerListBegin(); i!= pGroupA->GetPlayerListEnd(); i++)
+	{
+		MUID uidPlayer = (*i);
+		MMatchObject* pObj = (MMatchObject*)pServer->GetObject(uidPlayer);
+		if (pObj) 
+		{
+			pObj->PlayerWarsIdentifier = ID;
+			MCommand* pSendCmd = pCommand->Clone();
+			pServer->RouteToListener(pObj, pSendCmd);
+		}
+	}	
+	for (list<MUID>::iterator i=pGroupB->GetPlayerListBegin(); i!= pGroupB->GetPlayerListEnd(); i++)
+	{
+		MUID uidPlayer = (*i);
+		MMatchObject* pObj = (MMatchObject*)pServer->GetObject(uidPlayer);
+		if (pObj) 
+		{
+			pObj->PlayerWarsIdentifier = ID;
+			MCommand* pSendCmd = pCommand->Clone();
+			pServer->RouteToListener(pObj, pSendCmd);
+		}
+	}
+	delete pCommand;
+	m->pGroupA = pGroupA;
+	m->pGroupB = pGroupB;
+	WaitingMapSelectionGames.insert(map<unsigned long int, LadderGameMapVoteInfo*>::value_type(ID, m));
+	
+
+	/*
+	MMatchServer* pServer = MMatchServer::GetInstance();
+	pServer->LadderGameLaunch(pGroupA, pGroupB);*/
 }
+
+void MLadderMgr::UpdatePlayerVote(int VoteID, MMatchObject* pObj)
+{
+	if (pObj->PlayerWarsIdentifier != -1)
+	{
+		map<unsigned long int, LadderGameMapVoteInfo*>::iterator i = WaitingMapSelectionGames.find(pObj->PlayerWarsIdentifier);
+		if (i != WaitingMapSelectionGames.end())
+		{
+			LadderGameMapVoteInfo*  m = i->second;
+			if (m)
+			{
+				if (pObj->LastVoteID != -1)
+					m->Votes[pObj->LastVoteID]--;
+				m->Votes[VoteID]++;
+				pObj->LastVoteID = VoteID;
+			}
+		}
+	}
+}
+
+void MLadderMgr::UpdateMapCountDown(unsigned long int NowTime)
+{
+	MMatchServer* pServer = MMatchServer::GetInstance();
+	for (map<unsigned long int, LadderGameMapVoteInfo*>::iterator i = WaitingMapSelectionGames.begin(); i != WaitingMapSelectionGames.end();)
+	{
+		LadderGameMapVoteInfo* m = i->second;
+		if (!m)
+		{
+			i = WaitingMapSelectionGames.erase(i);
+			continue;
+		}
+		if ((NowTime - m->RegisterTime) >= 20000)
+		{
+			int winningmapindex = -1, winningindex = -1, votecount = 0;
+			for (int a = 0; a < 3; a++)
+			{
+				if (m->Votes[a] == votecount)
+				{
+					votecount = m->Votes[a];
+					winningmapindex = m->Maps[a];
+					winningindex = a;
+				}
+				else if (m->Votes[a] >= votecount)
+				{
+					votecount = m->Votes[a];
+					winningmapindex = m->Maps[a];
+					winningindex = a;
+				}
+			}
+			if (winningmapindex == -1)
+				winningmapindex = m->Maps[RandomNumber(0, 2)];
+			else
+			{
+				switch (winningindex)
+				{
+				case 0:
+					if (m->Votes[winningindex] == m->Votes[1])
+						winningmapindex = m->Maps[RandomNumber(0, 1)];
+					else if (m->Votes[winningindex] == m->Votes[2])
+					if (RandomNumber(0, 1) == 0)
+						winningmapindex = m->Maps[winningindex];
+					else
+						winningmapindex = m->Maps[2];
+					break;
+				case 1:
+					if (m->Votes[winningindex] == m->Votes[0])
+						winningmapindex = m->Maps[RandomNumber(0, 1)];
+					else if (m->Votes[winningindex] == m->Votes[2])
+					if (RandomNumber(0, 1) == 0)
+						winningmapindex = m->Maps[winningindex];
+					else
+						winningmapindex = m->Maps[2];
+					break;
+				case 2:
+					if (m->Votes[winningindex] == m->Votes[1])
+						winningmapindex = m->Maps[RandomNumber(1, 2)];
+					else if (m->Votes[winningindex] == m->Votes[0])
+					if (RandomNumber(0, 1) == 1)
+						winningmapindex = m->Maps[winningindex];
+					else
+						winningmapindex = m->Maps[0];
+					break;
+				}
+			}
+			i = WaitingMapSelectionGames.erase(i);
+			pServer->LadderGameLaunch(m->pGroupA, m->pGroupB, winningmapindex);
+			continue;
+		}
+		else
+		{
+			MCommand* pCommand = pServer->CreateCommand(MC_MATCH_PLAYERWARS_VOTE_UPDATE, MUID(0, 0));
+			pCommand->AddParameter(new MCmdParamInt(m->Votes[0]));
+			pCommand->AddParameter(new MCmdParamInt(m->Votes[1]));
+			pCommand->AddParameter(new MCmdParamInt(m->Votes[2]));
+			for (list<MUID>::iterator i = m->pGroupA->GetPlayerListBegin(); i != m->pGroupA->GetPlayerListEnd(); i++)
+			{
+				MUID uidPlayer = (*i);
+				MMatchObject* pObj = (MMatchObject*)pServer->GetObject(uidPlayer);
+				if (pObj)
+				{
+					MCommand* pSendCmd = pCommand->Clone();
+					pServer->RouteToListener(pObj, pSendCmd);
+				}
+			}
+			for (list<MUID>::iterator i = m->pGroupB->GetPlayerListBegin(); i != m->pGroupB->GetPlayerListEnd(); i++)
+			{
+				MUID uidPlayer = (*i);
+				MMatchObject* pObj = (MMatchObject*)pServer->GetObject(uidPlayer);
+				if (pObj)
+				{
+					MCommand* pSendCmd = pCommand->Clone();
+					pServer->RouteToListener(pObj, pSendCmd);
+				}
+			}
+			delete pCommand;
+		}
+		i++;
+	}
+}
+
 
 #define MTIME_LADDER_DEFAULT_TICKINTERVAL		10000			// ±‚∫ª∆Ω 10√ 
 

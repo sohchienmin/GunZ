@@ -1278,4 +1278,10 @@ inline void ZPostHacker(const int nHackID)
 	ZPOSTCMD1(MC_REQUEST_GIVE_ONESELF_UP, MCommandParameterInt(nHackID));
 }
 
+inline void ZPostPlayerWarsVote(int Map)
+{
+	ZPOSTCMD1(MC_MATCH_PLAYERWARS_VOTE, MCmdParamInt(Map));
+}
+
+
 #endif

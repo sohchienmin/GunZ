@@ -1368,8 +1368,8 @@ void ZCharacter::UpdateSpeed()
 
 	if(m_pVMesh==NULL) return;
 
-	float speed = 4.8f;
-	float speed_upper = 4.8f;
+	float speed = 5.3f;
+	float speed_upper = 5.0f;
 
 	if( GetItems() && GetItems()->GetSelectedWeapon() && GetItems()->GetSelectedWeapon()->GetDesc() ) 
 	{

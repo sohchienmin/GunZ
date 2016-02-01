@@ -1866,6 +1866,85 @@ MListener* ZGetClanLeaveConfirmListenter()
 	return &g_ClanLeaveConfirmListener;
 }
 
+BEGIN_IMPLEMENT_LISTENER(ZGetArrangedPlayerWarsListener, MBTN_CLK_MSG)
+	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
+	MWidget* pWidget = pResource->FindWidget("PlayerWarsMapVote");
+	if (pWidget != NULL && pWidget->IsVisible()) return true;
+	pWidget = pResource->FindWidget("PlayerWarsGameDialog");
+	if (pWidget != NULL && pWidget->IsVisible()) return true;
+	pWidget = pResource->FindWidget("LobbyFindClanTeam");
+	if (pWidget != NULL && pWidget->IsVisible()) return true;
+
+	pWidget = pResource->FindWidget("PlayerWarsGameDialog");
+	if (pWidget != NULL)
+	{
+		pWidget->Show(true, true);
+		unsigned long int nPlaceFilter = 0;
+		SetBitSet(nPlaceFilter, MMP_LOBBY);
+		char Name[100];
+		for (int i = 0; i < 3; i++)
+		{
+			sprintf(Name, "PlayerWarsVote%d", i);
+			MLabel* pLabel = (MLabel*)pResource->FindWidget(Name);
+			if (pLabel)
+				pLabel->SetTextColor(MCOLOR(255, 255, 15));
+		}
+	}
+	END_IMPLEMENT_LISTENER();
+
+	BEGIN_IMPLEMENT_LISTENER(ZGetPlayerWarsVote0, MBTN_CLK_MSG)
+		ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
+		char Name[100];
+		for (int i = 0; i < 3; i++)
+		{
+			sprintf(Name, "PlayerWarsVote%d", i);
+			MLabel* pLabel = (MLabel*)pResource->FindWidget(Name);
+			if (pLabel)
+				pLabel->SetTextColor(MCOLOR(255, 255, 15));
+		}
+		ZGetGameClient()->LastVoteID = 0;
+		MLabel* pLabel = (MLabel*)pResource->FindWidget("PlayerWarsVote0");
+		if (pLabel)
+		pLabel->SetTextColor(MCOLOR(102, 205, 0));
+		ZPostPlayerWarsVote(0);
+	END_IMPLEMENT_LISTENER();
+
+	BEGIN_IMPLEMENT_LISTENER(ZGetPlayerWarsVote1, MBTN_CLK_MSG)
+		ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
+		char Name[100];
+		for (int i = 0; i < 3; i++)
+		{
+			sprintf(Name, "PlayerWarsVote%d", i);
+			MLabel* pLabel = (MLabel*)pResource->FindWidget(Name);
+			if (pLabel)
+				pLabel->SetTextColor(MCOLOR(255, 255, 15));
+		}
+		ZGetGameClient()->LastVoteID = 1;
+		MLabel* pLabel = (MLabel*)pResource->FindWidget("PlayerWarsVote1");
+		if (pLabel)
+		pLabel->SetTextColor(MCOLOR(102, 205, 0));
+		ZPostPlayerWarsVote(1);
+	END_IMPLEMENT_LISTENER();
+
+	BEGIN_IMPLEMENT_LISTENER(ZGetPlayerWarsVote2, MBTN_CLK_MSG)
+		ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
+		char Name[100];
+		for (int i = 0; i < 3; i++)
+		{
+			sprintf(Name, "PlayerWarsVote%d", i);
+			MLabel* pLabel = (MLabel*)pResource->FindWidget(Name);
+			if (pLabel)
+				pLabel->SetTextColor(MCOLOR(255, 255, 15));
+		}
+		ZGetGameClient()->LastVoteID = 2;
+		MLabel* pLabel = (MLabel*)pResource->FindWidget("PlayerWarsVote2");
+		if (pLabel)
+		pLabel->SetTextColor(MCOLOR(102, 205, 0));
+		ZPostPlayerWarsVote(2);
+	END_IMPLEMENT_LISTENER();
+
+
+
 BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamGameListener, MBTN_CLK_MSG)
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	MWidget* pWidget = pResource->FindWidget("ArrangedTeamGameDialog");

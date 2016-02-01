@@ -97,6 +97,19 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 				OnMatchLogin(pCommand->GetSenderUID(), szUserID, szPassword, nCommandVersion, nChecksumPack, szEncryptMD5Value);
 			}
 			break;
+		case MC_MATCH_PLAYERWARS_VOTE:
+			{
+				MMatchObject* pObj = (MMatchObject*)GetObject(pCommand->GetSenderUID());
+					if (pObj)
+					{
+						int Map;
+						if (pCommand->GetParameter(&Map, 0, MPT_INT) == false) break;
+							if (Map < 0 || Map > 2) return true;
+							 MMatchChannel* chan = MGetMatchServer()->FindChannel(pObj->GetChannelUID());
+							 GetLadderMgr()->UpdatePlayerVote(Map, pObj);
+					}
+			}
+			break;
 		case MC_REQUEST_NEWS:
 			{
 				GetDBMgr()->GetLatestNews(pCommand->GetSenderUID());

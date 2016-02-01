@@ -40,7 +40,7 @@ public:
 		                               MMatchLadderTeamInfo* pRedLadderInfo, MMatchLadderTeamInfo* pBlueLadderInfo) = 0;
 
 	virtual int GetRandomMap(int nTeamMember) = 0;
-
+	virtual int GetPlayerWarsRandomMap(int nTeamMember) = 0;
 	/// 서버모드에 따라 적당한 자식 클래스를 반환한다. MSM_LADDER, MSM_CLAN만 가능
 	static MBaseTeamGameStrategy* GetInstance(MMatchServerMode nServerMode);
 };
@@ -50,6 +50,7 @@ class MLadderGameStrategy : public MBaseTeamGameStrategy
 {
 protected:
 	MLadderGameStrategy() { }
+	vector<int>		m_RandomMapVec[MLADDERTYPE_MAX];
 public:
 	static MLadderGameStrategy* GetInstance()
 	{
@@ -66,6 +67,7 @@ public:
 	virtual void SavePointOnFinishGame(MMatchStage* pStage, MMatchTeam nWinnerTeam, bool bIsDrawGame,
 		                               MMatchLadderTeamInfo* pRedLadderInfo, MMatchLadderTeamInfo* pBlueLadderInfo);
 	virtual int GetRandomMap(int nTeamMember);
+	virtual int GetPlayerWarsRandomMap(int nTeamMember);
 };
 
 
@@ -91,6 +93,7 @@ public:
 	virtual void SavePointOnFinishGame(MMatchStage* pStage, MMatchTeam nWinnerTeam, bool bIsDrawGame,
 		                               MMatchLadderTeamInfo* pRedLadderInfo, MMatchLadderTeamInfo* pBlueLadderInfo);
 	virtual int GetRandomMap(int nTeamMember);
+	virtual int GetPlayerWarsRandomMap(int nTeamMember);
 };
 
 

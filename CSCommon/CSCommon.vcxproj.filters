@@ -2,139 +2,139 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="Doc">
-      <UniqueIdentifier>{43224c11-c912-4229-8f25-9dfabc4e8ec8}</UniqueIdentifier>
+      <UniqueIdentifier>{5cc97c4f-f830-4aa5-8890-427d030b862b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Command">
-      <UniqueIdentifier>{35ddb3db-2444-4f71-8ea0-48d4153024c6}</UniqueIdentifier>
+      <UniqueIdentifier>{e2b59b64-0736-4869-bd65-6179b676c127}</UniqueIdentifier>
     </Filter>
     <Filter Include="Map">
-      <UniqueIdentifier>{0130f049-a8a0-46d9-a18e-39908f630443}</UniqueIdentifier>
+      <UniqueIdentifier>{f2cea3dd-c14f-452b-b282-11ed786208cb}</UniqueIdentifier>
     </Filter>
     <Filter Include="MUID">
-      <UniqueIdentifier>{9f9a5c1a-ee17-4034-ba81-b0375a38a31f}</UniqueIdentifier>
+      <UniqueIdentifier>{3f09a316-beba-45b0-95fa-d238b58d5303}</UniqueIdentifier>
     </Filter>
     <Filter Include="Object">
-      <UniqueIdentifier>{f0936344-1a8b-44ca-b301-e75e549c30d0}</UniqueIdentifier>
+      <UniqueIdentifier>{d1947334-e369-40f4-8cd3-83be02ca9592}</UniqueIdentifier>
     </Filter>
     <Filter Include="SharedCommand">
-      <UniqueIdentifier>{14d3daf3-0414-45d6-9585-d1cc2067c560}</UniqueIdentifier>
+      <UniqueIdentifier>{0fe75960-ae0a-4fc6-b5e6-ed1c476d3325}</UniqueIdentifier>
     </Filter>
     <Filter Include="Master">
-      <UniqueIdentifier>{e3e69979-9105-4fa0-be14-32dedb81b382}</UniqueIdentifier>
+      <UniqueIdentifier>{4949745b-c812-43d2-8881-b48b6c7cd8b3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Client">
-      <UniqueIdentifier>{cdb173d1-326b-4c8d-b2a2-344825c39a53}</UniqueIdentifier>
+      <UniqueIdentifier>{0267147d-505c-4c8e-a818-8623f0d7d65a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Server">
-      <UniqueIdentifier>{15be4a61-ca72-4172-898b-80d0d69c3258}</UniqueIdentifier>
+      <UniqueIdentifier>{3b0aec77-a312-4893-a4de-85330be2393c}</UniqueIdentifier>
     </Filter>
     <Filter Include="IOCPNet">
-      <UniqueIdentifier>{0b5fafd5-5068-4041-9ea4-ba311c6a2b7d}</UniqueIdentifier>
+      <UniqueIdentifier>{fe2de1aa-f618-4cdb-9bbe-dd9ede2c03e9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Packet">
-      <UniqueIdentifier>{6f9f7a8a-1fe2-4af3-b633-26575824c57f}</UniqueIdentifier>
+      <UniqueIdentifier>{7785b583-12a9-4cda-88ff-67eaaf8202b3}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer">
-      <UniqueIdentifier>{6ca2b763-f4d8-4320-876c-4cbdb7b09dfe}</UniqueIdentifier>
+      <UniqueIdentifier>{2e80131f-d726-46b1-a6ec-4b3bfc3b78ac}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Ladder">
-      <UniqueIdentifier>{a4e52930-7b4d-454a-93e9-d2e7dd5765b8}</UniqueIdentifier>
+      <UniqueIdentifier>{ced4be4c-6f9e-455d-b38a-d40eac2780ac}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Game">
-      <UniqueIdentifier>{dbd7fa49-c8b7-4ec2-a2a4-cead8b989a19}</UniqueIdentifier>
+      <UniqueIdentifier>{5e45452b-5cff-4236-9d3d-bcacc950fa8b}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Game\Quest">
-      <UniqueIdentifier>{5a4b339d-1578-4511-be2d-a909963bcbd6}</UniqueIdentifier>
+      <UniqueIdentifier>{97c2e19d-7471-4c11-973b-662cbd909902}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Game\Quest\Base">
-      <UniqueIdentifier>{72adef3e-7304-42ec-9d58-e8e9439d6944}</UniqueIdentifier>
+      <UniqueIdentifier>{ebcda4b9-5d02-4828-842a-1e9b43890227}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Game\GameType">
-      <UniqueIdentifier>{25cb67f3-312b-4ef3-add5-df131bac34e4}</UniqueIdentifier>
+      <UniqueIdentifier>{0a1731fd-9f0a-473e-a5ae-d8029c74d1f0}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Game\GameType\QuestGameType">
-      <UniqueIdentifier>{85239a57-4595-47fd-ba8d-662bce84d672}</UniqueIdentifier>
+      <UniqueIdentifier>{e283c4f1-83ed-4595-8d9e-254efe66d6fc}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Game\Duel Tournament">
-      <UniqueIdentifier>{c4b50abb-f62f-4313-b14a-3dbc13f0cda3}</UniqueIdentifier>
+      <UniqueIdentifier>{bdae7e0f-fc81-404c-ac79-8bf8c596d4b4}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Game\Duel Tournament\GameManager">
-      <UniqueIdentifier>{8e4bf36d-6648-4ccf-83b3-70b60e59a4b5}</UniqueIdentifier>
+      <UniqueIdentifier>{d537fae2-02d3-45da-976e-4a611574a943}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Game\Duel Tournament\GameManager\MatchMaker">
-      <UniqueIdentifier>{506de5f8-5185-40cc-8dfd-4816cde6ea9e}</UniqueIdentifier>
+      <UniqueIdentifier>{791df610-f1b8-4ddb-a2dd-01954b47553c}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Game\Duel Tournament\GameManager\TimeChecker">
-      <UniqueIdentifier>{4aa5bdf4-9f19-4c9b-b3d3-6a27ef20e134}</UniqueIdentifier>
+      <UniqueIdentifier>{57268b22-a846-4bfd-b214-f4d589fa3517}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Game\Duel Tournament\GameRule">
-      <UniqueIdentifier>{de864cc5-c27b-4bb2-9afe-1c09e8cda581}</UniqueIdentifier>
+      <UniqueIdentifier>{dc42cd7f-475e-4df4-8b92-b7ba16501860}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Game\Duel Tournament\GameRule\Formula">
-      <UniqueIdentifier>{3f1d5260-f04f-49ba-add3-3897b431bc65}</UniqueIdentifier>
+      <UniqueIdentifier>{c6c61a1b-7b40-436c-bab1-f1e76fad05eb}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Object">
-      <UniqueIdentifier>{5348b866-18e2-4cfa-9645-58f7cddc1478}</UniqueIdentifier>
+      <UniqueIdentifier>{2eecddd8-e749-4504-91a9-9d2e10259210}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Object\Item">
-      <UniqueIdentifier>{ed5ba0e6-a250-4916-aeca-8e55074f54b9}</UniqueIdentifier>
+      <UniqueIdentifier>{0532cd7e-d9ae-47b8-87f5-11b112159d23}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Object\Item\GambleItem">
-      <UniqueIdentifier>{ac26d50d-2437-4ebd-9f9e-0d6e15826bec}</UniqueIdentifier>
+      <UniqueIdentifier>{56174bc2-ceb0-4fdf-adab-41938e780070}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Object\Item\QuestItem">
-      <UniqueIdentifier>{b4af50d1-2ec7-48f2-9624-6717c910b16b}</UniqueIdentifier>
+      <UniqueIdentifier>{2939ecc0-ff17-4b54-add4-8e1c4488eb43}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Object\Item\Buff">
-      <UniqueIdentifier>{8db3044d-5501-4040-9ec2-f5c5af45bbef}</UniqueIdentifier>
+      <UniqueIdentifier>{3509ead0-6b63-4672-91ee-62dce0e13684}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Object\PenaltyInfo">
-      <UniqueIdentifier>{5419a892-d0f1-47c3-ae90-fd97c633eb8d}</UniqueIdentifier>
+      <UniqueIdentifier>{066c36af-f734-4d69-b77c-12b1a7bfa6b1}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Object\BattleTimeReward">
-      <UniqueIdentifier>{6a56adb8-5829-41d2-bc2f-67d277985404}</UniqueIdentifier>
+      <UniqueIdentifier>{f1e3ef0d-8c16-4704-9831-b3f1826d2ced}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\DB">
-      <UniqueIdentifier>{d7a37184-d6ad-4090-9808-03196e98513e}</UniqueIdentifier>
+      <UniqueIdentifier>{5d14a306-ef7e-43df-8dcd-61efe658cf25}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\DB\Filter">
-      <UniqueIdentifier>{e79ec01f-3f06-4912-bf1a-d29addeda0fb}</UniqueIdentifier>
+      <UniqueIdentifier>{18256133-fea6-4ea2-b7b1-1d679aea30d8}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Server">
-      <UniqueIdentifier>{b4057f38-aea0-4742-89e8-bfb6e3f03304}</UniqueIdentifier>
+      <UniqueIdentifier>{9125fbbe-70e9-4e83-9ba9-68b045a64e5d}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\MMatchServer">
-      <UniqueIdentifier>{06966879-bfd8-4b5b-a621-cdf6a5eec8a4}</UniqueIdentifier>
+      <UniqueIdentifier>{e9107dc2-63db-49df-859f-785b0f36f4dc}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\Event">
-      <UniqueIdentifier>{da57d0de-6186-43d6-bc49-49be4418ba1e}</UniqueIdentifier>
+      <UniqueIdentifier>{3f32b441-7208-4feb-9cdd-1d05e0b88e03}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\MMatchConfig">
-      <UniqueIdentifier>{5d59fd0a-6c52-4a2b-9d74-a5852c390d35}</UniqueIdentifier>
+      <UniqueIdentifier>{144c3d43-237d-4ea3-9062-4956571fd7f1}</UniqueIdentifier>
     </Filter>
     <Filter Include="MatchServer\AsyncProxy">
-      <UniqueIdentifier>{2961eded-6060-43a7-abac-7d14686ad20b}</UniqueIdentifier>
+      <UniqueIdentifier>{e31e1a65-2a96-494a-9f3a-d92ed2d382c4}</UniqueIdentifier>
     </Filter>
     <Filter Include="CommandCommunicator">
-      <UniqueIdentifier>{c0b8efb2-6eb5-44e7-9c41-f3fc381eb254}</UniqueIdentifier>
+      <UniqueIdentifier>{937c7a41-adfb-4dc2-a334-e4e32e0ee3c1}</UniqueIdentifier>
     </Filter>
     <Filter Include="Util">
-      <UniqueIdentifier>{3624a030-7799-4d51-943c-19c9cf46582a}</UniqueIdentifier>
+      <UniqueIdentifier>{33ec79d2-b3f0-482d-92ab-9d30271dcaed}</UniqueIdentifier>
     </Filter>
     <Filter Include="Locate">
-      <UniqueIdentifier>{e7ed177e-47dc-47e5-94ce-380f99b04a51}</UniqueIdentifier>
+      <UniqueIdentifier>{c4058d4a-8882-4e0f-a0d0-dd90a97a99c2}</UniqueIdentifier>
     </Filter>
     <Filter Include="StringRes">
-      <UniqueIdentifier>{6ff39e87-0ad3-48b2-8dfb-5cac8081e72d}</UniqueIdentifier>
+      <UniqueIdentifier>{057db77e-a374-46c8-82a2-240b18119180}</UniqueIdentifier>
     </Filter>
     <Filter Include="HShield">
-      <UniqueIdentifier>{4a337dc8-c4a7-4110-b5d2-e96a64a01226}</UniqueIdentifier>
+      <UniqueIdentifier>{7aea00f0-49c4-47cf-95fb-e779c660796c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Security">
-      <UniqueIdentifier>{c4063a71-791f-4a92-9c13-7329464db1b5}</UniqueIdentifier>
+      <UniqueIdentifier>{3e5602eb-1b15-4756-86f8-ef19904a337f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Security\Test">
-      <UniqueIdentifier>{07dcd353-9a11-4f86-a921-d804d8075045}</UniqueIdentifier>
+      <UniqueIdentifier>{3b2ad25d-0caa-47cf-884a-7c8e8d812d64}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -647,8 +647,6 @@
     <ClInclude Include="MFeatureDefine.h" />
     <ClInclude Include="Include\MMatchDebug.h" />
     <ClInclude Include="Include\stdafx.h" />
-    <ClInclude Include="Include\MAsyncDBJob_IgnoreList.h" />
-    <ClInclude Include="Include\MMatchIgnoreInfo.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\MCommand.cpp">
@@ -1130,8 +1128,6 @@
     </ClCompile>
     <ClCompile Include="Source\MMatchDebug.cpp" />
     <ClCompile Include="Source\stdafx.cpp" />
-    <ClCompile Include="Source\MAsyncDBJob_IgnoreList.cpp" />
-    <ClCompile Include="Source\MMatchIgnoreInfo.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="HShield\HsCryptLib.lib">

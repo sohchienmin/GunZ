@@ -793,6 +793,8 @@ protected:
 	bool				m_IsRecvFirstGameguardResponse;
 
 public :
+	int LastVoteID;
+	unsigned long int PlayerWarsIdentifier;
 	MASYNCJOBQ			m_DBJobQ;
 	unsigned long int st_nLastChannelChat;
 	unsigned long int st_nLastStageChat;

@@ -73,7 +73,7 @@ bool MMatchServer::LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatc
 	return true;
 }
 
-void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB)
+void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB, int MapID)
 {
 	if ((MGetServerConfig()->GetServerMode() != MSM_LADDER) && 
 		(MGetServerConfig()->GetServerMode() != MSM_CLAN)) return;
@@ -136,7 +136,7 @@ void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB
 
 	MMatchStageSetting* pSetting = pStage->GetStageSetting();
 	pSetting->SetMasterUID(MUID(0,0));
-	pSetting->SetMapIndex(nRandomMap);
+	pSetting->SetMapIndex(MapID);
 	pSetting->SetGameType(nGameType);
 
 	pSetting->SetLimitTime(3);	

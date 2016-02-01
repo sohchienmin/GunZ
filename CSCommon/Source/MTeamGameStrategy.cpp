@@ -25,8 +25,7 @@ MBaseTeamGameStrategy* MBaseTeamGameStrategy::GetInstance(MMatchServerMode nServ
 	case MSM_CLAN:
 		return MClanGameStrategy::GetInstance();
 	default:
-		{
-		}
+		_ASSERT(0);
 	}
 	return NULL;
 }
@@ -221,6 +220,48 @@ int MLadderGameStrategy::GetRandomMap(int nTeamMember)
 
 	if (mapItor != mapList.end()) nRandomMap = (*mapItor);
 	else nRandomMap = *mapList.begin();
+
+	return nRandomMap;
+}
+
+int MLadderGameStrategy::GetPlayerWarsRandomMap(int nTeamMember)
+{
+	int nVecIndex = 0;
+	int nMaxSize = 0;
+	switch (nTeamMember)
+	{
+	case 2:
+		nVecIndex = MLADDERTYPE_NORMAL_2VS2;
+		break;
+	case 3:
+		nVecIndex = MLADDERTYPE_NORMAL_3VS3;
+		break;
+	case 4:
+		nVecIndex = MLADDERTYPE_NORMAL_4VS4;
+		break;
+	case 5:
+		nVecIndex = MLADDERTYPE_NORMAL_5VS5;
+		break;
+	case 6:
+		nVecIndex = MLADDERTYPE_NORMAL_6VS6;
+		break;
+	case 7:
+		nVecIndex = MLADDERTYPE_NORMAL_7VS7;
+		break;
+	case 8:
+		nVecIndex = MLADDERTYPE_NORMAL_8VS8;
+		break;
+	};
+
+	nMaxSize = (int)m_RandomMapVec[nVecIndex].size();
+
+	int nRandomMapIndex = 0;
+	int nRandomMap = 0;
+
+	if (nMaxSize != 0) {
+		nRandomMapIndex = rand() % nMaxSize;
+		nRandomMap = m_RandomMapVec[nVecIndex][nRandomMapIndex];
+	}
 
 	return nRandomMap;
 }
@@ -575,6 +616,48 @@ int MClanGameStrategy::GetRandomMap(int nTeamMember)
 	int nRandomMap=0;
 
 	if (nMaxSize!=0) {
+		nRandomMapIndex = rand() % nMaxSize;
+		nRandomMap = m_RandomMapVec[nVecIndex][nRandomMapIndex];
+	}
+
+	return nRandomMap;
+}
+
+int MClanGameStrategy::GetPlayerWarsRandomMap(int nTeamMember)
+{
+	int nVecIndex = 0;
+	int nMaxSize = 0;
+	switch (nTeamMember)
+	{
+	case 2:
+		nVecIndex = MLADDERTYPE_NORMAL_2VS2;
+		break;
+	case 3:
+		nVecIndex = MLADDERTYPE_NORMAL_3VS3;
+		break;
+	case 4:
+		nVecIndex = MLADDERTYPE_NORMAL_4VS4;
+		break;
+	case 5:
+		nVecIndex = MLADDERTYPE_NORMAL_5VS5;
+		break;
+	case 6:
+		nVecIndex = MLADDERTYPE_NORMAL_6VS6;
+		break;
+	case 7:
+		nVecIndex = MLADDERTYPE_NORMAL_7VS7;
+		break;
+	case 8:
+		nVecIndex = MLADDERTYPE_NORMAL_8VS8;
+		break;
+	};
+
+	nMaxSize = (int)m_RandomMapVec[nVecIndex].size();
+
+	int nRandomMapIndex = 0;
+	int nRandomMap = 0;
+
+	if (nMaxSize != 0) {
 		nRandomMapIndex = rand() % nMaxSize;
 		nRandomMap = m_RandomMapVec[nVecIndex][nRandomMapIndex];
 	}

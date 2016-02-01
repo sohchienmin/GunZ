@@ -5607,7 +5607,7 @@ void ZGameInterface::SetupPlayerListTab()
 
 void ZGameInterface::InitClanLobbyUI(bool bClanBattleEnable)
 {
-	OnArrangedTeamGameUI(false);
+	OnArrangedTeamGameUI(false, false);
 
 	MWidget *pWidget;
 
@@ -5812,7 +5812,7 @@ void ZGameInterface::InitChannelFrame(MCHANNEL_TYPE nChannelType)
 
 void ZGameInterface::InitLadderUI(bool bLadderEnable)
 {
-	OnArrangedTeamGameUI(false);
+	OnArrangedTeamGameUI(false, false);
 
 	MWidget *pWidget;
 
@@ -5841,9 +5841,34 @@ void ZGameInterface::InitLadderUI(bool bLadderEnable)
 
 }
 
-void ZGameInterface::OnArrangedTeamGameUI(bool bFinding)
+void ZGameInterface::OnArrangedTeamGameUI(bool bFinding, bool isvote)
 {
 	MWidget *pWidget;
+	if (isvote == true)
+	{
+		pWidget = m_IDLResource.FindWidget("ArrangedTeamGame");
+		if (pWidget) pWidget->Show(false);
+
+		pWidget = m_IDLResource.FindWidget("LobbyFindClanTeam");
+		if (pWidget != NULL) pWidget->Show(false);
+
+		pWidget = m_IDLResource.FindWidget("PlayerWarsMapVote");
+		if (pWidget)
+		{
+			pWidget->Show(bFinding);
+			pWidget->SetText("Clan War Map Voter");
+		}
+	}
+	else
+	{
+		pWidget = m_IDLResource.FindWidget("PlayerWarsMapVote");
+		if (pWidget) pWidget->Show(false);
+		pWidget = m_IDLResource.FindWidget("ArrangedTeamGame");
+		if (pWidget) pWidget->Show(!bFinding);
+
+		pWidget = m_IDLResource.FindWidget("LobbyFindClanTeam");
+		if (pWidget != NULL) pWidget->Show(bFinding);
+	}
 
 	pWidget= m_IDLResource.FindWidget( "ArrangedTeamGame" );
 	if(pWidget) pWidget->Show(!bFinding);

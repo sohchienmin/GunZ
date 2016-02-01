@@ -701,4 +701,11 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType);
 #define MC_MATCH_RESPONSE_BUY_CASH_ITEM			50037
 #define MC_MATCH_REQUEST_BUY_EVENT				50038
 #define MC_MATCH_RESPONSE_BUY_EVENT				50039
+
+#define MC_MATCH_PLAYERWARS_RANDOM_MAPS			60083
+#define MC_MATCH_PLAYERWARS_VOTE_UPDATE			60086
+#define MC_MATCH_PLAYERWARS_VOTE				60084
+
+
+
 #endif

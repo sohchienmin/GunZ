@@ -145,6 +145,41 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 #endif
 
 	switch(pCommand->GetID()){
+		case MC_MATCH_PLAYERWARS_RANDOM_MAPS:
+		{
+			
+			int nRandomIndex[3];
+			pCommand->GetParameter(&nRandomIndex[0], 0, MPT_INT);
+			pCommand->GetParameter(&nRandomIndex[1], 1, MPT_INT);
+			pCommand->GetParameter(&nRandomIndex[2], 2, MPT_INT);
+			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
+			char Name[100];
+			for(int i = 0; i < 3; i++)
+			{
+				sprintf(Name, "PlayerWarsMap%d", i );
+				MLabel* pLabel = (MLabel*)pResource->FindWidget(Name);
+				if ( pLabel)
+					pLabel->SetText(MGetMapDescMgr()->GetMapName(nRandomIndex[i]));
+			}
+			ZGetGameInterface()->OnArrangedTeamGameUI(true, true);
+		}
+		case MC_MATCH_PLAYERWARS_VOTE_UPDATE:
+		{
+			int nRandomIndex[3];
+			pCommand->GetParameter(&nRandomIndex[0], 0, MPT_INT);
+			pCommand->GetParameter(&nRandomIndex[1], 1, MPT_INT);
+			pCommand->GetParameter(&nRandomIndex[2], 2, MPT_INT);
+			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
+			char Name[100], Text[40];
+			for (int i = 0; i < 3; i++)
+			{
+				sprintf(Name, "PlayerWarsVote%d", i);
+				sprintf(Text, "Votes: %d", nRandomIndex[i]);
+				MLabel* pLabel = (MLabel*)pResource->FindWidget(Name);
+				if (pLabel)
+					pLabel->SetText(Text);
+			}
+		}
 		case MC_NET_ONDISCONNECT:
 			{
 
@@ -1560,11 +1595,11 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 		// 레더 커맨드
 		case MC_MATCH_LADDER_SEARCH_RIVAL:	// 검색 시작
 			{
-				ZGetGameInterface()->OnArrangedTeamGameUI(true);
+				ZGetGameInterface()->OnArrangedTeamGameUI(true, false);
 			}break;
 		case MC_MATCH_LADDER_CANCEL_CHALLENGE:
 			{
-				ZGetGameInterface()->OnArrangedTeamGameUI(false);
+				ZGetGameInterface()->OnArrangedTeamGameUI(false, false);
 				
 				char szCharName[MATCHOBJECT_NAME_LENGTH];
 				pCommand->GetParameter(szCharName, 0, MPT_STR, sizeof(szCharName) );

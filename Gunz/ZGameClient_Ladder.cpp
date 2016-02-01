@@ -354,7 +354,7 @@ void ZGameClient::OnLadderPrepare(const MUID& uidStage, const int nTeam)
 
 void ZGameClient::OnLadderLaunch(const MUID& uidStage, const char* pszMapName)
 {
-	ZGetGameInterface()->OnArrangedTeamGameUI(false);
+	ZGetGameInterface()->OnArrangedTeamGameUI(false, false);
 
 	m_bLadderGame = true;
  
