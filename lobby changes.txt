@@ -33,6 +33,7 @@ is twice as long
 - Loading now gives actual information as to what is being loaded during mesh load.
 - Changed encryption
 - Kill streaks
+- Server won't shutdown even under db issues
 
 Todo list:
 -Attach antihack + Upgrade
