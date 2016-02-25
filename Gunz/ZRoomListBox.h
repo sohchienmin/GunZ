@@ -33,6 +33,7 @@ struct sMapInfo
 	int			nMaxPeople;
 	bool		bForcedEnter;
 	bool		bLimitLevel;
+	bool		bFPSMode;
 	int			nMasterLevel;
 	int			nLimitLevel;
 	bool		bPrivate;
@@ -44,6 +45,7 @@ struct sMapInfo
 		uidStage			= MUID(0,0);
 		IsEmpty			= true;
 		bForcedEnter	= false;
+		bFPSMode		= false;
 		bPrivate		= false;
 	}
 };
@@ -103,6 +105,7 @@ public:
 		int nCurrPlayers;
 		bool bPrivate;
 		bool bForcedEntry;
+		bool bFPSMode;
         bool bLimitLevel;
 		int nMasterLevel;
 		int nLimitLevel;

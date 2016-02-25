@@ -15,14 +15,14 @@
 #include "ZMap.h"
 
 // 최대인원
-#define STAGESETTING_MAXPLAYER_MAX		10
+#define STAGESETTING_MAXPLAYER_MAX		12
 #define STAGESETTING_MAXPLAYER_DEFAULT	1
 static struct _STAGESETTING_MAXPLAYER
 {
 	int					Value;
-	char				szText[16];
+	char				szText[32];
 } StageSetting_MaxPlayer[STAGESETTING_MAXPLAYER_MAX] =
-{ { 1, "1" }, { 2, "2" }, { 4, "4" }, { 8, "8" }, { 10, "10" }, { 12, "12" }, { 14, "14" }, { 16, "16" }, { 18, "18" }, { 20, "20" } };
+{ { 1, "1" }, { 2, "2" }, { 4, "4" }, { 8, "8" }, { 10, "10" }, { 12, "12" }, { 14, "14" }, { 16, "16" }, { 18, "18" }, { 20, "20" }, { 48, "48"}, {999, "Unlimited"} }; //Monckey100 was here
 
 
 // 라운드
@@ -109,6 +109,15 @@ static struct _STAGESETTING_TEAMBALANCING
 	bool	Value;
 	char	szText[32];
 } StageSetting_TeamBalancing[STAGESETTING_TEAMBALANCING_MAX] = 
+{ {true, "ON"}, {false, "OFF"} };
+
+#define STAGESETTING_FPSMODE_MAX		2
+#define STAGESETTING_FPSMODE_DEFAULT	0
+static struct _STAGESETTING_FPSMODE
+{
+	bool	Value;
+	char	szText[32];
+} StageSetting_FPSMode[STAGESETTING_FPSMODE_MAX] = 
 { {true, "ON"}, {false, "OFF"} };
 
 
@@ -238,7 +247,8 @@ static bool BuildStageSetting(MSTAGE_SETTING_NODE* pOutNode)
 	// 팀 밸런스
 	BUILD_STAGESETTING_ITEM("StageTeamBalancing", pOutNode->bAutoTeamBalancing,
 							StageSetting_TeamBalancing, STAGESETTING_FORCEDENTRY_MAX);
-
+	BUILD_STAGESETTING_ITEM("FPSMode", pOutNode->bFPSModeEnabled,
+							StageSetting_FPSMode, STAGESETTING_FPSMODE_MAX);
 	// 관전 허용
 //	BUILD_STAGESETTING_ITEM("StageObserver", pOutNode->bObserverEnabled,
 //							StageSetting_Observer, STAGESETTING_OBSERVER_DEFAULT);
@@ -373,7 +383,8 @@ void ZStageSetting::ShowStageSettingDialog( const MSTAGE_SETTING_NODE* pStageSet
 	// 투표 가능
 //	SHOWSTAGESETTING_ITEM("StageVote", pStageSetting->bVoteEnabled,
 //		STAGESETTING_VOTE_MAX, StageSetting_Vote);
-
+	SHOWSTAGESETTING_ITEM("FPSMode", pStageSetting->bFPSModeEnabled,
+		STAGESETTING_FPSMODE_MAX, StageSetting_FPSMode);
 
 	if ( bShowAll)
 	{
@@ -452,6 +463,11 @@ void ZStageSetting::InitStageSettingDialog()
 	strcpy( StageSetting_Vote[1].szText, ZMsg(MSG_WORD_PROHIBIT));
 	INITSTAGESETTING_ITEM("StageVote", pStageSetting->bVoteEnabled,
 		STAGESETTING_VOTE_MAX, StageSetting_Vote, STAGESETTING_VOTE_DEFAULT);
+
+	strcpy( StageSetting_FPSMode[0].szText, ZMsg(MSG_WORD_ON));
+	strcpy( StageSetting_FPSMode[1].szText, ZMsg(MSG_WORD_OFF));
+	INITSTAGESETTING_ITEM("FPSMode", pStageSetting->bFPSModeEnabled,
+		STAGESETTING_FPSMODE_MAX, StageSetting_FPSMode, STAGESETTING_FPSMODE_DEFAULT);
 
 }
 

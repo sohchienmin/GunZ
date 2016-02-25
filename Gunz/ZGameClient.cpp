@@ -240,7 +240,7 @@ ZGameClient::ZGameClient() : MMatchClient() , m_pUPnP(NULL)
 	m_nBridgePeerCount = 0;
 	m_tmLastBridgePeer = 0;	
 	m_bForcedEntry = false;
-
+	m_bFPSMode = false;
 	m_szChannel[0] = NULL;
 	m_szStageName[0] = NULL;
 	m_szChatRoomInvited[0] = NULL;
@@ -1095,6 +1095,7 @@ void ZGameClient::OnStageList(int nPrevStageCount, int nNextStageCount, void* pB
 			roominfo.nCurrPlayers = pNode->nPlayers;
 			roominfo.bPrivate = bPrivate;
 			roominfo.bForcedEntry = bForcedEntry;
+			roominfo.bFPSMode = pNode->nFPSMode; //this is sketchy af ~ Monckey100
 			roominfo.bLimitLevel = bLimitLevel;
 			roominfo.nMasterLevel = pNode->nMasterLevel;
 			roominfo.nLimitLevel = pNode->nLimitLevel;
@@ -1364,7 +1365,7 @@ void ZGameClient::UpdateStageSetting(MSTAGE_SETTING_NODE* pSetting, STAGE_STATE 
 		bForceEntry = true;
 	}
 	m_bForcedEntry = bForceEntry;
-
+	m_bFPSMode = m_MatchStageSetting.GetFPSMode();
 	ZApplication::GetGameInterface()->SerializeStageInterface();
 }
 

@@ -1,9 +1,9 @@
-﻿// Created by Microsoft (R) C/C++ Compiler Version 12.00.21005.1 (3d7e7111).
+﻿// Created by Microsoft (R) C/C++ Compiler Version 11.00.60610.1 (ff266fbb).
 //
-// c:\users\chienmin\desktop\gzf gunz source\mint2\release\msxml.tlh
+// f:\users\monckey100\desktop\gzf source\mint2\release\msxml.tlh
 //
 // C++ source equivalent of Win32 type library msxml.dll
-// compiler-generated file created 01/30/16 at 17:45:16 - DO NOT EDIT!
+// compiler-generated file created 02/17/16 at 01:33:49 - DO NOT EDIT!
 
 #pragma once
 #pragma pack(push, 8)

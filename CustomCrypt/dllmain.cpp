@@ -32,7 +32,7 @@ pDecryptFunction pCustomDecryptFunction = (pDecryptFunction) (DecryptFunctionAdd
 
 char KEYS[] =
 {
-	37, 409, 577, 607, 619, 5
+	69, 420, 666, 777, 133, 7 //37, 409, 577, 607, 619, 5 (old encryption)
 };
 
 void CustomEncrypt(char* pData, int _size)

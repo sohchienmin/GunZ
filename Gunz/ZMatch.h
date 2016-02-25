@@ -63,6 +63,7 @@ public:
 
 	inline int GetCurrRound();
 	inline bool IsTeamPlay();
+	inline bool IsFPSMode();
 	inline bool IsWaitForRoundEnd();
 	inline bool IsQuestDrived();
 	inline MMATCH_ROUNDSTATE GetRoundState();
@@ -96,7 +97,10 @@ inline bool ZMatch::IsTeamPlay()
 { 
 	return m_pStageSetting->IsTeamPlay(); 
 }
-
+inline bool ZMatch::IsFPSMode()
+{
+	return m_pStageSetting->GetFPSMode();
+}
 inline bool ZMatch::IsWaitForRoundEnd() 
 { 
 	return m_pStageSetting->IsWaitforRoundEnd(); 

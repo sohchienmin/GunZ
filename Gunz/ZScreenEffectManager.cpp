@@ -409,6 +409,8 @@ void ZScreenEffectManager::Destroy()
 	SAFE_DELETE(m_pWeaponIcons[MWT_RIFLE]);
 	SAFE_DELETE(m_pWeaponIcons[MWT_MACHINEGUN]);
 	SAFE_DELETE(m_pWeaponIcons[MWT_ROCKET]);
+	SAFE_DELETE(m_pWeaponIcons[MWT_GROCKET]);
+	SAFE_DELETE(m_pWeaponIcons[MWT_FLAMET]);
 	SAFE_DELETE(m_pWeaponIcons[MWT_SNIFER]);
 
 	SAFE_DELETE(m_pWeaponIcons[MWT_MED_KIT]);
@@ -513,6 +515,8 @@ bool ZScreenEffectManager::Create()
 	m_pWeaponIcons[MWT_RIFLE]			= new ZScreenEffect(m_pEffectMeshMgr->Get("ef_in_icon_rifle.elu"));
 	m_pWeaponIcons[MWT_MACHINEGUN]		= new ZScreenEffect(m_pEffectMeshMgr->Get("ef_in_icon_machinegun.elu"));
 	m_pWeaponIcons[MWT_ROCKET]			= new ZScreenEffect(m_pEffectMeshMgr->Get("ef_in_icon_rocket.elu"));
+	m_pWeaponIcons[MWT_GROCKET]			= new ZScreenEffect(m_pEffectMeshMgr->Get("ef_in_icon_rocket.elu")); //Monckey100 was here for the custom icon
+	m_pWeaponIcons[MWT_FLAMET]			= new ZScreenEffect(m_pEffectMeshMgr->Get("ef_in_icon_rocket.elu")); //Monckey100 was here for the custom icon
 	m_pWeaponIcons[MWT_SNIFER]			= new ZScreenEffect(m_pEffectMeshMgr->Get("ef_in_icon_rifle.elu"));
 
 	m_pWeaponIcons[MWT_MED_KIT]			= new ZScreenEffect(m_pEffectMeshMgr->Get("ef_in_icon_medikit.elu"));

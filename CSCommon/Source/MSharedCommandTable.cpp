@@ -404,6 +404,7 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 			P(MPT_UINT, "AttackerArg");		// Exp | 경험치퍼센트
 			P(MPT_UID, "Victim");
 			P(MPT_UINT, "VictimArg");		// Exp | 경험치퍼센트
+			P(MPT_INT, "KillStreak");
 		C(MC_MATCH_GAME_TEAMBONUS, "Game.TeamBonus", "Game.TeamBonus", MCDT_MACHINE2MACHINE)
 			P(MPT_UID, "CharUID");
 			P(MPT_UINT, "ExpArg");			// Exp | 경험치퍼센트

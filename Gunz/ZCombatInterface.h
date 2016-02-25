@@ -166,7 +166,7 @@ protected:
 
 	// 화면에 그리는것과 관련된 펑션들
 	void IconRelative(MDrawContext* pDC,float x,float y,int nIcon);
-
+	void DrawHPAPBar(MDrawContext* pDC,ZCharacter *pChar); //Monckey100 was here :^)
 	void DrawHPAPNumbers(MDrawContext* pDC);
 	void DrawFriendName(MDrawContext* pDC);			// 같은편 이름
 	void DrawEnemyName(MDrawContext* pDC);			// 적 이름

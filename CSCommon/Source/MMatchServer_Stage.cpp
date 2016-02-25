@@ -2447,12 +2447,14 @@ void MMatchServer::PostGameDeadOnGameKill(MUID& uidStage, MMatchObject* pAttacke
 	nChrExp = pVictim->GetCharInfo()->m_nXP;
 	nPercent = MMatchFormula::GetLevelPercent(nChrExp, nRealVictimLevel);
 	nVictimArg = MakeExpTransData(nSubedVictimExp, nPercent);
-
+	pAttacker->KillStreak++;
+	pVictim->KillStreak = 0; //this is where shutdowns are
 	MCommand* pCmd = CreateCommand(MC_MATCH_GAME_DEAD, MUID(0,0));
 	pCmd->AddParameter(new MCommandParameterUID(pAttacker->GetUID()));
 	pCmd->AddParameter(new MCommandParameterUInt(nAttackerArg));
 	pCmd->AddParameter(new MCommandParameterUID(pVictim->GetUID()));
 	pCmd->AddParameter(new MCommandParameterUInt(nVictimArg));
+	pCmd->AddParameter(new MCommandParameterInt(pAttacker->KillStreak));
 	RouteToBattle(uidStage, pCmd);	
 }
 
@@ -2547,6 +2549,8 @@ void MMatchServer::StageList(const MUID& uidPlayer, int nStageStartIndex, bool b
 		pNode->nMaxPlayers = pStage->GetStageSetting()->GetMaxPlayers();
 		pNode->nState = pStage->GetState();
 		pNode->nGameType = pStage->GetStageSetting()->GetGameType();
+		if(pStage->GetStageSetting()->GetFPSMode())
+			pNode->nFPSMode |= 2; //get fps mode
 		
 		// ¸±·¹ÀÌ¸é ·Îºñ ¹æ¸®½ºÆ® ¹è³Ê¸¦ ¸±·¹ÀÌ¸ÊÀ¸·Î À¯ÁöÇØÁØ´Ù.
 		if(pStage->IsRelayMap()) pNode->nMapIndex = MMATCH_MAP_RELAYMAP;

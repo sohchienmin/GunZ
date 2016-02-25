@@ -273,6 +273,30 @@ void ChangeEquipParts(RVisualMesh* pVMesh, const unsigned long int* pItemID)
 		if (pItemID[PartsPair[i].itemparts] != 0) {
 			MMatchItemDesc* pDesc = MGetMatchItemDescMgr()->GetItemDesc(pItemID[PartsPair[i].itemparts]);
 			if (pDesc != NULL) {
+				//if (i == 1 ) {
+						/*BYTE a,r,g,b;
+						DWORD color = 0xffffffff;
+							a = 255;//(color>>24)&0xff;
+							r = (color>>16)&0xff;
+							g = (color>> 8)&0xff;
+							b = (color    )&0xff;
+						float rr = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+						float gg = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+						float bb = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+						D3DCOLORVALUE YELLOW = {rr,gg,bb,1}; //Monckey100 was here to set yellow*/
+						//float rrr = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/255.f));
+						//float ggg = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/255.f));
+						//float bbb = static_cast <float> (rand()) / (static_cast <float> (RAND_MAX/255.f));
+						//D3DXCOLOR YELLOWW = D3DXCOLOR(r/rrr,g/ggg,b/bbb,a/bbb);
+						//PartsPair[i].meshparts
+						//RMtrlMgr* pMtrlMgr = &mpMeshNode->m_pParentMesh->m_mtrl_list_ex;
+						//RMtrl* pMtrl = pMtrlMgr->Get_s(mpMeshNode->m_mtrl_id,-1);
+						//pVMesh->GetParts(PartsPair[i].meshparts)->SetMtrl(&YELLOWW, 1.0f); //I WILL NEED TO COME BACK HERE
+						//pVMesh->SetNPCBlendColor(YELLOW);
+						//pVMesh->GetParts(PartsPair[i].meshparts)->SetMtrlDiffuse(pVMesh->GetParts(PartsPair[i].meshparts)->GetMtrl(), 1.0f);
+						//pVMesh->GetParts(PartsPair[i].meshparts)->SetTColor(YELLOWW);
+						//m_pVMesh->SetNPCBlendColor(YELLOW);
+				//}
 				pVMesh->SetParts(PartsPair[i].meshparts, pDesc->m_pMItemName->Ref().m_szMeshName);
 			}
 		}
@@ -1128,6 +1152,8 @@ void ZCharacter::OnDraw()
 
 	m_pVMesh->SetClothValue(bGame,fabs(dist)); // cloth
 	m_pVMesh->Render(uStatus.m_bIsLowModel);
+	D3DCOLORVALUE YELLOW = {1,1,0,1}; //Monckey100 was here to set yellow
+	//m_pVMesh->SetNPCBlendColor(YELLOW);
 //	m_pVMesh->Render(true);
 
 	m_bRendered = m_pVMesh->m_bIsRender;	// 실제 렌더링 되었는가
@@ -2351,7 +2377,7 @@ void ZCharacter::OnDie()
 		else
 			ZGetSoundEngine()->PlaySound("fx2/FEM08",GetPosition(),IsObserverTarget());
 	}
-
+	
 	CHECK_RETURN_CALLSTACK(OnDie);
 }
 
@@ -3409,12 +3435,18 @@ void ZCharacter::InitProperties()
 		}
 	}
 
-	m_Property.fMaxAP.Set_CheckCrc(pCharInfo->nAP + fAddedAP);
-	m_Property.fMaxHP.Set_CheckCrc(pCharInfo->nHP + fAddedHP);
+	if(ZGetGameClient()->GetMatchStageSetting()->GetFPSMode()){ //set hp for FPS mode
+		m_Property.fMaxAP.Set_CheckCrc(250);
+		m_Property.fMaxHP.Set_CheckCrc(500);
+		m_fPreMaxHP = 500;
+		m_fPreMaxAP = 250;
+	} else {
+		m_Property.fMaxAP.Set_CheckCrc(pCharInfo->nAP + fAddedAP);
+		m_Property.fMaxHP.Set_CheckCrc(pCharInfo->nHP + fAddedHP);
+		m_fPreMaxHP = pCharInfo->nHP + fAddedHP;
+		m_fPreMaxAP = pCharInfo->nAP + fAddedAP;
+	}
 
-
-	m_fPreMaxHP = pCharInfo->nHP + fAddedHP;
-	m_fPreMaxAP = pCharInfo->nAP + fAddedAP;
 
 	/*if(GetUserGrade() == MMUG_DEVELOPER) {
 		m_pMUserAndClanName->CheckCrc();
@@ -3862,6 +3894,8 @@ void ZCharacter::ActDead()
 			break;
 
 		case MWT_ROCKET:
+		case MWT_GROCKET:
+		case MWT_FLAMET:
 		case MWT_FRAGMENTATION:
 			// 날라가는 처리필요
 			fForce = 600.f;

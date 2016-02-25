@@ -82,7 +82,8 @@ enum MMatchProposalMode
 
 // 래더 타입
 enum MLADDERTYPE {
-	MLADDERTYPE_NORMAL_2VS2		= 0,
+	MLADDERTYPE_NORMAL_1VS1    = 0,
+	MLADDERTYPE_NORMAL_2VS2,
 	MLADDERTYPE_NORMAL_3VS3,
 	MLADDERTYPE_NORMAL_4VS4,
 	MLADDERTYPE_NORMAL_5VS5,
@@ -96,7 +97,7 @@ enum MLADDERTYPE {
 };
 
 // 각 래더타입별 필요한 인원수
-const int g_nNeedLadderMemberCount[MLADDERTYPE_MAX] = {	2, 3, 4, 8
+const int g_nNeedLadderMemberCount[MLADDERTYPE_MAX] = {	1, 2, 3, 4, 8
 #ifdef _DEBUG
 , 1 
 #endif

@@ -1678,7 +1678,7 @@ void ZEffectManager::AddShotEffect(rvector* pSource,int size, rvector& Target, r
 #define SMOKE_ACCEL					rvector(0,0,50.f)	// Smoke 가속도
 #define SMOKE_VELOCITY				110.f
 
-		if(wtype==MWT_ROCKET) {//rluncher
+		if(wtype==MWT_ROCKET || wtype==MWT_GROCKET || wtype==MWT_FLAMET) {//rluncher
 			pNew = NULL;
 		} 
 		else if(wtype==MWT_MACHINEGUN) {//풍성하게~

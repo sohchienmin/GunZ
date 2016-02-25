@@ -174,7 +174,7 @@ void ZWeaponMgr::AddDynamite(rvector &pos, rvector &velocity, ZObject* pC)
 {
 	ZWeaponDynamite* pWeapon = new ZWeaponDynamite;
 
-	RMesh* pMesh = ZGetWeaponMeshMgr()->Get("dynamite");												 
+	RMesh* pMesh = ZGetWeaponMeshMgr()->Get("dynamite");
 	if(!pMesh) return;
 
 	pWeapon->Create(pMesh, pos, velocity, pC);
@@ -310,12 +310,10 @@ void ZWeaponMgr::AddMagic(ZSkill* pSkill, const rvector &pos, const rvector &dir
 
 	ZSkillDesc* pDesc = pSkill->GetDesc();
 
-	RMesh* pMesh = pMeshMgr->Get( pDesc->szTrailEffect );
-
+	RMesh* pMesh = pMeshMgr->Get( pDesc->szTrailEffect ); //this is pushing the effect and trial effect but not pushing damage, pmesh only has the effect
 	float fMagicScale = pDesc->fTrailEffectScale;
 
 	if(!pMesh) return;
-
 	pWeapon->Create(pMesh,pSkill,pos,dir,fMagicScale,pOwner);
 
 	Add(pWeapon);

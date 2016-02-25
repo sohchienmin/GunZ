@@ -330,10 +330,10 @@ protected:
 //	void OnPeerShot_Item(ZCharacter* pOwnerCharacter,float fShotTime, rvector& pos, rvector& dir,int type);
 
 	void OnPeerDead(const MUID& uidAttacker, const unsigned long int nAttackerArg, 
-					const MUID& uidVictim, const unsigned long int nVictimArg);
+					const MUID& uidVictim, const unsigned long int nVictimArg, int Kills);
 	void OnReceiveTeamBonus(const MUID& uidChar, const unsigned long int nExpArg);
 	void OnPeerDie(MUID& uidVictim, MUID& uidAttacker);
-	void OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker);
+	void OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker, int Kills);
 	void OnChangeParts(MUID& uid,int partstype,int PartsID);
 	//void OnAssignCommander(const MUID& uidRedCommander, const MUID& uidBlueCommander);
 	void OnAttack(MUID& uid,int type,rvector& pos);

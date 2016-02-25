@@ -214,6 +214,7 @@ void TransformBox( rboundingbox* result, const rboundingbox& src, const rmatrix&
 
 // progress 콜백 펑션타입
 typedef void (*RFPROGRESSCALLBACK)(void *pUserParams,float fProgress);
+typedef void (*RFPROGRESSCALLBACK2)(void *pUserParams,float fProgress, char *szname );
 
 _NAMESPACE_REALSPACE2_END
 

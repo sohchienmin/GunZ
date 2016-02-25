@@ -54,11 +54,11 @@ void ZServerView::OnDraw(MDrawContext* pDC)
 				float fScreenRateY = MGetWorkspaceHeight() / 600.f;
 
 #if defined(LOCALE_KOREA) 
-				pServerInfo->rRect.x = nRowBlock * m_nSelBoxSizeX * fScreenRateX + 10;
+				pServerInfo->rRect.x = nRowBlock * m_nSelBoxSizeX * fScreenRateX;
 				if(pServerInfo->nRow == 0)
-					pServerInfo->rRect.y = nColCount * m_nSelBoxSizeY * fScreenRateY + (pServerInfo->nCol * m_nSelBoxSizeY* fScreenRateY * 5.7);
+					pServerInfo->rRect.y = nColCount * m_nSelBoxSizeY * fScreenRateY + (pServerInfo->nCol * m_nSelBoxSizeY* fScreenRateY * 5.7) +10;
 				else if(pServerInfo->nRow == 1)
-					pServerInfo->rRect.y = nColCount * m_nSelBoxSizeY * fScreenRateY + (pServerInfo->nCol * m_nSelBoxSizeY * fScreenRateY * 4.2);
+					pServerInfo->rRect.y = nColCount * m_nSelBoxSizeY * fScreenRateY + (pServerInfo->nCol * m_nSelBoxSizeY * fScreenRateY * 4.2) +10;
 				pServerInfo->rRect.w = m_nSelBoxSizeW;
 				pServerInfo->rRect.h = m_nSelBoxSizeY - 1;
 #else
@@ -73,10 +73,10 @@ void ZServerView::OnDraw(MDrawContext* pDC)
 				if ( nSelect == m_nSelectNum)
 					bSelected = true;
 
-				IconDraw(pDC, pServerInfo->rRect, pServerInfo->nType, bSelected);
+				//IconDraw(pDC, pServerInfo->rRect, pServerInfo->nType, bSelected);
 				ServerListDraw(pDC, pServerInfo->rRect, pServerInfo, bSelected);
 				PingImageDraw(pDC, pServerInfo->rRect, nPingImageCount, pServerInfo->bIsLive);
-
+				SetCurrSel(0); //Set server to first one ~ Monckey100 also hide servers
 				nColCount++;
 				nPingImageCount++;
 				nSelect++;
@@ -98,7 +98,7 @@ void ZServerView::PingImageDraw(MDrawContext* pDC, MRECT rectBox, int nImageCoun
 	else if(m_dAgentPing[nImageCount] <  40 && m_dAgentPing[nImageCount] >=   0)		pDC->SetBitmap(m_pPingBitmap[5]);
 	else pDC->SetBitmap(m_pPingBitmap[0]);
 	const int nMoveImage = int(220 * MGetWorkspaceWidth() / 800.f);
-	pDC->Draw(rectBox.x+nMoveImage , rectBox.y, 25 , 16);
+	pDC->Draw(rectBox.x+nMoveImage - 25, rectBox.y - 5, 25, 18); //Monckey100 was here to show ping
 
 #ifdef  _DEBUG
 	char strPing[16];
@@ -173,16 +173,20 @@ void ZServerView::ServerListDraw(MDrawContext* pDC, MRECT rectBox, ServerInfo* p
 	// Set server name
 	char szText[ 100];
 	if ( pServerInfo->bIsLive)
-	{
+	{ /*
 		if ( pServerInfo->nNumOfUser >= pServerInfo->nCapacity)
 			sprintf( szText, "%s (FULL / %d)", pServerInfo->szName, pServerInfo->nCapacity);
 		else
-			sprintf( szText, "%s (%d / %d)", pServerInfo->szName, pServerInfo->nNumOfUser, pServerInfo->nCapacity);
+			sprintf( szText, "%s (%d / %d)", pServerInfo->szName, pServerInfo->nNumOfUser, pServerInfo->nCapacity); */ //Server names removed, 
+		if ( pServerInfo->nNumOfUser >= pServerInfo->nCapacity)
+			sprintf( szText, "GunzFactor is FULL, %d players on.", pServerInfo->nCapacity);
+		else
+			sprintf( szText, "%d/%d Players online!", pServerInfo->nNumOfUser, pServerInfo->nCapacity);
 	}
 	else
 	{
-		sprintf( szText, "%s (checking)", pServerInfo->szName);
-
+		//sprintf( szText, "%s (checking)", pServerInfo->szName); 
+		sprintf( szText, "Checking if GunzFactor is online.."); 
 		pDC->SetColor( MCOLOR(0xFF505050));
 	}
 
@@ -220,6 +224,7 @@ void ZServerView::ServerListDraw(MDrawContext* pDC, MRECT rectBox, ServerInfo* p
 	rectBox.x--;
 	rectBox.y--;
 	pDC->Text( rectBox, szText, MAM_LEFT | MAM_VCENTER);
+	SetCurrSel(0); //Monckey100 was here to set the default server
 }
 
 bool ZServerView::OnEvent(MEvent* pEvent, MListener* pListener)

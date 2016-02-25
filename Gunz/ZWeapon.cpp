@@ -1392,23 +1392,24 @@ void ZWeaponMagic::Explosion(WeaponMagicExplosionType type, ZObject* pVictim,rve
 		case ZSR_FIRE :
 			{
 				ZModule_FireDamage *pMod = (ZModule_FireDamage*)pVictim->GetModule( ZMID_FIREDAMAGE);
-				if ( pMod)  pMod->BeginDamage( NULL, 0, 0.9f);
-
+				//if ( pMod)  pMod->BeginDamage(ZGetGame()->m_CharacterManager.Find(m_uidOwner), m_pSkillDesc->nModDamage*1.0f, m_pSkillDesc->nModDoT*1.0f); 
+				//if ( pMod)  pMod->BeginDamage(ZGetGame()->m_CharacterManager.Find(m_uidOwner), m_pSkillDesc->nModDamage*1.0f, m_pSkillDesc->nModDoT*1.0f); //give it damage the fire, found out why flamethower didn't hurt. ~ Monckey100
+				if ( pMod)  pMod->BeginDamage(NULL, 100.0f, 100.0f);
 				break;
 			}
 
 		case ZSR_COLD :
 			{
 				ZModule_ColdDamage *pMod = (ZModule_ColdDamage*)pVictim->GetModule( ZMID_COLDDAMAGE);
-				if ( pMod)  pMod->BeginDamage( 1.0f, 0.9f);
+				if ( pMod)  pMod->BeginDamage(m_pSkillDesc->nModSpeed*0.01f,m_pSkillDesc->nEffectTime*0.001f);
 
 				break;
 			}
 
 		case ZSR_LIGHTNING :
 			{
-				//				ZModule_LightningDamage *pMod = (ZModule_LightningDamage*)pVictim->GetModule( ZMID_LIGHTNINGDAMAGE);
-				//				if ( pMod)  pMod->BeginDamage( MUID(0,0), 0, 0.9f);
+							ZModule_LightningDamage *pMod = (ZModule_LightningDamage*)pVictim->GetModule( ZMID_LIGHTNINGDAMAGE);
+								if ( pMod)  pMod->BeginDamage(ZGetGame()->m_CharacterManager.Find(m_uidOwner), m_pSkillDesc->nModDamage*1.0f, m_pSkillDesc->nModDoT*1.0f);
 
 				break;
 			}
@@ -1416,7 +1417,7 @@ void ZWeaponMagic::Explosion(WeaponMagicExplosionType type, ZObject* pVictim,rve
 		case ZSR_POISON :
 			{
 				ZModule_PoisonDamage *pMod = (ZModule_PoisonDamage*)pVictim->GetModule( ZMID_POISONDAMAGE);
-				if ( pMod)  pMod->BeginDamage( NULL, 0, 0.9f);
+				if ( pMod)  pMod->BeginDamage(ZGetGame()->m_CharacterManager.Find(m_uidOwner), m_pSkillDesc->nModDamage*1.0f, m_pSkillDesc->nModDoT*1.0f);
 
 				break;
 			}
@@ -1492,23 +1493,25 @@ void ZWeaponMagic::ExplosionThrow(WeaponMagicExplosionType type, ZObject* pVicti
 			case ZSR_FIRE :
 			{
 				ZModule_FireDamage *pMod = (ZModule_FireDamage*)pVictim->GetModule( ZMID_FIREDAMAGE);
-				if ( pMod)  pMod->BeginDamage( NULL, 0, 0.9f);
-
+				if ( pMod)  pMod->BeginDamage(ZGetGame()->m_CharacterManager.Find(m_uidOwner), m_pSkillDesc->nModDamage*1.0f, m_pSkillDesc->nModDoT*1.0f); //Monckey100 was here, this is what causes damage
+				//char textsz[256];
+				//sprintf(textsz,"CHAR: null, DAM: %d to %d", m_pSkillDesc->nModDamage, m_pSkillDesc->nModDoT);
+				//ZGetGameInterface()->GetChat()->Output(MCOLOR(255, 100, 100), textsz);
 				break;
 			}
 
 			case ZSR_COLD :
 			{
 				ZModule_ColdDamage *pMod = (ZModule_ColdDamage*)pVictim->GetModule( ZMID_COLDDAMAGE);
-				if ( pMod)  pMod->BeginDamage( 1.0f, 0.9f);
+				if ( pMod)  pMod->BeginDamage(m_pSkillDesc->nModSpeed*1.0f,m_pSkillDesc->nEffectTime*1.0f); //Grab the skills speed and effect time. might have to experiment with these
 
 				break;
 			}
 
 			case ZSR_LIGHTNING :
 			{
-//				ZModule_LightningDamage *pMod = (ZModule_LightningDamage*)pVictim->GetModule( ZMID_LIGHTNINGDAMAGE);
-//				if ( pMod)  pMod->BeginDamage( MUID(0,0), 0, 0.9f);
+				ZModule_LightningDamage *pMod = (ZModule_LightningDamage*)pVictim->GetModule( ZMID_LIGHTNINGDAMAGE);
+				if ( pMod)  pMod->BeginDamage(ZGetGame()->m_CharacterManager.Find(m_uidOwner), m_pSkillDesc->nModDamage*1.0f, m_pSkillDesc->nModDoT*1.0f);
 
 				break;
 			}
@@ -1516,7 +1519,7 @@ void ZWeaponMagic::ExplosionThrow(WeaponMagicExplosionType type, ZObject* pVicti
 			case ZSR_POISON :
 			{
 				ZModule_PoisonDamage *pMod = (ZModule_PoisonDamage*)pVictim->GetModule( ZMID_POISONDAMAGE);
-				if ( pMod)  pMod->BeginDamage( NULL, 0, 0.9f);
+				if ( pMod)  pMod->BeginDamage(ZGetGame()->m_CharacterManager.Find(m_uidOwner), m_pSkillDesc->nModDamage*1.0f, m_pSkillDesc->nModDoT*1.0f);
 
 				break;
 			}

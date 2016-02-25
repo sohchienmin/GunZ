@@ -133,8 +133,7 @@ public:
 			ZServerView* pServerList = (ZServerView*)pResource->FindWidget( "SelectedServer");
 			if ( !pServerList)
 				return false;
-
-			ServerInfo* pServer = pServerList->GetSelectedServer();
+			ServerInfo* pServer = pServerList->GetSelectedServer(); //Monckey100 was here to disable selected.
 			if ( pServer)
 			{
 				if ( pServer->nType == 0 )

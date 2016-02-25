@@ -102,6 +102,7 @@ protected:
 
 	MMatchStageSetting		m_MatchStageSetting;
 	bool					m_bForcedEntry;		///< 난입해서 들어가는지 여부
+	bool					m_bFPSMode;
 protected:
 	virtual bool OnCommand(MCommand* pCommand);
 	virtual bool OnSockDisconnect(SOCKET sock);
@@ -263,6 +264,7 @@ public:
 	
 	MMatchStageSetting* GetMatchStageSetting() { return &m_MatchStageSetting; }
 	bool IsForcedEntry() { return m_bForcedEntry; }
+	bool IsFPSMode() { return m_bFPSMode; }
 	bool IsLadderGame() { return m_bLadderGame; }
 	bool IsDuelTournamentGame() { return m_MatchStageSetting.GetGameType() == MMATCH_GAMETYPE_DUELTOURNAMENT; }
 

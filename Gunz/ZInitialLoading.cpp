@@ -242,7 +242,7 @@ void	ZInitialLoading::Draw( LOADING_SCENE_MODE mode_ /* = MODE_DEFAULT */, int d
 		// 로딩 이름
 		if(m_pLoadingStr && mpDC ) {
 			char buffer[256];
-			sprintf(buffer,"Loading %s ...",m_pLoadingStr);
+			sprintf(buffer,"Loading %s ...",m_pLoadingStr); //this is where itshows loading mesh and stuff
 			int nWidth = mpDC->m_Font.GetTextWidth(buffer);
 			int x = (int)(RGetScreenWidth() * 0.5) - nWidth/2;
 			int y = (int)(RGetScreenHeight() * 0.9f);
@@ -645,6 +645,17 @@ void ZLoadingProgress::Draw()
 #endif
 
 	ZGetInitialLoading()->SetLoadingStr( m_szName );
+	ZGetInitialLoading()->SetPercentage( fTotalProgress * 100.f );
+	ZGetInitialLoading()->Draw( MODE_DEFAULT, 0 , true );
+}
+void ZLoadingProgress::SetLoadingStr(const char *pStr)
+{
+	 float fTotalProgress = m_fTotalProgressStart + m_fThisAmount * m_fCurrentProgress;
+		#ifdef _DEBUG // 혹시 되돌아가는경우인지 체크
+			//_ASSERT(m_fLastProgress<=fTotalProgress);
+			m_fLastProgress=fTotalProgress;
+		#endif
+	ZGetInitialLoading()->SetLoadingStr( pStr );
 	ZGetInitialLoading()->SetPercentage( fTotalProgress * 100.f );
 	ZGetInitialLoading()->Draw( MODE_DEFAULT, 0 , true );
 }

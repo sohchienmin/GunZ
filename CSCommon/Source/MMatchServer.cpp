@@ -1321,7 +1321,7 @@ void MMatchServer::UpdateServerStatusDB()
 		static int st_ErrCounter = 0;
 
 
-#ifdef LOCALE_KOREA	
+//#ifdef LOCALE_KOREA	
 		int nNatePlayer = 0;
 
 		for (MMatchObjectList::iterator iter = m_Objects.begin(); iter != m_Objects.end(); iter++)
@@ -1331,17 +1331,22 @@ void MMatchServer::UpdateServerStatusDB()
 		}
 
 		bResult = m_MatchDBMgr.UpdateServerStatus(MGetServerConfig()->GetServerID(), nCurPlayer);
-#endif
+//#endif
 
 		if (bResult == false) 
 		{
 			LOG(LOG_PROG, "[CRITICAL ERROR] DB Connection Lost.\n");
-
+#ifdef LOCALE_KOREA
+			LOG(LOG_PROG, "[CRITICAL ERROR] Compiled as Korean server!\n");
+#endif
+			char stext[256];
+			sprintf(stext,"[CRITICAL ERROR] Server will not crash however problem with Server ID #%d, Player Count:%d Server DB Updated: %s \n",MGetServerConfig()->GetServerID(), nCurPlayer, m_MatchDBMgr.UpdateServerStatus(MGetServerConfig()->GetServerID(), nCurPlayer)?"true":"false");
+			LOG(LOG_PROG, stext);
 			m_MatchDBMgr.Disconnect();
 
 			InitDB();
 			st_ErrCounter++;
-			if (st_ErrCounter > MAX_DB_QUERY_COUNT_OUT) 
+			if (st_ErrCounter > MAX_DB_QUERY_COUNT_OUT && 1==2) // basically never shutdown ~ monckey100
 			{
 				LOG(LOG_PROG, "[CRITICAL ERROR] UpdateServerStatusDB - Shutdown\n");
 				Shutdown();

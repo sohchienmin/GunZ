@@ -26,7 +26,7 @@ public:
 	int		AddXml(char* name,char* modelname=NULL,bool autoload=true,bool namesort=false);
 	int     AddXml(MXmlElement* pNode,char* Path,char* modelname=NULL,bool namesort=false);
 
-	int		LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback=NULL, void *CallbackParam=NULL);
+	int		LoadXmlList(char* name,RFPROGRESSCALLBACK2 pfnProgressCallback=NULL, void *CallbackParam=NULL);
 
 	void	Del(int id);
 	void	Del(RMesh* pMesh);

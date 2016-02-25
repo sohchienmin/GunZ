@@ -9,7 +9,7 @@
 #include "MMath.h"
 #include "ZGame.h"
 #include "RNavigationNode.h"
-
+#include <math.h> //for med hack thing
 
 
 ZBrain::ZBrain() : m_pBody(NULL), m_uidTarget( MUID( 0, 0))

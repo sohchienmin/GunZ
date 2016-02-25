@@ -61,6 +61,8 @@
 #define MICTOK_WEAPON_RIFLE			_CXR("rifle")
 #define MICTOK_WEAPON_MACHINEGUN	_CXR("machinegun")
 #define MICTOK_WEAPON_ROCKET		_CXR("rocket")
+#define MICTOK_WEAPON_GROCKET		_CXR("grocket")
+#define MICTOK_WEAPON_FLAMET		_CXR("flamet")
 #define MICTOK_WEAPON_SNIFER		_CXR("snifer")
 
 #define MICTOK_WEAPON_MEDKIT		_CXR("medkit")
@@ -217,7 +219,7 @@ res_sex : 성별 제한사항(m, f, a)
 res_level : 레벨 제한사항(int) , 제한이 없을경우 0으로 세팅하도록 한다.
 slot : 슬롯(none, melee, range, head, chest, hands, legs, feet, finger, custom)
 weapon : 무기타입(none, dagger, katana, pistol, smg, shotgun, rifle, machinegun, 
-                  rocket, snifer, medkit, flashbang, frag, smoke, 
+                  rocket, grocket, flamet, snifer, medkit, flashbang, frag, smoke, 
 				  enchant_fire, enchant_cold, enchant_lightning, enchant_poison)
 weight : 무게(int)
 bt_price : 판매가(int)

@@ -2325,7 +2325,7 @@ bool MMatchDBMgr::GetLadderTeamID(const int nTeamTableIndex, const int* pnMember
 		strSQL.Format(g_szDB_GET_LADDER_TEAM4_ID, pnMemberCIDArray[0], pnMemberCIDArray[1], pnMemberCIDArray[2], pnMemberCIDArray[3]);
 	}
 
-#ifdef _DEBUG
+//#ifdef _DEBUG
 	else if ((nTeamTableIndex == 1) && (nMemberCount == 1))
 	{
 		// for test
@@ -2336,7 +2336,7 @@ bool MMatchDBMgr::GetLadderTeamID(const int nTeamTableIndex, const int* pnMember
 		// for test
 		strSQL.Format(g_szDB_GET_LADDER_TEAM4_ID, pnMemberCIDArray[0], pnMemberCIDArray[1], 1, 1);
 	}
-#endif
+//#endif
 	else
 	{
 		return false;

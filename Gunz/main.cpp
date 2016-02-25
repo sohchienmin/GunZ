@@ -168,7 +168,7 @@ RRESULT OnCreate(void *pParam)
 	//	mlog("main : VideoCard support Vertex Shader...\n");
 	//}
 
-	sprintf( cstrReleaseDate, "Made by George & Min.", ZGetSVNRevision());
+	sprintf( cstrReleaseDate, "GunZ Factor Version 1.0 || Patch: Introduction", ZGetSVNRevision());
 	mlog(cstrReleaseDate); mlog("\n");
 	g_DInput.Create(g_hWnd, FALSE, FALSE);
 	g_pInput = new ZInput(&g_DInput);

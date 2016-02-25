@@ -102,7 +102,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='_Encrypt_USA_Release_publish|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='_Encrypt_USA_Debug|Win32'" Label="Configuration">
@@ -112,7 +112,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='_Encrypt_KOR_Release_publish|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='_Encrypt_KOR_Debug|Win32'" Label="Configuration">
@@ -132,7 +132,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='_Encrypt_Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='_Encrypt_BRZ_Release_publish|Win32'" Label="Configuration">
@@ -147,7 +147,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='USA_Release_publish|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='INTER_Release_publish|Win32'" Label="Configuration">
@@ -172,7 +172,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='KOR_Release_publish|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='JPN_Debug|Win32'" Label="Configuration">
@@ -207,7 +207,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -384,6 +384,8 @@
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalOptions>/Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4244;4996;4819;4005;4800;4293;4627;4018;4172;4509;4065;4101</DisableSpecificWarnings>
     </ClCompile>
     <Lib>
       <AdditionalOptions>/y3 %(AdditionalOptions)</AdditionalOptions>
@@ -520,6 +522,7 @@
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/Zm200 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Lib>
       <OutputFile>$(OutDir)CSCommon.lib</OutputFile>
@@ -625,6 +628,7 @@
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/Zm200 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Lib>
       <OutputFile>$(OutDir)CSCommon.lib</OutputFile>
@@ -684,6 +688,8 @@
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <AdditionalOptions>/Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4244;4996;4819;4005;4800;4293;4627;4018;4172;4509;4065;4101</DisableSpecificWarnings>
     </ClCompile>
     <Lib>
       <AdditionalOptions>/y3 %(AdditionalOptions)</AdditionalOptions>
@@ -765,6 +771,8 @@
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalOptions>/Zm200 %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4244;4996;4819;4005;4800;4293;4627;4018;4172;4509;4065;4101</DisableSpecificWarnings>
     </ClCompile>
     <Lib>
       <OutputFile>$(OutDir)CSCommonE.lib</OutputFile>
@@ -818,12 +826,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Include\IndexPage.h" />
+    <ClInclude Include="Include\MAsyncDBJob_IgnoreList.h" />
     <ClInclude Include="Include\MCommand.h" />
     <ClInclude Include="Include\MCommandBuilder.h" />
     <ClInclude Include="Include\MCommandManager.h" />
     <ClInclude Include="Include\MCommandParameter.h" />
     <ClInclude Include="Include\MCommandProfiler.h" />
     <ClInclude Include="Include\MGridMap.h" />
+    <ClInclude Include="Include\MMatchIgnoreInfo.h" />
     <ClInclude Include="Include\MUID.h" />
     <ClInclude Include="Include\MObject.h" />
     <ClInclude Include="Include\MObjectTypes.h" />
@@ -987,12 +997,14 @@
     <ClInclude Include="Include\stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\MAsyncDBJob_IgnoreList.cpp" />
     <ClCompile Include="Source\MCommand.cpp" />
     <ClCompile Include="Source\MCommandBuilder.cpp" />
     <ClCompile Include="Source\MCommandManager.cpp" />
     <ClCompile Include="Source\MCommandParameter.cpp" />
     <ClCompile Include="Source\MCommandProfiler.cpp" />
     <ClCompile Include="Source\MGridMap.cpp" />
+    <ClCompile Include="Source\MMatchIgnoreInfo.cpp" />
     <ClCompile Include="Source\MUID.cpp" />
     <ClCompile Include="Source\MObject.cpp" />
     <ClCompile Include="Source\MSharedCommandTable.cpp" />

@@ -355,8 +355,8 @@ void ZMyCharacter::ProcessInput(float fDelta)
 	if (!IsDie() && !uStatus.m_bStun && !uStatus.m_bBlastDrop && !uStatus.m_bBlastStand)
 	{	// blast fall 상태일때는 점프키 입력이 가능하다.
 		// 벽점프, 덤블링중에는 가속불가...
-		if(!uStatus.m_bWallJump && !uStatus.m_bTumble && !zStatus.m_bSkill && !zStatus.m_bMoveLimit && 
-			!uStatus.m_bBlast && !uStatus.m_bBlastFall && !uStatus.m_bBlastAirmove && !(m_bCharging->Ref()) && //mmemory proxy
+		if(!uStatus.m_bWallJump && !uStatus.m_bTumble && !zStatus.m_bSkill && !zStatus.m_bMoveLimit &&		//Monckey100 allowing charging while moving
+			!uStatus.m_bBlast && !uStatus.m_bBlastFall && !uStatus.m_bBlastAirmove /*&& !(m_bCharging->Ref())*/ && //mmemory proxy
 			!zStatus.m_bSlash && !zStatus.m_bJumpSlash && !zStatus.m_bJumpSlashLanding)
 		{
 			if(ZIsActionKeyPressed(ZACTION_FORWARD)==true)	m_Accel.Set_CheckCrc(m_Accel.Ref()+forward);
@@ -811,7 +811,8 @@ void ZMyCharacter::OnShotMelee()
 			zStatus.m_bShotReturn=false;
 			uStatus.m_bWallJump=false;
 			uStatus.m_bWallJump2=false;
-			zStatus.m_bJumpShot=true;
+			if(!ZGetGameClient()->GetMatchStageSetting()->GetFPSMode()) //if not fps mode then jumpshot otherwise no kstyle for you
+				zStatus.m_bJumpShot=true;
 			uStatus.m_bPlayDone=false;
 			
 			if(IsRunWall() && IsMeleeWeapon() ) {
@@ -1258,8 +1259,14 @@ void ZMyCharacter::OnShotRocket()
 	Normalize(dir);
 
 	int sel_type = GetItems()->GetSelectedWeaponParts();
-
-	ZPostShotSp(/*g_pGame->GetTime(),*/vWeaponPos,dir,ZC_WEAPON_SP_ROCKET,sel_type);
+	if(GetItems()->GetSelectedWeapon()->GetDesc()->m_nWeaponType.Ref()==MWT_ROCKET) {
+		ZPostShotSp(/*g_pGame->GetTime(),*/vWeaponPos,dir,ZC_WEAPON_SP_ROCKET,sel_type);
+	} else if (GetItems()->GetSelectedWeapon()->GetDesc()->m_nWeaponType.Ref()==MWT_FLAMET) {
+		ZPostShotSp(/*g_pGame->GetTime(),*/vWeaponPos,dir,ZC_WEAPON_SP_FLAMET,sel_type); //all this does is tell the mesh to exist in the game and to execute ZC_WEAPON_SP_FLAMET
+	} else {
+		ZPostShotSp(/*g_pGame->GetTime(),*/vWeaponPos,dir,ZC_WEAPON_SP_GROCKET,sel_type);
+	}
+	//ZPostShotSp(/*g_pGame->GetTime(),*/vWeaponPos,dir,ZC_WEAPON_SP_FLAMET,sel_type);
 }
 
 
@@ -2890,8 +2897,13 @@ void ZMyCharacter::OnBlast(rvector &dir)
 
 void ZMyCharacter::OnTumble(int nDir)
 {
-#define SWORD_DASH		1000.f
-#define GUN_DASH        900.f
+if (ZGetGameClient()->GetMatchStageSetting()->GetStageSetting()->bFPSModeEnabled){ // Monckey100 dash modifier
+	#define SWORD_DASH		500.f
+	#define GUN_DASH        2000.f
+} else {
+	#define SWORD_DASH		1000.f
+	#define GUN_DASH        900.f
+}
 	//jintriple3 메모리 프록시...비트 패킹..
 	ZCharaterStatusBitPacking & uStatus = m_dwStatusBitPackingValue.Ref();
 	ZMyCharaterStatusBitPacking & zStatus = m_statusFlags.Ref();
@@ -3116,6 +3128,9 @@ void ZMyCharacter::OnDie()
 #define CA_FACTOR_RIFLE			0.25f
 #define CA_FACTOR_MACHINEGUN	1.0f
 #define CA_FACTOR_ROCKET		1.0f
+#define CA_FACTOR_GROCKET		1.0f
+#define CA_FACTOR_FLAMET		1.0f
+
 
 float ZMyCharacter::GetControllabilityFactor()
 {
@@ -3176,6 +3191,16 @@ float ZMyCharacter::GetControllabilityFactor()
 		case MWT_ROCKET:
 			{
 				return CA_FACTOR_ROCKET;
+			}
+			break;
+		case MWT_GROCKET:
+			{
+				return CA_FACTOR_GROCKET;
+			}
+			break;
+		case MWT_FLAMET:
+			{
+				return CA_FACTOR_FLAMET;
 			}
 			break;
 		}
@@ -3572,7 +3597,8 @@ void ZMyCharacter::OnGuardSuccess()
 
 void ZMyCharacter::OnDamaged(ZObject* pAttacker, rvector srcPos, ZDAMAGETYPE damageType, MMatchWeaponType weaponType, float fDamage, float fPiercingRatio, int nMeleeType)
 {	
-
+	if (ZGetGameClient()->GetMatchStageSetting()->GetFPSMode()) //hurt players less
+		fDamage *= 0.3f;
 	if(ZGetGameClient()->GetMatchStageSetting()->GetGameType() != MMATCH_GAMETYPE_QUEST && ZGetGameClient()->GetMatchStageSetting()->GetGameType() != MMATCH_GAMETYPE_SURVIVAL) {
 		if(!pAttacker->IsNPC()) {
 			ZCharacter* pCharacter = (ZCharacter*)ZGetCharacterManager()->Find(pAttacker->GetUID());

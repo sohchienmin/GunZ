@@ -342,6 +342,7 @@ struct MTD_StageListNode
 	STAGE_STATE		nState;								///< 현재상태
 	MMATCH_GAMETYPE nGameType;							///< 게임 타입
 	char			nMapIndex;							///< 맵
+	int				nFPSMode;							///< get gametype ~ Monckey100
 	int				nSettingFlag;						///< 방 세팅 플래그(난입, 비밀방, 레벨제한)
 	char			nMasterLevel;						///< 방장 레벨
 	char			nLimitLevel;						///< 제한레벨

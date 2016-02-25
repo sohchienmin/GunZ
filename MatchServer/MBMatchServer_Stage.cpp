@@ -183,7 +183,8 @@ void MBMatchServer::ProcessOnGameKill(MMatchStage* pStage, MMatchObject* pAttack
 	if (nGameType == MMATCH_GAMETYPE_TRAINING) return;
 	pAttacker->GetCharInfo()->IncXP(nAttackerExp);
 	pVictim->GetCharInfo()->DecXP(nVictimExp);
-
+	
+	if (pStage->GetStageSetting()->GetStageSetting()->bFPSModeEnabled) return;
 	
 	////////////////////////////////////////////////////////////////////////////////////////////
 	// 케릭터 PlayTime 업데이트 해주기!									2010-06-07 홍기주

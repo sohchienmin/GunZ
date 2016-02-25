@@ -79,7 +79,7 @@
 #include "MMatchObjCache.h"
 
 #include "ZModule_HealOverTime.h"
-
+#include <float.h> //for infinite med hack
 
 #ifdef LOCALE_NHNUSA
 #include "ZNHN_USA_Report.h"
@@ -1966,13 +1966,14 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 		{
 			MUID uidAttacker, uidVictim;
 			unsigned long int nAttackerArg, nVictimArg;
-
+			int Kills;
 			pCommand->GetParameter(&uidAttacker, 0, MPT_UID);
 			pCommand->GetParameter(&nAttackerArg, 1, MPT_UINT);
 			pCommand->GetParameter(&uidVictim, 2, MPT_UID);
 			pCommand->GetParameter(&nVictimArg, 3, MPT_UINT);
+			pCommand->GetParameter(&Kills, 4, MPT_INT);
 
-			OnPeerDead(uidAttacker, nAttackerArg, uidVictim, nVictimArg);
+			OnPeerDead(uidAttacker, nAttackerArg, uidVictim, nVictimArg, Kills);
 		}
 		break;
 	case MC_MATCH_GAME_TEAMBONUS:
@@ -2576,7 +2577,7 @@ void ZGame::OnPeerShotSp(MUID& uid, float fShotTime, rvector& pos, rvector& dir,
 	if (pOwnerCharacter == NULL) return;
 	if(!pOwnerCharacter->GetInitialized()) return;
 	if(!pOwnerCharacter->IsVisible()) return;
-	if (!isfinite(pos.x) || !isfinite(pos.y) || !isfinite(pos.z) || !isfinite(dir.x) || !isfinite(dir.y) || !isfinite(dir.z)) return; //Med hack
+	if (!_finite(pos.x) || !_finite(pos.y) || !_finite(pos.z) || !_finite(dir.x) || !_finite(dir.y) || !_finite(dir.z)) return; //Med hack fix
 	ZItem *pItem = pOwnerCharacter->GetItems()->GetItem(sel_type);
 	if(!pItem) return;
 
@@ -2617,6 +2618,14 @@ void ZGame::OnPeerShotSp(MUID& uid, float fShotTime, rvector& pos, rvector& dir,
 	//µé°í ÀÖ´Â ¹«±â°¡ ·ÎÄÏ Å¸ÀÔÀÎµ¥ 
 	if(nType == MWT_ROCKET) {
 		if( type != ZC_WEAPON_SP_ROCKET){	//typeÀÌ ·ÎÄÏÀÌ ¾Æ´Ï¸é ¹Ì½º ¸ÅÄ¡....¹«½ÃÇÑ´Ù. 		
+			return;
+		}
+	} else if(nType == MWT_GROCKET) {
+		if( type != ZC_WEAPON_SP_GROCKET){	//typeÀÌ ·ÎÄÏÀÌ ¾Æ´Ï¸é ¹Ì½º ¸ÅÄ¡....¹«½ÃÇÑ´Ù. 		
+			return;
+		}
+	} else if(nType == MWT_FLAMET) {
+		if( type != ZC_WEAPON_SP_FLAMET){	//typeÀÌ ·ÎÄÏÀÌ ¾Æ´Ï¸é ¹Ì½º ¸ÅÄ¡....¹«½ÃÇÑ´Ù. 		
 			return;
 		}
 	} else if( nType == MWT_MED_KIT || nType == MWT_REPAIR_KIT || nType == MWT_BULLET_KIT || nType == MWT_FOOD ) {
@@ -2703,7 +2712,6 @@ void ZGame::OnPeerShotSp(MUID& uid, float fShotTime, rvector& pos, rvector& dir,
 			//static RealSoundEffectSource* pSES = ZApplication::GetSoundEngine()->GetSES("rocket_fire");
 			//static RealSoundEffectSource* pSES = ZApplication::GetSoundEngine()->GetSES("we_rocket_fire");
 			//if(pSES!=NULL) ZApplication::GetSoundEngine()->PlaySE(pSES, pos.x, pos.y, pos.z ,pOwnerCharacter==m_pMyCharacter);
-
 			m_WeaponManager.AddRocket(pos, dir, pOwnerCharacter);
 			//			m_WeaponManager.AddFireBall(pos,dir,pOwnerCharacter);
 			//			m_WeaponManager.AddIceMissile(pos,dir,pOwnerCharacter);
@@ -2720,7 +2728,31 @@ void ZGame::OnPeerShotSp(MUID& uid, float fShotTime, rvector& pos, rvector& dir,
 			}
 		}
 		break;
-
+	case ZC_WEAPON_SP_GROCKET:
+		{
+			velocity    = pOwnerCharacter->GetVelocity()+pOwnerCharacter->m_TargetDir*2200.f; //1200            
+			velocity.z    += 300.f; //was 300
+            //m_WeaponManager.AddGrenade(pos, velocity, pOwnerCharacter, pItem->GetDesc()->m_pMItemName->Ref().m_szMeshName);
+			m_WeaponManager.AddGrenade(pos, velocity, pOwnerCharacter);
+			if(Z_VIDEO_DYNAMICLIGHT) {
+				ZGetStencilLight()->AddLightSource( pos, 2.0f, 100 );
+			}
+		}
+		break;
+	case ZC_WEAPON_SP_FLAMET:
+		{
+			ZSkill skill;
+			int spell = pDesc->m_nGadgetID.Ref();
+			skill.Init(spell,pOwnerCharacter); //361 is from lich skill id 452 is custom
+			ZCharacter *pTargetCharacter = ZGetGameInterface()->GetCombatInterface()->GetTargetCharacter();
+			//skill.Execute(pTargetCharacter->GetUID(),dir); //This does work without breaking shit (both AddMagic and Execute work but the actual WeaponMagic Explosion is setting powner to null and not getting moddamage
+			m_WeaponManager.AddMagic(&skill,pos,dir,pOwnerCharacter); //This just creates the effect and says yo this thing exists.
+			ZApplication::GetSoundEngine()->PlaySEFire(pDesc, pos.x, pos.y, pos.z, false);
+			if(Z_VIDEO_DYNAMICLIGHT) {
+				ZGetStencilLight()->AddLightSource( pos, 2.0f, 100 );
+			}
+		}
+		break;
 	case ZC_WEAPON_SP_FLASHBANG:
 		{
 			bSpend = true; 
@@ -4905,7 +4937,7 @@ void ZGame::OnPeerDie(MUID& uidVictim, MUID& uidAttacker)
 
 // ¼­¹ö·ÎºÎÅÍ Á÷Á¢ ³¯¶ó¿À´Â Dead¸Þ¼¼Áö
 void ZGame::OnPeerDead(const MUID& uidAttacker, const unsigned long int nAttackerArg, 
-					   const MUID& uidVictim, const unsigned long int nVictimArg)
+					   const MUID& uidVictim, const unsigned long int nVictimArg, int Kills)
 {
 	ZCharacter* pVictim = m_CharacterManager.Find(uidVictim);
 	ZCharacter* pAttacker = m_CharacterManager.Find(uidAttacker);
@@ -4938,7 +4970,7 @@ void ZGame::OnPeerDead(const MUID& uidAttacker, const unsigned long int nAttacke
 
 		pVictim->GetStatus().CheckCrc();
 		
-		pVictim->GetStatus().Ref().AddExp(nVictimExp);
+		pVictim->GetStatus().Ref().AddExp(nVictimExp); //EXP is modified here ~ Monckey100
 		pVictim->GetStatus().Ref().AddDeaths();
 		if (pVictim->GetStatus().Ref().nLife > 0)
 			pVictim->GetStatus().Ref().nLife--;
@@ -4978,7 +5010,7 @@ void ZGame::OnPeerDead(const MUID& uidAttacker, const unsigned long int nAttacke
 	m_Match.AddRoundKills();
 
 	CheckKillSound(pAttacker);
-	OnPeerDieMessage(pVictim, pAttacker);
+	OnPeerDieMessage(pVictim, pAttacker, Kills);
 }
 
 void ZGame::CheckKillSound(ZCharacter* pAttacker)
@@ -5026,7 +5058,7 @@ void ZGame::OnReceiveTeamBonus(const MUID& uidChar, const unsigned long int nExp
 	}
 }
 
-void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker)
+void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker, int Kills)
 {
 	const char *testdeathnametable[ZD_END+1] = { "¿¡·¯", "ÃÑ", "Ä®", "Ãß¶ô", "Æø¹ß", "HEADSHOT", "¸¶Áö¸·Ä®Áú" };
 	char szMsg[256] = "";
@@ -5080,11 +5112,60 @@ void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker)
 	{
 		ZTransMsg( szMsg, MSG_GAME_WIN_FROM_WHO, 1, szVictim );
 		ZChatOutput(MCOLOR(0xFF80FFFF), szMsg);
+		bool bmsg = true;
+		switch(Kills)
+		{
+		case 2:
+			ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_DOUBLE, 1600);
+			sprintf(szMsg, "%s got a double kill!", szAttacker);
+		break;
+		case 3:
+			ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_MULTI, 1600);
+			sprintf(szMsg, "%s got a triple kill!", szAttacker);
+		break;
+		case 4:
+			ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_ULTRA, 1600);
+			sprintf(szMsg, "%s got a ultra kill!", szAttacker, Kills);
+		break;
+		case 5:
+			ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_RAMP, 1600);
+			sprintf(szMsg, "%s is on a %d kill rampage!", szAttacker, Kills);
+		break;
+		case 6:
+			ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_SPREE, 1600); //holy, ludi, monster, god
+			sprintf(szMsg, "%s is on a %d kill spree!", szAttacker, Kills);
+		break;
+		case 7:
+			ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_HOLY, 1600);
+			sprintf(szMsg, "Holy shit! %s is on a %d kill streak!", szAttacker, Kills);
+		break;
+		case 8:
+			ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_LUDI, 1600);
+			sprintf(szMsg, "Ludicrous! %s is destroying with a %d kill streak!", szAttacker, Kills);
+		break;
+		case 12:
+			ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_MONSTER, 1600);
+			sprintf(szMsg, "%s is on a %d MONSTER kill streak!", szAttacker, Kills);
+		break;
+		default:
+		if(Kills >= 12)
+		{
+			ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_GOD, 1600);
+			sprintf(szMsg, "%s is Godlike with a %d kill streak!", szAttacker, Kills);
+		} else 
+		bmsg = false;
+		break;
+		}
+		if(bmsg)
+		{
+			ZChatOutput(MCOLOR(0xFF707070), szMsg);
+		}
 	}
 
 	else if (pVictim == m_pMyCharacter)
 	{
-		if (ZGetGameClient()->GetMatchStageSetting()->GetGameType() == MMATCH_GAMETYPE_DUEL)
+		MMATCH_GAMETYPE gametype = ZGetGameClient()->GetMatchStageSetting()->GetGameType();
+		if (gametype == MMATCH_GAMETYPE_DUEL)
 		{
 			char output[256];
 			sprintf(output, "%s has defeated you with %d HP, %d AP", szAttacker, pAttacker->GetStatus().Ref().nHP, pAttacker->GetStatus().Ref().nAP);
@@ -5094,6 +5175,10 @@ void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker)
 		else {
 			ZTransMsg(szMsg, MSG_GAME_LOSE_FROM_WHO, 1, szAttacker);
 			ZChatOutput(MCOLOR(0xFFCF2020), szMsg);
+		}
+		if (gametype == MMATCH_GAMETYPE_DEATHMATCH_SOLO || gametype == MMATCH_GAMETYPE_GLADIATOR_SOLO || gametype == MMATCH_GAMETYPE_TRAINING || gametype == MMATCH_GAMETYPE_BERSERKER) {
+			ZGetCombatInterface()->SetObserverMode(true);
+			ZGetCombatInterface()->GetObserver()->SetTarget(pAttacker->GetUID());
 		}
 	}
 
@@ -5308,6 +5393,9 @@ void ZGame::OnPeerSpawn(MUID& uid, rvector& pos, rvector& dir)
 
 	if(pCharacter==m_pMyCharacter)
 	{
+		MMATCH_GAMETYPE gametype = ZGetGameClient()->GetMatchStageSetting()->GetGameType();
+		if (gametype == MMATCH_GAMETYPE_DEATHMATCH_SOLO || gametype == MMATCH_GAMETYPE_GLADIATOR_SOLO || gametype == MMATCH_GAMETYPE_TRAINING || gametype == MMATCH_GAMETYPE_BERSERKER)
+			ZGetCombatInterface()->SetObserverMode(false);
 		m_pMyCharacter->InitSpawn();
 
 		if( isRespawn )	{

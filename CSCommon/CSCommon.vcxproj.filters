@@ -647,6 +647,12 @@
     <ClInclude Include="MFeatureDefine.h" />
     <ClInclude Include="Include\MMatchDebug.h" />
     <ClInclude Include="Include\stdafx.h" />
+    <ClInclude Include="Include\MMatchIgnoreInfo.h">
+      <Filter>MatchServer\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\MAsyncDBJob_IgnoreList.h">
+      <Filter>MatchServer\AsyncProxy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\MCommand.cpp">
@@ -1128,6 +1134,12 @@
     </ClCompile>
     <ClCompile Include="Source\MMatchDebug.cpp" />
     <ClCompile Include="Source\stdafx.cpp" />
+    <ClCompile Include="Source\MMatchIgnoreInfo.cpp">
+      <Filter>MatchServer\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\MAsyncDBJob_IgnoreList.cpp">
+      <Filter>MatchServer\AsyncProxy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="HShield\HsCryptLib.lib">

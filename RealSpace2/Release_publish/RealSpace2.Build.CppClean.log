@@ -1,60 +1,112 @@
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\realspace2.pch
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\vc120.pdb
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\stdafx.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rframework.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rfont.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rerror.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\realspace2.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rdynamiclight.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rdummylist.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rcylinder.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rcollisiondetection.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rcloth.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rcharcloth.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rcamera.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rbspobject.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rboundary.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rbasetexture.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rastar.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\ranimationnode.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\ranimationmgr.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\ranimationfile.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\ranimation.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\ranieventinfo.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rpvs.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rparticlesystem.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rocclusionlist.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rnavigationnode.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rnavigationmesh.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rmtrl.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rmesh_render.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rmesh_mtrl.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rmesh_load.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rmesh_frame.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rmeshutil.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rmeshnodestringtable.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rmeshnodedata.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rmeshnode.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rmeshmgr.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rmesh.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rmateriallist.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rlightlist.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rlenzflare.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rhalfedgemesh.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rvisualmeshutil.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rvisualmeshmgr.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rvisualmesh.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rtypes.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rtoken.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rsphere.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rsolidbsp.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rshadermgr.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\rroam.obj
-c:\users\chienmin\desktop\gzf gunz source\realspace2\lib\realspace2.lib
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\msxml.tlh
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\realspace2.tlog\cl.command.1.tlog
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\realspace2.tlog\cl.read.1.tlog
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\realspace2.tlog\cl.write.1.tlog
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\realspace2.tlog\lib-link.read.1.tlog
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\realspace2.tlog\lib-link.write.1.tlog
-c:\users\chienmin\desktop\gzf gunz source\realspace2\release_publish\realspace2.tlog\lib.command.1.tlog
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\REALSPACE2.PCH
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\STDAFX.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\VC110.PDB
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RFRAMEWORK.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RFONT.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RERROR.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\REALSPACE2.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RDYNAMICLIGHT.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RDUMMYLIST.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RCYLINDER.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RCOLLISIONDETECTION.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RCLOTH.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RCHARCLOTH.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RCAMERA.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RBSPOBJECT.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RBOUNDARY.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RBASETEXTURE.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RASTAR.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RANIMATIONNODE.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RANIMATIONMGR.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RANIMATIONFILE.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RANIMATION.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RANIEVENTINFO.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RPVS.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RPARTICLESYSTEM.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\ROCCLUSIONLIST.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RNAVIGATIONNODE.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RNAVIGATIONMESH.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RMTRL.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RMESH_RENDER.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RMESH_MTRL.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RMESH_LOAD.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RMESH_FRAME.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RMESHUTIL.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RMESHNODESTRINGTABLE.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RMESHNODEDATA.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RMESHNODE.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RMESHMGR.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RMESH.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RMATERIALLIST.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RLIGHTLIST.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RLENZFLARE.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RHALFEDGEMESH.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RVISUALMESHUTIL.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RVISUALMESHMGR.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RVISUALMESH.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RTYPES.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RTOKEN.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RSPHERE.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RSOLIDBSP.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RSHADERMGR.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\RELEASE_PUBLISH\RROAM.OBJ
+F:\USERS\MONCKEY100\DESKTOP\GZF SOURCE\REALSPACE2\LIB\REALSPACE2.LIB
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RAniEventInfo.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RAnimation.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RAnimationFile.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RAnimationMgr.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RAnimationNode.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RAStar.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RBaseTexture.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RBoundary.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RBspObject.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RCamera.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RCharCloth.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RCloth.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RCollisionDetection.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RCylinder.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RDummyList.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RDynamicLight.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RealSpace2.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RError.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RFont.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RFrameWork.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RHalfEdgeMesh.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RLenzFlare.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RLightList.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RMaterialList.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RMesh.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RMeshMgr.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RMeshNode.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RMeshNodeData.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RMeshNodeStringTable.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RMeshUtil.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RMesh_Frame.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RMesh_Load.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RMesh_Mtrl.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RMesh_Render.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RMtrl.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RNavigationMesh.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RNavigationNode.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\ROcclusionList.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RParticleSystem.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RPVS.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RRoam.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RShaderMgr.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RSolidBsp.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RSphere.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RToken.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RTypes.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RVisualMesh.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RVisualMeshMgr.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RVisualMeshUtil.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\stdafx.obj
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\msxml.tlh
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\cl.command.1.tlog
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\CL.read.1.tlog
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\CL.write.1.tlog
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\Lib-link.read.1.tlog
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\Lib-link.write.1.tlog
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\lib.command.1.tlog
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RealSpace2.pch
+F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\vc110.pdb

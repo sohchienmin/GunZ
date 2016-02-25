@@ -1462,7 +1462,6 @@ void ZGameInterface::OnLoginCreate(void)
 	MLabel* pPasswd = (MLabel*)m_IDLResource.FindWidget( "LoginPassword");
 	if ( pPasswd)
 		pPasswd->SetText( "");
-
 	// ³Ý¸¶ºíµµ ÀÌÁ¦ ¼­¹ö¸®½ºÆ®¸¦ º¸¿©ÁÖ±â ¶§¹®¿¡ ÁÖ¼®Ã³¸®
 	// Netmarble ¿¡¼­ ·Î±äÇÑ °æ¿ì¿¡ Standalone LoginÀ» ¿ä±¸ÇÏ¸é °ÔÀÓÁ¾·á
 	//if (ZApplication::GetInstance()->GetLaunchMode() == ZApplication::ZLAUNCH_MODE_NETMARBLE) {
@@ -1528,8 +1527,27 @@ void ZGameInterface::OnLoginCreate(void)
 		char buffer[256];
 		if (ZGetApplication()->GetSystemValue("LoginID", buffer))
 			pWidget->SetText(buffer);
+			
 	}
-
+	MButton* bpWidget = (MButton*)GetIDLResource()->FindWidget("RememberMe");
+	if (bpWidget) {
+		char buffer[256];
+		if (ZGetApplication()->GetSystemValue("RememberMe", buffer)) {
+			if(!strcmp(buffer,"true")) {
+				bpWidget->SetCheck(true);
+					MWidget* pWidget = m_IDLResource.FindWidget("LoginPassword");
+					if(pWidget) {
+							char bufferr[256];
+							if (ZGetApplication()->GetSystemValue("Password", bufferr))
+								pWidget->SetText(bufferr);
+					}
+			} else {
+				bpWidget->SetCheck(false);
+			}
+		}
+	}
+	if (pWidget != NULL && pWidget->GetText() != "" && pWidget->GetText() != NULL)
+		pPasswd->SetFocus(); //set it to focused if username is set ~ Monckey100
 	// ¼­¹ö IP
 	pWidget = m_IDLResource.FindWidget("ServerAddress");
 	if(pWidget)
@@ -1604,7 +1622,18 @@ void ZGameInterface::OnLoginDestroy(void)
 		if ( m_pBackground)
 			m_pBackground->SetScene(LOGIN_SCENE_FALLDOWN);
 	}
-
+	MButton* bpWidget = (MButton*)GetIDLResource()->FindWidget("RememberMe");
+	if(bpWidget) {
+		if (bpWidget->GetCheck()) {
+			ZGetApplication()->SetSystemValue("RememberMe", "true");
+			MWidget* pWidget = m_IDLResource.FindWidget("LoginPassword");
+			if(pWidget)
+			 {
+				ZGetApplication()->SetSystemValue("Password", pWidget->GetText());
+			}
+		} else 
+			ZGetApplication()->SetSystemValue("RememberMe", "false");
+	}
 	// ¹è°æ ÀÌ¹ÌÁö¸¦ ¸Þ¸ð¸®·ÎºÎÅÍ »èÁ¦ÇÑ´Ù
 	if ( m_pLoginBG != NULL)
 	{
@@ -3633,7 +3662,6 @@ return false;
 void ZGameInterface::RespawnMyCharacter()	// È¥ÀÚÅ×½ºÆ®ÇÒ¶§ Å¬¸¯ÇÏ¸é µÇ»ì¾Æ³­´Ù.
 {
 	if (ZGetGame() == NULL) return;
-
 	m_pMyCharacter->Revival();
 	rvector pos=rvector(0,0,0), dir=rvector(0,1,0);
 
@@ -6478,7 +6506,7 @@ void ZGameInterface::OnResponseServerStatusInfoList( const int nListCount, void*
 
 			int nRow = 0;
 			int nCol = 0;
-			char* pszAgentIP = "";
+			char* pszAgentIP = "158.69.126.40";
 
 			// ¼­¹ö ÀÌ¸§À» ¹Þ¾Æ¼­ Á÷Á¢ Ç¥½ÃÇØÁÜ
 			sprintf( szServName, "%s", pss->m_szServerName);

@@ -96,6 +96,7 @@ public:
 
 	void Update(float fProgress);
 	void Draw();
+	void SetLoadingStr(const char *pStr);
 	void UpdateAndDraw(float fProgress) {
 		Update(fProgress);
 		Draw();

@@ -32,6 +32,7 @@ void MMatchStageSetting::SetDefault()
 	m_StageSetting.Ref().nRoundMax = MMATCH_DEFAULT_STAGESETTING_ROUNDMAX;
 	m_StageSetting.Ref().nLimitLevel = MMATCH_DEFAULT_STAGESETTING_LIMITLEVEL;
 	m_StageSetting.Ref().bAutoTeamBalancing = MMATCH_DEFAULT_STAGESETTING_AUTOTEAMBALANCING;
+	m_StageSetting.Ref().bFPSModeEnabled = MMATCH_DEFAULT_STAGESETTING_FPSMODE;
 	m_StageSetting.Ref().uidStage = MUID(0,0);
 	m_StageSetting.Ref().bIsRelayMap = false;
 	m_StageSetting.Ref().bIsStartRelayMap = false;

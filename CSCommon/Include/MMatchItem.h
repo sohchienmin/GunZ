@@ -140,6 +140,8 @@ enum MMatchRangeItemType
 	RIT_MACHINEGUN		= 9,
 	RIT_ROCKET			= 10,
 	RIT_SNIFER			= 11,
+	RIT_GROCKET			= 12, //Monckey100 was here to add another weapon type
+	RIT_FLAMET			= 13,
 
 	RIT_END
 };
@@ -168,6 +170,8 @@ enum MMatchWeaponType
 	MWT_RIFLE,
 	MWT_MACHINEGUN,
 	MWT_ROCKET,
+	MWT_GROCKET,
+	MWT_FLAMET,
 	MWT_SNIFER,
 
 	// custom

@@ -1308,7 +1308,7 @@ void ChatCmd_LadderTest(const char* line,const int argc, char **const argv)
 		char* pName[1];
 		pName[0] = szPlayerName;
 
-		ZPostLadderRequestChallenge(pName, 1, 0, 0);
+		ZPostLadderRequestChallenge(pName, 1, 0, 0, 0);
 	} else if (argc == 2)
 	{
 		char szPlayerName[MATCHOBJECT_NAME_LENGTH], szTeamMember1[MATCHOBJECT_NAME_LENGTH];
@@ -1319,7 +1319,7 @@ void ChatCmd_LadderTest(const char* line,const int argc, char **const argv)
 		pName[0] = szPlayerName;
 		pName[1] = szTeamMember1;
 
-		ZPostLadderRequestChallenge(pName, 2, 0, 0);
+		ZPostLadderRequestChallenge(pName, 2, 0, 0, 0);
 	}
 #endif
 }

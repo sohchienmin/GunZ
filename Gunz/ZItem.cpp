@@ -213,6 +213,8 @@ float ZItem::GetPiercingRatio(MMatchWeaponType wtype, RMeshPartsType partstype)
 		case MWT_FRAGMENTATION:
 		case MWT_FLASH_BANG:
 		case MWT_SMOKE_GRENADE:
+		case MWT_GROCKET:
+		case MWT_FLAMET:
 		case MWT_ROCKET:		// 로켓런쳐
 			{
 				if(bHead)	fRatio = 0.4f;

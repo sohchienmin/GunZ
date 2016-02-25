@@ -953,8 +953,8 @@ inline void ZPostLadderRequestChallenge(char** ppMemberCharNames, const int nMem
 		strcpy(pMemberNode->szName, ppMemberCharNames[i]);
 	}
 
-	ZPOSTCMD4( MC_MATCH_LADDER_REQUEST_CHALLENGE, MCmdParamInt(nMemberCount), MCmdParamUInt(nOptions),
-		MCmdParamBlob(pBlobMembersName, MGetBlobArraySize(pBlobMembersName)), MCmdParamUInt(nAntiLead), MCmdParamUInt(bDodge));
+	ZPOSTCMD5( MC_MATCH_LADDER_REQUEST_CHALLENGE, MCmdParamInt(nMemberCount), MCmdParamUInt(nOptions),
+		MCmdParamBlob(pBlobMembersName, MGetBlobArraySize(pBlobMembersName)), MCmdParamUInt(nAntiLead), MCmdParamUInt(bDodge)); //was ZPOSTCMD4 ~ Monckey100
 		
 
 	MEraseBlobArray(pBlobMembersName);

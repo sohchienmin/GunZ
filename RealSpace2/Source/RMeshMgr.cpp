@@ -10,7 +10,6 @@
 #include "MZFileSystem.h"
 
 #include "MDebug.h"
-
 _USING_NAMESPACE_REALSPACE2
 
 _NAMESPACE_REALSPACE2_BEGIN
@@ -98,7 +97,7 @@ int RMeshMgr::Add(char* name,char* modelname,bool namesort)
 
 #endif
 
-int	RMeshMgr::LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback, void *CallbackParam)
+int	RMeshMgr::LoadXmlList(char* name,RFPROGRESSCALLBACK2 pfnProgressCallback, void *CallbackParam)
 {
 	__BP(2007,"RMeshMgr::LoadXmlList");
 
@@ -165,7 +164,7 @@ int	RMeshMgr::LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback, voi
 		
 		// 콜백이 있으면 진행상황에 대한 정보를 알려준다
 		if(pfnProgressCallback)
-			pfnProgressCallback(CallbackParam,float(i)/float(nCnt));
+			pfnProgressCallback(CallbackParam,float(i)/float(nCnt),FileName); //this does null at start
 
 		Node = PNode.GetChildNode(i);
 		Node.GetTagName(NodeName);
@@ -290,7 +289,7 @@ int	RMeshMgr::LoadXmlList(char* name,RFPROGRESSCALLBACK pfnProgressCallback, voi
 					pMesh->m_LitVertexModel = litmodel? true : false;
 				}
 			}
-		}		
+		}
 	}
 
 	__EP(2008);

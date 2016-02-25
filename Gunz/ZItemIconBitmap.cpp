@@ -90,6 +90,8 @@ MBitmap* GetItemIconBitmap(MMatchItemDesc* pItemDesc)
 				case MWT_SNIFER:		strcpy(szFileName, "slot_icon_rifle"); break;
 				case MWT_MACHINEGUN:	strcpy(szFileName, "slot_icon_machinegun"); break;
 				case MWT_ROCKET:		strcpy(szFileName, "slot_icon_rocket"); break;
+				case MWT_GROCKET:		strcpy(szFileName, "slot_icon_rocket"); break; //change to grocket if want custom icon
+				case MWT_FLAMET:		strcpy(szFileName, "slot_icon_rocket"); break; //change to grocket if want custom icon
 				}
 			}
 		}

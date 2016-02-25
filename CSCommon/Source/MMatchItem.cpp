@@ -815,6 +815,8 @@ bool MMatchItemDescMgr::ParseItem(MXmlElement& element)
 			else if (!stricmp(szAttrValue, MICTOK_WEAPON_RIFLE))		pNewDesc->m_nWeaponType.Set(MWT_RIFLE);
 			else if (!stricmp(szAttrValue, MICTOK_WEAPON_MACHINEGUN))	pNewDesc->m_nWeaponType.Set(MWT_MACHINEGUN);
 			else if (!stricmp(szAttrValue, MICTOK_WEAPON_ROCKET))		pNewDesc->m_nWeaponType.Set(MWT_ROCKET);
+			else if (!stricmp(szAttrValue, MICTOK_WEAPON_GROCKET))		pNewDesc->m_nWeaponType.Set(MWT_GROCKET);
+			else if (!stricmp(szAttrValue, MICTOK_WEAPON_FLAMET))		pNewDesc->m_nWeaponType.Set(MWT_FLAMET);
 			else if (!stricmp(szAttrValue, MICTOK_WEAPON_SNIFER))		pNewDesc->m_nWeaponType.Set(MWT_SNIFER);
 
 			else if (!stricmp(szAttrValue, MICTOK_WEAPON_MEDKIT))		pNewDesc->m_nWeaponType.Set(MWT_MED_KIT);
@@ -1921,6 +1923,8 @@ MMatchWeaponType GetWeaponType(MMatchRangeItemType nRangeItemType)
 	case RIT_RIFLE:			return MWT_RIFLE;
 	case RIT_MACHINEGUN:	return MWT_MACHINEGUN;
 	case RIT_ROCKET:		return MWT_ROCKET;
+	case RIT_GROCKET:		return MWT_GROCKET;
+	case RIT_FLAMET:		return MWT_FLAMET;
 	case RIT_SNIFER:		return MWT_SNIFER;
 	default:
 			// 없는 타입

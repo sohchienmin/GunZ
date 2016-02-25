@@ -366,10 +366,11 @@ void RegisterForbidKey()
 	ZActionKey::RegisterForbidKey(0x01);// esc
 }
 
-void ZProgressCallBack(void *pUserParam,float fProgress)
+void ZProgressCallBack(void *pUserParam,float fProgress, char *szname)
 {
 	ZLoadingProgress *pLoadingProgress = (ZLoadingProgress*)pUserParam;
-	pLoadingProgress->UpdateAndDraw(fProgress);
+	pLoadingProgress->SetLoadingStr(szname);
+	//pLoadingProgress->UpdateAndDraw(fProgress);
 }
 
 bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
@@ -483,7 +484,7 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 
 	__BP(2003,"Character Loading");
 
-	ZLoadingProgress meshLoading("Mesh",pLoadingProgress,.41f);
+	ZLoadingProgress meshLoading("Models",pLoadingProgress,.41f);
 	BEGIN_;
 	// zip filesystem 을 사용하기 때문에 꼭 ZGameInterface 다음에 사용한다...
 //	if(m_MeshMgr.LoadXmlList("model/character_lobby.xml")==-1) return false;
@@ -494,9 +495,10 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 
 	END_("Character Loading");
 	meshLoading.UpdateAndDraw(1.f);
-
-//	ZLoadingProgress npcLoading("NPC",pLoadingProgress,.1f);
+	//ZInitialLoading test;
+	//test.SetLoadingStr("Hi there!");
 #ifdef _QUEST
+	ZLoadingProgress npcLoading("NPC",pLoadingProgress,.1f);
 	//if(m_NPCMeshMgr.LoadXmlList("model/npc.xml",ZProgressCallBack,&npcLoading) == -1)
 	if(m_NPCMeshMgr.LoadXmlList("model/npc.xml") == -1)
 		return false;
@@ -512,7 +514,7 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 
 //	npcLoading.UpdateAndDraw(1.f);
 	__BP(2004,"WeaponMesh Loading");
-
+	//ZLoadingProgress WeaponLoading("Weapons",pLoadingProgress,.1f);
 	BEGIN_;
 
 	string strFileNameWeapon("model/weapon.xml");
@@ -528,7 +530,7 @@ bool ZApplication::OnCreate(ZLoadingProgress *pLoadingProgress)
 
 	__BP(2005,"Worlditem Loading");
 
-	ZLoadingProgress etcLoading("etc",pLoadingProgress,.02f);
+	ZLoadingProgress etcLoading("Data",pLoadingProgress,.02f);
 	BEGIN_;
 
 #ifdef	_WORLD_ITEM_

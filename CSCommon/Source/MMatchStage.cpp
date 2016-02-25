@@ -596,6 +596,18 @@ void MMatchStage::PlayerState(const MUID& uidPlayer, MMatchObjectStageState nSta
 
 bool _GetUserGradeIDName(MMatchUserGradeID gid,char* sp_name)
 {
+	if(gid == MMUG_DEVELOPER) { 
+	if(sp_name) {
+		strcpy(sp_name,"Developer");
+	}
+	return true; 
+	} else if(gid == MMUG_ADMIN) {
+	if(sp_name) { 
+		strcpy(sp_name,"Administrator");
+	}
+	return true; 
+	}
+
 	return false;
 }
 

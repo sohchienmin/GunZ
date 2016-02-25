@@ -44,14 +44,14 @@ BEGIN
     BEGIN
         BLOCK "041204b0"
         BEGIN
-            VALUE "CompanyName", "MAIET entertainment"
-            VALUE "FileDescription", "Gunz"
-            VALUE "FileVersion", "1, 0, 0, 142"
+            VALUE "CompanyName", "Gunz Factor"
+            VALUE "FileDescription", "GzF official Gunz Pserver"
+            VALUE "FileVersion", "1, 0, 0, 0"
             VALUE "InternalName", "Gunz"
-            VALUE "LegalCopyright", "Copyright (c) - 2003 MAIET entertainment"
+            VALUE "LegalCopyright", "Copyright (c) - Gunz Factor 2016"
             VALUE "OriginalFilename", "Gunz.exe"
             VALUE "ProductName", "Gunz"
-            VALUE "ProductVersion", "1, 0, 0, 142"
+            VALUE "ProductVersion", "1, 0, 0, 0"
         END
     END
     BLOCK "VarFileInfo"

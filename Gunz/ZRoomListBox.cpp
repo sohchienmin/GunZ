@@ -132,8 +132,17 @@ void ZRoomListBox::OnDraw( MDrawContext* pDC )
 		r.y = height + m_RoomHeight*0.5f + pressed_reposition;
 		r.w = m_RoomWidth*0.1f;
 		r.h = m_RoomHeight*0.5f;
-		sprintf(szBuf,"%d/%d", m_pMapInfo[i].nPeople, m_pMapInfo[i].nMaxPeople );
-
+		if(m_pMapInfo[i].nPeople == m_pMapInfo[i].nMaxPeople) { //put option to hide non full rooms ~ monckey100
+			sprintf(szBuf,"FULL");	
+		} else if(m_pMapInfo[i].nPeople == 1) {
+			sprintf(szBuf,"SOLO");	
+		} else if(m_pMapInfo[i].nMaxPeople % m_pMapInfo[i].nPeople != 0) {
+			sprintf(szBuf,"EVEN");
+		} else {
+			sprintf(szBuf,"%d/%d", m_pMapInfo[i].nPeople, m_pMapInfo[i].nMaxPeople );
+		}
+		if (m_pMapInfo[i].bFPSMode)
+			pDC->Text( MRECT(width + m_RoomWidth*0.9 + pressed_reposition - 200, r.y-4, r.w, r.h), "[FPS]");
 		pDC->SetColor( 0,0,0);
 		pDC->Text( MRECT( r.x+1, r.y+1, r.w, r.h), szBuf);
 		if(  m_pMapInfo[i].roomState == GMAE_CLOSED || bRoomFull )
@@ -171,6 +180,7 @@ void ZRoomListBox::OnDraw( MDrawContext* pDC )
 
 			pDC->SetColor(0, 0, 0);
 			pDC->Text(MRECT(r.x + 1, r.y + 1, r.w, r.h), szBufTemp, MAM_LEFT);
+			pDC->Text(MRECT( r.x+1, r.y+5, r.w, r.h), m_pMapInfo[i].map_name, MAM_LEFT ); //map name
 			if (m_pMapInfo[i].roomState == GMAE_CLOSED || bRoomFull)
 				pDC->SetColor(115, 146, 173);
 			else
@@ -437,6 +447,8 @@ void ZRoomListBox::SetRoom(const _RoomInfoArg* pRoomInfo)
 	m_pMapInfo[nIndex].RoomNumber = pRoomInfo->nRoomNumber;
 	m_pMapInfo[nIndex].nGame_Type	= pRoomInfo->nGameType;
 	m_pMapInfo[nIndex].bForcedEnter = pRoomInfo->bForcedEntry;
+	m_pMapInfo[nIndex].bFPSMode	= pRoomInfo->bFPSMode;
+	//ZGetGameInterface()->GetGameClient()->IsFPSMode(); // Monckey100 for gameroom
 	m_pMapInfo[nIndex].bLimitLevel	=	pRoomInfo->bLimitLevel;
 	m_pMapInfo[nIndex].nMasterLevel = pRoomInfo->nMasterLevel;
 	m_pMapInfo[nIndex].nLimitLevel = pRoomInfo->nLimitLevel;

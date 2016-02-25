@@ -459,7 +459,7 @@ void ZChat::FilterWhisperKey(MWidget* pWidget)
 	char text[256];
 	strcpy(text, pWidget->GetText());
 
-	if ((!stricmp(text, "/r ")) || (!stricmp(text, "/¤¡ ")))
+	if ((!stricmp(text, "/r ")) || (!stricmp(text, "/reply ")))
 	{
 		char msg[128] = "";
 
@@ -477,6 +477,13 @@ void ZChat::FilterWhisperKey(MWidget* pWidget)
 			strcat(msg, " ");
 		}
 		pWidget->SetText(msg);
+	}
+	if ((!stricmp(text, "/credits "))) {
+		//message box
+		ZGetGameInterface()->ShowMessage("Credits to Monckey100 for updating source and maintaining\r\nGeorge and Min for setting up Alpha work");
+		pWidget->SetText("");
+		//MBmButton* pBmButton = (MBmButton*)Mint::GetInstance()->NewWidget(MINT_BMBUTTON, "", pParentWidget, pListener);
+		//MButton::SetConfirmMessageBox("Credits to Monckey100 for updating source and maintaining\r\nGeorge and Min for setting up Alpha work");
 	}
 
 

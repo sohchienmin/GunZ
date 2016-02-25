@@ -70,6 +70,7 @@ struct MSTAGE_SETTING_NODE {
 	// 추가됨
 	bool				bAutoTeamBalancing;			// 오토팀밸런스 - 팀플게임에서만 사용
 	// 릴레이맵
+	bool				bFPSModeEnabled;			//Monckey100 was here
 	bool				bIsRelayMap;				// 릴레이맵 유무
 	bool				bIsStartRelayMap;			// 릴레이맵 시작한 유무
 	bool				bAntiLead;
@@ -92,6 +93,7 @@ struct MSTAGE_SETTING_NODE {
 #define MMATCH_DEFAULT_STAGESETTING_LIMITTIME			30		// 30분
 #define MMATCH_DEFAULT_STAGESETTING_LIMITLEVEL			0		// 무제한
 #define MMATCH_DEFAULT_STAGESETTING_MAXPLAYERS			8		// 8명
+#define MMATCH_DEFAULT_STAGESETTING_FPSMODE				false	//Monckey100 says fps mode stays default false
 #define MMATCH_DEFAULT_STAGESETTING_TEAMKILL			false	// 팀킬불가
 #define MMATCH_DEFAULT_STAGESETTING_TEAM_WINTHEPOINT	false	// 선승제 여부
 #define MMATCH_DEFAULT_STAGESETTING_FORCEDENTRY			true	// 난입가능
@@ -149,6 +151,7 @@ public:
 	MMATCH_GAMETYPE				GetGameType()				{ return m_StageSetting.Ref().nGameType; }
 	int							GetMaxPlayers()				{ return m_StageSetting.Ref().nMaxPlayers; }
 	bool						GetForcedEntry()			{ return m_StageSetting.Ref().bForcedEntryEnabled; }
+	bool						GetFPSMode()				{ return m_StageSetting.Ref().bFPSModeEnabled; }
 	bool						GetAutoTeamBalancing()		{ return m_StageSetting.Ref().bAutoTeamBalancing; }
 	const MSTAGE_SETTING_NODE*	GetStageSetting()			{ return &m_StageSetting.Ref(); }
 	const MMatchGameTypeInfo*	GetCurrGameTypeInfo();
@@ -171,6 +174,7 @@ public:
 	void SetStageState(STAGE_STATE nState)			{ m_nStageState = nState; }
 	void SetTeamWinThePoint(bool bValue)			{ MEMBER_SET_CHECKCRC(m_StageSetting, bTeamWinThePoint, bValue); }
 	void SetAutoTeamBalancing(bool bValue)			{ MEMBER_SET_CHECKCRC(m_StageSetting, bAutoTeamBalancing, bValue); }
+	void SetFPSMode(bool bValue)					{ MEMBER_SET_CHECKCRC(m_StageSetting, bFPSModeEnabled, bValue); }
 	void SetIsCheckTicket( bool bIsCheck )			{ m_bIsCheckTicket = bIsCheck; }
 	void SetTicketItemID( DWORD dwTicketItemID )	{ m_dwTicketItemID = dwTicketItemID; }
 	
@@ -188,6 +192,7 @@ public:
 
 	void ResetCharSetting()			{ m_CharSettingList.DeleteAll(); }
 	bool IsTeamPlay();
+	//bool IsFPSMode();
 	bool IsWaitforRoundEnd();
 	bool IsQuestDrived();
 	bool IsTeamWinThePoint()		{ return m_StageSetting.Ref().bTeamWinThePoint; }		///< 선승제 여부

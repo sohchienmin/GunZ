@@ -14,7 +14,7 @@
 #if (!defined(LOCALE_US)) && (!defined(LOCALE_JAPAN)) && (!defined(LOCALE_KOREA)) && (!defined(LOCALE_BRAZIL)) && (!defined(LOCALE_INDIA)) && (!defined(LOCALE_NHNUSA))
 
 #define LOCALE_KOREA		// 아무 디파인도 없으면 기본값은 한국
-
+//MONCKEY100 was here to set locale
 #endif // (!defined(LOCALE_US)) && (!defined(LOCALE_JAPAN)) && (!defined(LOCALE_KOREA))
 /////////////////////////////////////////////////////////////////////////////////////////
 

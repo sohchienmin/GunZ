@@ -17,7 +17,7 @@
 #define FILENAME_CHATCMDS				"System/chatcmds.xml"
 #define FILENAME_WORLDITEM				"system/worlditem.xml"
 #define FILENAME_FILELIST				"system/filelist.xml"
-#define FILENAME_SYSTEMMRS					"system.mrs"
+#define FILENAME_SYSTEMMRS					"system.mrs" //Might need this later ~ Monckey100
 #define FILENAME_ABUSE					"system/abuse.txt"
 
 #define MPATH_EMBLEMFOLDER				"/Emblem"

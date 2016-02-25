@@ -104,7 +104,7 @@ bool InitializeSymbols()
 
 	if (osver.dwPlatformId == VER_PLATFORM_WIN32_NT)
 	{
-		if (!EnumerateLoadedModules(hProcess, EnumLoadedModulesCallback, (PVOID)hProcess))
+		if (!EnumerateLoadedModules(hProcess, (PENUMLOADED_MODULES_CALLBACK)EnumLoadedModulesCallback, (PVOID)hProcess))
 		{
 //			::MessageBox(NULL,"EnumerateLoadedModules failed","error",MB_OK);
 		}

@@ -582,7 +582,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				OnStageChat(uidChar, uidStage, szChat, nR, nG, nB);
 			}
 			break;;
-		case MC_MATCH_STAGE_LIST:
+		case MC_MATCH_STAGE_LIST: //Onstagelist gets called here ~ monckey100
 			{
 				char nPrevStageCount, nNextStageCount;
 				pCommand->GetParameter(&nPrevStageCount, 0, MPT_CHAR);
