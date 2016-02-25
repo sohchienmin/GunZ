@@ -1,0 +1,60 @@
+New features:
+
+- /Credits command
+- Fixed ignore list
+- Room slots changes based on player count to make it easier to find rooms
+- Map names at lobby
+- Patch version added
+- Fixed exe version info and copyright info
+- Added hp bars above characters
+- Added KDA to scoreboards
+- Added clan names or sword if no clan name to hover and cleaned up hover
+- Server no longer needs to be selected, you can remove the server list completely in interface/default/login.xml or move it above the login buttons
+so login can be smaller and cleaner
+- Added ping to login
+- Added more players as an option, 48 and Unlimited players
+- FPS Mode is an game option
+- FPS mode features: no k-style, everyone takes reduced damage by 1/3rd, everyone gets the same hp/ap, dashing is shorter for swords but tumbling
+is twice as long
+- You can now charge massive and move
+- Room tags
+- Server has been repaired and will provide diagnostic information
+- Grenade Launcher
+- Flame thrower
+- Stun gun
+- Poison gun
+- Freeze ray
+- Remember password
+- If user filled, go straight to password box
+- Fixed Credits so it doesn't bug out ingame
+- Killcam
+- 1v1 CW
+- duel tournament/ladder
+- Loading now gives actual information as to what is being loaded during mesh load.
+- Changed encryption
+- Kill streaks
+
+Todo list:
+-Attach antihack + Upgrade
+-Burning man
+-Zombie mode
+-Simplify shop for filters
+-Tab chats for lobby/whisper/clan
+-King of the hill
+-Elo system
+-Map voting
+
+scrapbox:
+-HTML based news at login screen (in scrapbox)
+-Clan Clothing which allows users to change clothing colours to any colour(in scrapbox as it will take too long to do)
+-Spell books(in scrapbox due to too similar to new guns)
+
+Bugs: 
+Ping is too small at anything beyond 1920x1080
+FPS might be buggy
+KDA needs to be realigned
+Unlimited players not working cause it's text and not a number
+
+Changed stuff: 
+Login.xml
+StageSettingFrame.xml
