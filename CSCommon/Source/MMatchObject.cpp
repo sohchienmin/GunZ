@@ -26,6 +26,7 @@ const DWORD MMatchDisconnStatusInfo::MINTERVAL_DISCONNECT_STATUS_MIN = (5 * 1000
 
 MMatchObject::MMatchObject(const MUID& uid) : MObject(uid) 
 { 
+	KillStreak = 0;
 	m_pCharInfo = NULL;
 	m_pFriendInfo = NULL;
 	m_pIgnoreInfo = NULL;

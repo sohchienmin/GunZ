@@ -5105,7 +5105,15 @@ void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker, int Kil
 				}
 			}
 		}
-
+		if(Kills == 2) ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_DOUBLE, 1600);
+		if(Kills == 3) ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_MULTI, 1600);
+		if(Kills == 4) ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_ULTRA, 1600);
+		if(Kills == 5) ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_RAMP, 1600);
+		if(Kills == 6) ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_SPREE, 1600);
+		if(Kills == 7) ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_HOLY, 1600);
+		if(Kills == 8) ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_LUDI, 1600);
+		if(Kills == 12) ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_MONSTER, 1600);
+		if(Kills > 12) ZGetGameInterface()->PlayVoiceSound( VOICE_KILLING_GOD, 1600);
 	}
 
 	else if (pAttacker == m_pMyCharacter)
