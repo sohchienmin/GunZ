@@ -97,13 +97,25 @@ void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB
 	for (list<MUID>::iterator i=pGroupA->GetPlayerListBegin(); i!= pGroupA->GetPlayerListEnd(); i++)
 	{
 		MUID uidPlayer = (*i);
-		LadderJoin(uidPlayer, uidStage, MMT_RED);
+		MMatchObject* pObj = (MMatchObject*)GetObject(uidPlayer);
+		if (pObj) 
+		{
+			pObj->PlayerWarsIdentifier = -1;
+			pObj->LastVoteID = -1;
+			LadderJoin(uidPlayer, uidStage, MMT_RED);
+		}
 	}
 	// B 그룹 입장
 	for (list<MUID>::iterator i=pGroupB->GetPlayerListBegin(); i!= pGroupB->GetPlayerListEnd(); i++)
 	{
 		MUID uidPlayer = (*i);
-		LadderJoin(uidPlayer, uidStage, MMT_BLUE);
+		MMatchObject* pObj = (MMatchObject*)GetObject(uidPlayer);
+		if (pObj) 
+		{
+			pObj->PlayerWarsIdentifier = -1;
+			pObj->LastVoteID = -1;
+			LadderJoin(uidPlayer, uidStage, MMT_BLUE);
+		}
 	}
 
 	// Agent 준비

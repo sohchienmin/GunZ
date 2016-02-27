@@ -1280,6 +1280,7 @@ inline void ZPostHacker(const int nHackID)
 
 inline void ZPostPlayerWarsVote(int Map)
 {
+	mlog("POSTING COMMAND TO VOTE\n");
 	ZPOSTCMD1(MC_MATCH_PLAYERWARS_VOTE, MCmdParamInt(Map));
 }
 

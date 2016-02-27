@@ -741,6 +741,12 @@ bool ZGameInterface::InitInterfaceListener()
 	SetListenerWidget("StagePlayerListPrev", ZGetStagePlayerListPrevListener());
 	SetListenerWidget("StagePlayerListNext", ZGetStagePlayerListNextListener());
 
+	SetListenerWidget("ArrangedPlayerWars", ZGetArrangedPlayerWarsListener());
+
+	SetListenerWidget("PlayerWarsVoteButton0", ZGetPlayerWarsVote0());
+	SetListenerWidget("PlayerWarsVoteButton1", ZGetPlayerWarsVote1());
+	SetListenerWidget("PlayerWarsVoteButton2", ZGetPlayerWarsVote2());
+
 	SetListenerWidget("ArrangedTeamGame", ZGetArrangedTeamGameListener());
 	SetListenerWidget("ArrangedTeamDialogOk", ZGetArrangedTeamDialogOkListener());
 	SetListenerWidget("ArrangedTeamDialogClose", ZGetArrangedTeamDialogCloseListener());
@@ -5897,12 +5903,6 @@ void ZGameInterface::OnArrangedTeamGameUI(bool bFinding, bool isvote)
 		pWidget = m_IDLResource.FindWidget("LobbyFindClanTeam");
 		if (pWidget != NULL) pWidget->Show(bFinding);
 	}
-
-	pWidget= m_IDLResource.FindWidget( "ArrangedTeamGame" );
-	if(pWidget) pWidget->Show(!bFinding);
-
-	pWidget = m_IDLResource.FindWidget("LobbyFindClanTeam");
-	if(pWidget!=NULL) pWidget->Show(bFinding);
 
 
 	// ´ÙÀ½ À§Á¬µéÀ» enable/disable ÇØÁØ´Ù

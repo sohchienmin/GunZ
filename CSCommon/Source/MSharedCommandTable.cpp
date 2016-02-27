@@ -1803,7 +1803,7 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 		P(MPT_UID, "AttackerUID");
 
 	C(MC_MATCH_PLAYERWARS_RANDOM_MAPS, "Maps", "Maps", MCDT_MACHINE2MACHINE)
-			P(MPT_INT, "1");
+		P(MPT_INT, "1");
 		P(MPT_INT, "2");
 		P(MPT_INT, "3");
 	C(MC_MATCH_PLAYERWARS_VOTE, "Maps", "Maps", MCDT_MACHINE2MACHINE)

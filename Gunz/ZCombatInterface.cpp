@@ -36,7 +36,7 @@
 #include "ZInput.h"
 
 #include "ZNHN_USA_Report.h"
-#include <math.h>
+
 
 using namespace std;
 
@@ -717,6 +717,8 @@ void ZCombatInterface::DrawHPAPNumbers(MDrawContext* pDC)
 	char fps[128];
 	char damage[128];
 
+	
+
 	sprintf(exp, "%d%%", ZGetMyInfo()->GetLevelPercent());
 	pDC->SetColor(255, 255, 255);
 	pDC->SetFont(MFontManager::Get("FONTc8b"));
@@ -738,7 +740,7 @@ void ZCombatInterface::DrawHPAPNumbers(MDrawContext* pDC)
 	pDC->Text((pDC->GetClipRect().w - pDC->GetFont()->GetWidth(fps) - 10), 15, fps);
 
 	sprintf(damage, "Damage : %d", (int)pCharacter->GetDamage());
-	pDC->SetColor(124, 252, 0);
+	pDC->SetColor(255, 255, 255);
 	pDC->SetFont(MFontManager::Get("FONTc8b"));
 	TextRelative(pDC, 100.f / 800.f, 77.f / 600.f, damage);
 
@@ -751,7 +753,7 @@ void ZCombatInterface::DrawHPAPNumbers(MDrawContext* pDC)
 		for (ZCharacterManager::iterator itor = ZGetGame()->m_CharacterManager.begin(); itor != ZGetGame()->m_CharacterManager.end(); ++itor)
 		{
 			ZCharacter* pChar = (ZCharacter*)(*itor).second;
-			if (pChar->GetTeamID() == ZGetGame()->m_pMyCharacter->GetTeamID() && pChar != ZGetGame()->m_pMyCharacter) {
+			if (pChar->GetTeamID() == ZGetGame()->m_pMyCharacter->GetTeamID()) {
 				float itemy = y + linespace;
 				float texty = itemy + (linespace - (float)pDC->GetFont()->GetHeight() / (float)MGetWorkspaceHeight())*.5f;
 				char szBuffer[64];
@@ -850,15 +852,6 @@ void ZCombatInterface::OnDraw(MDrawContext* pDC)
 			// 크로스헤어
 			if(ZGetGameInterface()->GetCamera()->GetLookMode()==ZCAMERA_DEFAULT)
 				m_CrossHair.Draw(pDC);
-			if(ZGetGameClient()->GetMatchStageSetting()->GetStageSetting()->bFPSModeEnabled) {
-				//rvector screen_pos = RGetTransformCoord(ZGetGame()->m_pMyCharacter->GetVisualMesh()->GetHeadPosition() + rvector(0, 5.0f, 30.f));
-				ZGetGameInterface()->GetCamera()->m_fDist = 0.0f; //Lazy FPS mode way ~ Monckey100
-				//ZGetGameInterface()->GetCamera()->m_fAngleX= 0.0f;
-				//ZGetGameInterface()->GetCamera()->m_fAngleZ= 0.0f;
-				//ZGetGameInterface()->GetCamera()->SetPosition(rvector(0, 5.0f, 100.f
-				//ZGetGameInterface()->GetCamera()->
-				//ZGetGameInterface()->GetCamera()->m_vCameraTrackOffset = rvector(1000.0f, 1000.0f, 1000.0f);
-			}
 		}
 
 		DrawBuffStatus(pDC);
@@ -1180,13 +1173,6 @@ void ZCombatInterface::DrawFinish()
 
 			// 사운드를 출력한다
 			ZApplication::GetSoundEngine()->SetMusicVolume( m_fOrgMusicVolume);
-#ifdef _BIRDSOUND
-			ZApplication::GetSoundEngine()->OpenMusic(BGMID_FIN);
-			ZApplication::GetSoundEngine()->PlayMusic(false);
-#else
-			ZApplication::GetSoundEngine()->OpenMusic(BGMID_FIN, ZApplication::GetFileSystem());
-			ZApplication::GetSoundEngine()->PlayMusic(false);
-#endif
 			m_nReservedOutTime = timeGetTime() + 15000;
 			m_bShowResult = true;
 
@@ -1797,21 +1783,9 @@ void ZCombatInterface::DrawFriendName(MDrawContext* pDC)
 
 				pDC->SetFont(pFont);
 
-				//int x = screen_pos.x - pDC->GetFont()->GetWidth(pCharacter->GetUserName()) / 2; //Draw friendly ~ Monckey100
-				char level[3];
-				sprintf(level, "%d", pCharacter->GetProperty()->nLevel);
-				char *tag = new char[strlen(level) + strlen(pCharacter->GetUserName()) + 9];
-				strcpy(tag,"[Lv.");
-				strcat(tag,level);
-				strcat(tag,"]");
-				strcat(tag,pCharacter->GetUserName());
-				int x = screen_pos.x - pDC->GetFont()->GetWidth(tag) / 2;
-				pDC->Text(x, screen_pos.y - 12, tag);
-				x = screen_pos.x - pDC->GetFont()->GetWidth(pCharacter->GetProperty()->GetClanName()) / 2;
-				pDC->Text(x, screen_pos.y - 52, pCharacter->GetProperty()->GetClanName());
-				
-				DrawHPAPBar(pDC,pCharacter);
-				//pDC->Text(x, screen_pos.y - 12, pCharacter->GetUserName());
+				int x = screen_pos.x - pDC->GetFont()->GetWidth(pCharacter->GetUserName()) / 2;
+
+				pDC->Text(x, screen_pos.y - 12, pCharacter->GetUserName());
 			}
 		}
 	}
@@ -1846,28 +1820,16 @@ void ZCombatInterface::DrawEnemyName(MDrawContext* pDC)
 			if (bFriend == false) {
 
 				/////// Outline Font //////////
-				
+
 				MFont *pFont = NULL;//MFontManager::Get("FONTa12_O1Red");
 
 				pFont = MFontManager::Get("FONTa12_O1Red");
 				pDC->SetColor(MCOLOR(pTargetCharacter->GetCharInfo()->nRedColor, pTargetCharacter->GetCharInfo()->nGreenColor, pTargetCharacter->GetCharInfo()->nBlueColor));
 
 				pDC->SetFont(pFont);
-				char level[3];
-				sprintf(level, "%d", pPickedCharacter->GetProperty()->nLevel);
-				char *tag = new char[strlen(level) + strlen(pPickedCharacter->GetUserName()) + 9]; //Enemy tag - Monckey100
-				strcpy(tag,"[Lv.");
-				strcat(tag,level);
-				strcat(tag,"]");
-				strcat(tag,pPickedCharacter->GetUserName());
-				int x = Cp.x - pDC->GetFont()->GetWidth(tag) / 2;
-				//int x = screen_pos.x - pDC->GetFont()->GetWidth(tag) / 2;
-				//pDC->Text(x, screen_pos.y - 12, tag);
-				pDC->Text(x, Cp.y - pDC->GetFont()->GetHeight()-10, tag);
-				x = Cp.x - pDC->GetFont()->GetWidth(pPickedCharacter->GetProperty()->GetClanName()) / 2;
-				pDC->Text(x, Cp.y - pDC->GetFont()->GetHeight() - 54, pPickedCharacter->GetProperty()->GetClanName());
-				
-				DrawHPAPBar(pDC, pPickedCharacter);
+
+				int x = Cp.x - pDC->GetFont()->GetWidth(pPickedCharacter->GetUserName()) / 2;
+				pDC->Text(x, Cp.y - pDC->GetFont()->GetHeight()-10, pPickedCharacter->GetUserName());
 			}			
 		}
 	}
@@ -1920,88 +1882,14 @@ void ZCombatInterface::DrawAllPlayerName(MDrawContext* pDC)
 //				MFont *pFont=MFontManager::Get("FONTa12_O1Blr");
 			pDC->SetFont(pFont);
 			///////////////////////////////
-			char level[3];
-			sprintf(level, "%d", pCharacter->GetProperty()->nLevel);
-			char *tag = new char[strlen(level) + strlen(pCharacter->GetUserName()) + 9];
-			strcpy(tag,"[Lv.");
-			strcat(tag,level);
-			strcat(tag,"]");
-			strcat(tag,pCharacter->GetUserName()); //All players mode
-			int x = screen_pos.x - pDC->GetFont()->GetWidth(pCharacter->GetProperty()->GetClanName()) / 2;
-			pDC->Text(x, screen_pos.y - 52, pCharacter->GetProperty()->GetClanName());
-			x = screen_pos.x - pDC->GetFont()->GetWidth(tag) / 2;
-			pDC->Text(x, screen_pos.y - 12, tag);
-			// Add HP/AP Bar Tannous ~ Monckey100
 
-			DrawHPAPBar(pDC,ZGetGame()->m_pMyCharacter);
+			int x = screen_pos.x - pDC->GetFont()->GetWidth(pCharacter->GetUserName()) / 2;
+
+			pDC->Text(x, screen_pos.y - 12, pCharacter->GetUserName());
 		}
 	}
 }
-void ZCombatInterface::DrawHPAPBar(MDrawContext* pDC,ZCharacter *pChar){
-// Add HP/AP Bar Tannous ~ Monckey100
-			MPOINT Cp = GetCrosshairPoint();
-			bool bDraw = m_Observer.IsVisible();
-			rvector screen_pos = RGetTransformCoord(pChar->GetVisualMesh()->GetHeadPosition() + rvector(0, 0, 30.f));
-			int xscreen = screen_pos.x - (0.08 * 4000) / 2;
-			//float xPos = Cp.x - pDC->GetFont()->GetWidth(pChar->GetUserName()) / 2;
-			//float yPos = Cp.y - pDC->GetFont()->GetHeight()-15;
-			float xPos = xscreen;
-			float yPos = screen_pos.y;
-			MFont *pFont=NULL;
-		    pFont=MFontManager::Get("FONTa1_O1Wht");
-		    pDC->SetFont(pFont);
-		    pDC->SetColor(MCOLOR(0xFFFFFFFF));
 
-			char HP_AP[128];
-			sprintf(HP_AP, "(%d / %d)", (int)pChar->GetStatus().Ref().nHP, (int)pChar->GetStatus().Ref().nAP); //(HP/AP)
-			float xPost = screen_pos.x - pDC->GetFont()->GetWidth(HP_AP) / 2;
-			pDC->Text(xPost, yPos-38,HP_AP);
-			char level[3];
-			sprintf(level, "%d", pChar->GetProperty()->nLevel);
-			char *tag = new char[strlen(level) + strlen(pChar->GetUserName()) + 9];
-			strcpy(tag,"[Lv.");
-			strcat(tag,level);
-			strcat(tag,"]");
-			strcat(tag,pChar->GetUserName());
-			int x = screen_pos.x -pDC->GetFont()->GetWidth(HP_AP) - pDC->GetFont()->GetWidth(pChar->GetProperty()->GetClanName());
-			pDC->Text(xPost, yPos - 134, pChar->GetProperty()->GetClanName());
-			x = screen_pos.x - pDC->GetFont()->GetWidth(HP_AP) - pDC->GetFont()->GetWidth(tag);
-			pDC->Text(xPost, yPos-100,tag);
-			MBitmap *pbmp = ZGetEmblemInterface()->GetClanEmblem(pChar->GetClanID()); //grab clan logo ~ Monckey100
-			if(pbmp == NULL) {
-				char szDTGradeIconFileName[64];
-				GetDuelTournamentGradeIconFileName(szDTGradeIconFileName, pChar->GetDTLastWeekGrade());
-				MBitmap* pBmpDTGradeIcon = MBitmapManager::Get( szDTGradeIconFileName );
-				pbmp = MBitmapManager::Get( szDTGradeIconFileName);
-			}
-			//pbmp = MBitmapManager::Get("icon_play.tga");//test logo
-			if(pbmp) {
-				pDC->SetBitmap(pbmp);
-				pDC->SetOpacity(255);
-				pDC->Draw(xPost-64, yPos-159, 64, 64); //128 for icon_play.tga -100, -190
-			}
-			float nHP = pChar->GetStatus().Ref().nHP / pChar->GetMaxHP();
-			float nValue = 0;
-			if (pChar->GetMaxHP() > 0)
-				nValue =  0.08 * pChar->GetStatus().Ref().nHP / pChar->GetMaxHP();
-			float nMax = 0.08;
-			pDC->SetColor(MCOLOR(0x90808080)); //grey colour
-			pDC->FillRectangleW(xPos, yPos- 56, nMax * 4000, 8); //greybar
-			pDC->SetColor(MCOLOR(0x900000FF)); //default full (blue)
-			if((nHP < 1) && (nHP >= 0.5))
-					pDC->SetColor(MCOLOR(0x9049E4FC)); // light blue
-			if((nHP < 0.5) && (nHP >= 0.25))
-				pDC->SetColor(MCOLOR(0x90FFFF00)); // yelow
-			if(nHP < 0.25)
-				pDC->SetColor(MCOLOR(0x90FF0000)); //red
-			pDC->FillRectangleW(xPos, yPos - 56, nValue * 4000, 8);
-			if (pChar->GetMaxAP() > 0)
-				nValue = 0.08 * pChar->GetStatus().Ref().nAP / pChar->GetMaxAP();
-			else 
-				nValue = 0;
-			pDC->SetColor(MCOLOR(0x9000FF00));
-			pDC->FillRectangleW(xPos, yPos - 48, nValue * 2000, 8);
-}
 MFont *ZCombatInterface::GetGameFont()
 {
 	MFont *pFont=MFontManager::Get("FONTa10_O2Wht");
@@ -2399,13 +2287,10 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 	x = ITEM_XPOS[3] + 0.04f;	// Kills
 	TextRelative(pDC, x, y, ZMsg(MSG_WORD_KILL));
 
-	x = ITEM_XPOS[3] - 0.01f;	// KDA
-	TextRelative(pDC, x, y, "KDA");
-
 	x = ITEM_XPOS[4] + 0.03f;	// Deaths
 	TextRelative(pDC, x, y, ZMsg(MSG_WORD_DEATH));
 
-	x = ITEM_XPOS[3] - 0.10f;
+	x = ITEM_XPOS[3] - 0.07f;
 	TextRelative(pDC, x, y, "HP/AP  Dmg");
 
 	x = ITEM_XPOS[5] + 0.01f;	// Ping
@@ -2642,7 +2527,6 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 			BitmapRelative(pDC, ITEM_XPOS[0] - 0.043f, icony, nIconSize+4, nIconSize, MBitmapManager::Get( "icon_gameroom_s.tga"));
 		}
 
-		// 듀얼토너먼트 계급장 표시(이름 앞에)
 		{
 			int nIconSize = .8f * linespace * (float)MGetWorkspaceHeight();
 			float icony = itemy + (linespace - (float)nIconSize / (float)MGetWorkspaceHeight())*.5f;
@@ -2651,7 +2535,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 			GetDuelTournamentGradeIconFileName(szDTGradeIconFileName, pItem->nDTLastWeekGrade);
 			MBitmap* pBmpDTGradeIcon = MBitmapManager::Get( szDTGradeIconFileName );
 
-			BitmapRelative(pDC, ITEM_XPOS[7], icony, nIconSize, nIconSize, MBitmapManager::Get( szDTGradeIconFileName));
+			//BitmapRelative(pDC, ITEM_XPOS[7], icony, nIconSize, nIconSize, MBitmapManager::Get( szDTGradeIconFileName));
 		}
 
 
@@ -2705,7 +2589,6 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 					int screeny=icony*MGetWorkspaceHeight();
 
 					pDC->Draw(screenx,screeny,nIconSize,nIconSize);
-					//BitmapRelative(pDC, screenx, screeny, nIconSize, nIconSize, MBitmapManager::Get("icon_gameroom_s.tga"));
 
 				}
 			}
@@ -2735,14 +2618,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 			x = ITEM_XPOS[3] + 0.05f;
 			sprintf(szText,"%d",pItem->nKills);
 			TextRelative(pDC,x,texty,szText,true);
-			float KDA = 0;
-			if (pItem->nDeaths != 0 && pItem->nKills != 0)
-				KDA = ceil((float)pItem->nKills / (float)pItem->nDeaths - 0.5); //assists comes later ~ Monckey100
-			else if (pItem->nKills != 0)
-				KDA = (float)pItem->nKills;
-			x = ITEM_XPOS[3] - 0.03f;
-			sprintf(szText,"%.2f",KDA);
-			TextRelative(pDC,x,texty,szText,true);
+
 			pDC->SetColor( color);
 		}
 

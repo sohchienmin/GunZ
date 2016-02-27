@@ -72,6 +72,12 @@ DECLARE_LISTENER(ZGetListenerLobbyPlayerListTabChannel);
 DECLARE_LISTENER(ZGetListenerLobbyPlayerListTabFriend);
 DECLARE_LISTENER(ZGetListenerLobbyPlayerListTabClan);
 */
+
+DECLARE_LISTENER(ZGetArrangedPlayerWarsListener);
+DECLARE_LISTENER(ZGetPlayerWarsVote0);
+DECLARE_LISTENER(ZGetPlayerWarsVote1);
+DECLARE_LISTENER(ZGetPlayerWarsVote2);
+
 DECLARE_LISTENER(ZGetPlayerListPrevListener);
 DECLARE_LISTENER(ZGetPlayerListNextListener);
 

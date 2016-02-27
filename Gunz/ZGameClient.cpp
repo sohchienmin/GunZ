@@ -281,6 +281,7 @@ ZGameClient::ZGameClient() : MMatchClient() , m_pUPnP(NULL)
 #endif
 
 	m_UPDCommadHackShield.Init();
+	LastVoteID = -1;
 }
 
 

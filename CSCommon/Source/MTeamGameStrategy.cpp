@@ -275,6 +275,22 @@ void InsertLadderRandomMap(vector<int>& vec, int nNum, int nCount)
 
 MClanGameStrategy::MClanGameStrategy()
 {
+	//1_VS_1 
+	for (int i = MLADDERTYPE_NORMAL_1VS1; i <= MLADDERTYPE_NORMAL_2VS2; i++) //P4F: ClanWar 1vs1
+	{
+		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_MANSION,	10);
+		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_PRISON_II,	5);
+		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_BATTLE_ARENA,	10);
+		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_TOWN,	10);
+		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_DUNGEON,	2);
+		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_PORT,	10);
+		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_CASTLE,	5);
+		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_ISLAND,	5);
+		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_GARDEN,	10);
+		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_FACTORY,	10);
+		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_HIGH_HAVEN,	10);
+	} 
+	//1_VS_1
 	for (int i = MLADDERTYPE_NORMAL_2VS2; i <= MLADDERTYPE_NORMAL_3VS3; i++) //CLANWAR MAPS22
 	{
 		InsertLadderRandomMap(m_RandomMapVec[i], MMATCH_MAP_MANSION,		10);

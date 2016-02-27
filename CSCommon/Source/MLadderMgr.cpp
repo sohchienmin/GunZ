@@ -481,7 +481,7 @@ void MLadderMgr::Tick(unsigned long nTick)
 	{
 		MakeMatch(MLADDERTYPE(i));
 	}
-
+	UpdateMapCountDown(timeGetTime());
 	m_Stat.Tick(nTick);
 }
 

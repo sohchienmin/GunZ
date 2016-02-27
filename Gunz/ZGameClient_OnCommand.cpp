@@ -163,9 +163,11 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			}
 			ZGetGameInterface()->OnArrangedTeamGameUI(true, true);
 		}
+
 		case MC_MATCH_PLAYERWARS_VOTE_UPDATE:
 		{
 			int nRandomIndex[3];
+			mlog("Fucking sent a vote update");
 			pCommand->GetParameter(&nRandomIndex[0], 0, MPT_INT);
 			pCommand->GetParameter(&nRandomIndex[1], 1, MPT_INT);
 			pCommand->GetParameter(&nRandomIndex[2], 2, MPT_INT);
