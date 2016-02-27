@@ -103,7 +103,6 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 		case MC_MATCH_PLAYERWARS_VOTE:
 			{
 				MMatchObject* pObj = (MMatchObject*)GetObject(pCommand->GetSenderUID());
-				mlog("WAS IN MC_MATCH_PLAYERWARS_VOTE\n");
 				if (pObj)
 				{
 					int Map;
@@ -111,7 +110,6 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 					if(Map < 0 || Map > 2) return true;
 					MMatchChannel* chan = MGetMatchServer()->FindChannel(pObj->GetChannelUID());
 					if(chan) {
-						mlog("I FUCKING VOTED\n");
 						GetLadderMgr()->UpdatePlayerVote(Map, pObj);
 					}
 				}

@@ -2005,7 +2005,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 				}
 				else
 				{
-					//string x = "wtf wtyyyyyyrtyrtyrt";
+					
 					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), 
 						//x.c_str());
 					ZErrStr(MSG_LADDER_INVALID_COUNT) );
@@ -2070,9 +2070,9 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 				}
 				else
 				{
-					string x = "wtf wtyyyyyyrtyrtyrt: " + to_string(nCount);
+				
 					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), 
-						x.c_str());
+						ZErrStr(MSG_LADDER_INVALID_COUNT) );
 				}
 			}
 			break;
