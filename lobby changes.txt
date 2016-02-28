@@ -34,6 +34,7 @@ is twice as long
 - Changed encryption
 - Kill streaks
 - Server won't shutdown even under db issues
+- Map voting
 
 Todo list:
 -Attach antihack + Upgrade
@@ -43,7 +44,8 @@ Todo list:
 -Tab chats for lobby/whisper/clan
 -King of the hill
 -Elo system
--Map voting
+-Clan war rejoin
+-Clan war warmup room
 
 scrapbox:
 -HTML based news at login screen (in scrapbox)
