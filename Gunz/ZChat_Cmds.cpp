@@ -94,7 +94,7 @@ void ChatCmd_ChangePassword(const char* line, const int argc, char **const argv)
 void ChatCmd_AdminHide(const char* line, const int argc, char **const argv);			// 투명인간
 void ChatCmd_RequestJjang(const char* line, const int argc, char **const argv);
 void ChatCmd_RemoveJjang(const char* line, const int argc, char **const argv);
-
+void ChatCmd_StageRejoin(const char* line, const int argc, char **const argv);
 
 void ChatCmd_AdminPopup(const char* line, const int argc, char **const argv);
 void ChatCmd_AllCommands(const char* line, const int argc, char **const argv);
@@ -133,6 +133,7 @@ void ZChat::InitCmds()
 		MLog("Error while Read Item Descriptor %s", "system/chatcmds.xml");
 	}
 
+	_CC_AC("rejoin",					&ChatCmd_StageRejoin,		CCF_LOBBY, ARGVNoMin, ARGVNoMax, true, "/rejoin", "");
 	_CC_ACX(CCMD_ID_HELP,				&ChatCmd_Help,				CCF_ALL, ARGVNoMin, ARGVNoMax, true);
 	_CC_ACX(CCMD_ID_WHISPER,			&ChatCmd_Whisper,			CCF_ALL, ARGVNoMin, 1, false);
 	_CC_ACX(CCMD_ID_REPORT119,			&ChatCmd_Report119,			CCF_ALL, ARGVNoMin, ARGVNoMax, true);
@@ -1359,6 +1360,12 @@ void ChatCmd_VoteNo(const char* line,const int argc, char **const argv)
 void ChatCmd_Kick(const char* line,const int argc, char **const argv)
 {
 	ZGetCombatInterface()->GetVoteInterface()->CallVote("kick");
+}
+
+void ChatCmd_StageRejoin(const char* line, const int argc, char **const argv) 
+{
+	ZGetGameClient()->IsRejoin = true;
+	ZPostStageRequestRejoin();
 }
 
 void ChatCmd_MouseSensitivity(const char* line,const int argc, char **const argv)

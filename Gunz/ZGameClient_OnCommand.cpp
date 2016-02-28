@@ -167,6 +167,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 		case MC_MATCH_PLAYERWARS_VOTE_UPDATE:
 		{
 			int nRandomIndex[3];
+			
 			pCommand->GetParameter(&nRandomIndex[0], 0, MPT_INT);
 			pCommand->GetParameter(&nRandomIndex[1], 1, MPT_INT);
 			pCommand->GetParameter(&nRandomIndex[2], 2, MPT_INT);
@@ -395,7 +396,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			{
 				unsigned int nMsgID = 0;
 				if (pCommand->GetParameter(&nMsgID, 0, MPT_UINT) == false) break;
-
+				if(nMsgID == MATCHNOTIFY_STAGE_NOT_EXIST) ZGetGameClient()->IsRejoin = false;
 				OnMatchNotify(nMsgID);
 			}
 			break;

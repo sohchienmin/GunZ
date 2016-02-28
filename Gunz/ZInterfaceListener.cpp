@@ -2007,7 +2007,6 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 				{
 					
 					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), 
-						//x.c_str());
 					ZErrStr(MSG_LADDER_INVALID_COUNT) );
 				}
 			}
@@ -2015,10 +2014,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 		case MSM_CLAN:
 			{
 				bool bRightMember = false;
-				/*char* sz;
-				sprintf(sz, "THE VALUE OF NCOUNT IS %i", nCount);
-				ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), 
-						sz);*/
+
 				for (int i = 0; i < MLADDERTYPE_MAX; i++)
 				{
 					if ((g_nNeedLadderMemberCount[i]-1) == nCount)
@@ -2037,9 +2033,6 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 				}
 				else if(nCount == 0 && bRightMember) {
 					//1_VS_1 UPDATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
-					string x = "ENTEREDDDD";
-					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), 
-						x.c_str());
 
 					int nBalancedMatching = 0;
 					ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
@@ -2070,9 +2063,8 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 				}
 				else
 				{
-				
 					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), 
-						ZErrStr(MSG_LADDER_INVALID_COUNT) );
+						ZErrStr(MSG_LADDER_INVALID_COUNT));
 				}
 			}
 			break;

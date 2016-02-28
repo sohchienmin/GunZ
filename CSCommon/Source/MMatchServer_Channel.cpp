@@ -271,6 +271,19 @@ bool MMatchServer::ChannelJoin(const MUID& uidPlayer, const MUID& uidChannel, co
 	}
 
 	ChannelResponsePlayerList(uidPlayer, uidChannelTmp, 0);
+
+	if (pChannel->GetChannelType() == MCHANNEL_TYPE_CLAN)
+	{
+		ClanReDef::iterator it = ClanRejoiner.find(pObj->GetCharInfo()->m_nCID);
+		if(it != ClanRejoiner.end())
+		{
+			MMatchStage* pStage = FindStage(it->second->StageUID);
+			if(pStage)
+			{
+				Announce(pObj, "To rejoin your game type /rejoin");
+			}
+		}
+	}
 	return true;
 }
 

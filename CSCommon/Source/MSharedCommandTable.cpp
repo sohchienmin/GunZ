@@ -49,6 +49,7 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 
 	C(MC_NET_CONNECTTOZONESERVER, "Net.ConnectToZoneServer", "Connect to zone-server", MCDT_LOCAL)
 	
+	C(MC_MATCH_STAGE_REQUEST_REJOIN, "Stage.Request.Rejoin", "Stage Rejoin", MCDT_MACHINE2MACHINE | MCCT_NON_ENCRYPTED);
 
 	C(MC_NET_REQUEST_INFO, "Net.RequestInfo", "Request Net information", MCDT_MACHINE2MACHINE)
 	C(MC_NET_RESPONSE_INFO, "Net.ResponseInfo", "Response Net information", MCDT_MACHINE2MACHINE)

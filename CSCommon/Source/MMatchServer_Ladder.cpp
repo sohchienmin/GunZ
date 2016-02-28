@@ -53,7 +53,7 @@ bool MMatchServer::LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatc
 
 	MMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return false;
-
+	ClanRejoiner.insert(ClanReDef::value_type(pObj->GetCharInfo()->m_nCID, new ClanRejoin(nTeam, uidStage)));
 	pObj->OnStageJoin();
 
 	// Join

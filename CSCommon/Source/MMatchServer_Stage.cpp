@@ -115,12 +115,12 @@ bool MMatchServer::StageRemove(const MUID& uidStage, MMatchStageMap::iterator* p
 }
 
 
-bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage)
+bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage, bool rejoin,MMatchTeam Team)
 {
 	MMatchObject* pObj = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObj)) return false;
 
-	if (pObj->GetStageUID() != MUID(0, 0))
+	if (pObj->GetStageUID() != MUID(0,0))
 		StageLeave(pObj->GetUID());//, pObj->GetStageUID());
 
 	MMatchChannel* pChannel = FindChannel(pObj->GetChannelUID());
@@ -129,7 +129,10 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage)
 
 	MMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return false;
-
+	if(rejoin == true)
+	{
+		//GetDBMgr()->InsertRejoinLog(pStage->GetName(), pObj->GetCharInfo()->m_nCID, pStage->GetBlueCLID(), pStage->GetRedCLID(), (int)Team, pStage->GetUID().Low);
+	}
 	int ret = ValidateStageJoin(uidPlayer, uidStage);
 	if (ret != MOK) {
 		RouteResponseToListener(pObj, MC_MATCH_RESPONSE_STAGE_JOIN, ret);
@@ -145,51 +148,60 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage)
 
 	// Join
 	pStage->AddObject(uidPlayer, pObj);
-	// 임시코드... 잘못된 클랜ID 온다면 체크하여 잡기위함...20090224 by kammir
-	if (pObj->GetCharInfo()->m_ClanInfo.GetClanID() >= 9000000)
+		// ÀÓ½ÃÄÚµå... Àß¸øµÈ Å¬·£ID ¿Â´Ù¸é Ã¼Å©ÇÏ¿© Àâ±âÀ§ÇÔ...20090224 by kammir
+	if(pObj->GetCharInfo()->m_ClanInfo.GetClanID() >= 9000000)
 		LOG(LOG_FILE, "[UpdateCharClanInfo()] %s's ClanID:%d.", pObj->GetAccountName(), pObj->GetCharInfo()->m_ClanInfo.GetClanID());
 
 	pObj->SetStageUID(uidStage);
 	pObj->SetStageState(MOSS_NONREADY);
-	pObj->SetTeam(pStage->GetRecommandedTeam());
 
 	// Cast Join
-	MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_JOIN), MUID(0, 0), m_This);
-	pNew->AddParameter(new MCommandParameterUID(uidPlayer));
-	pNew->AddParameter(new MCommandParameterUID(pStage->GetUID()));
-	pNew->AddParameter(new MCommandParameterUInt(pStage->GetIndex() + 1));
-	pNew->AddParameter(new MCommandParameterString((char*)pStage->GetName()));
+	if(rejoin && pStage->GetStageType() != MST_LADDER) rejoin = false;
+	if(!rejoin)
+	{
+		MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_JOIN), MUID(0,0), m_This);
+		pNew->AddParameter(new MCommandParameterUID(uidPlayer));
+		pNew->AddParameter(new MCommandParameterUID(pStage->GetUID()));
+		pNew->AddParameter(new MCommandParameterUInt(pStage->GetIndex()+1));
+		pNew->AddParameter(new MCommandParameterString((char*)pStage->GetName()));
+	
+		if (pStage->GetState() == STAGE_STATE_STANDBY)  RouteToStage(pStage->GetUID(), pNew);
+		else											RouteToListener(pObj, pNew);
 
-	if (pStage->GetState() == STAGE_STATE_STANDBY)  RouteToStage(pStage->GetUID(), pNew);
-	else											RouteToListener(pObj, pNew);
-
-
+	} 
+	else
+	{
+		MCommand* pCmd = CreateCommand(MC_MATCH_LADDER_PREPARE, uidPlayer);
+		pCmd->AddParameter(new MCmdParamUID(uidStage));
+		pCmd->AddParameter(new MCmdParamInt((int)pObj->GetTeam()));
+		RouteToListener(pObj, pCmd);
+	}
 	// Cache Update
 	CacheBuilder.Reset();
-	for (MUIDRefCache::iterator i = pStage->GetObjBegin(); i != pStage->GetObjEnd(); i++) {
+	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
 		MUID uidObj = (MUID)(*i).first;
 		MMatchObject* pScanObj = (MMatchObject*)GetObject(uidObj);
 		if (pScanObj) {
 			CacheBuilder.AddObject(pScanObj);
-		}
-		else {
+		} else {
 			LOG(LOG_PROG, "MMatchServer::StageJoin - Invalid ObjectMUID(%u:%u) exist in Stage(%s)\n",
 				uidObj.High, uidObj.Low, pStage->GetName());
 			pStage->RemoveObject(uidObj);
 			return false;
 		}
 	}
-	MCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
+    MCommand* pCmdCacheUpdate = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
 	RouteToListener(pObj, pCmdCacheUpdate);
 
-
-	// Cast Master(방장)
-	MUID uidMaster = pStage->GetMasterUID();
-	MCommand* pMasterCmd = CreateCommand(MC_MATCH_STAGE_MASTER, MUID(0, 0));
-	pMasterCmd->AddParameter(new MCommandParameterUID(uidStage));
-	pMasterCmd->AddParameter(new MCommandParameterUID(uidMaster));
-	RouteToListener(pObj, pMasterCmd);
-
+	if(!rejoin)
+	{
+		// Cast Master(¹æÀå)
+		MUID uidMaster = pStage->GetMasterUID();
+		MCommand* pMasterCmd = CreateCommand(MC_MATCH_STAGE_MASTER, MUID(0,0));
+		pMasterCmd->AddParameter(new MCommandParameterUID(uidStage));
+		pMasterCmd->AddParameter(new MCommandParameterUID(uidMaster));
+		RouteToListener(pObj, pMasterCmd);
+	}
 
 #ifdef _QUEST_ITEM
 	if (MGetServerConfig()->GetServerMode() == MSM_CLAN)
@@ -221,17 +233,26 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage)
 	}
 #endif
 
-
+	if( rejoin == false)
+	{
 	// Cast Character Setting
 	StageTeam(uidPlayer, uidStage, pObj->GetTeam());
 	StagePlayerState(uidPlayer, uidStage, pObj->GetStageState());
-
-
-	// 방송 관계자면 방장권한을 자동으로 빼앗는다. - 온게임넷 비비빅 요청
-	if (MMUG_EVENTMASTER == pObj->GetAccountInfo()->m_nUGrade) {
-		OnEventChangeMaster(pObj->GetUID());
+	} else {
+		
+		pObj->SetForcedEntry(true);
+		StageTeam(uidPlayer, uidStage, Team);
+		StagePlayerState(uidPlayer, uidStage, MOSS_READY);
+		MCommand* pCmd = CreateCmdResponseStageSetting(uidStage);
+		RouteToListener(pObj, pCmd);
+		pObj->SetLaunchedGame(true);
+		pCmd = CreateCommand(MC_MATCH_LADDER_LAUNCH, uidPlayer);
+		pCmd->AddParameter(new MCmdParamUID(uidStage));
+		pCmd->AddParameter(new MCmdParamStr( const_cast<char*>(pStage->GetMapName()) ));
+		pCmd->AddParameter(new MCmdParamBool((bool)(false)));
+		RouteToListener(pObj, pCmd);
+		StageEnterBattle(uidPlayer, uidStage);
 	}
-
 	return true;
 }
 
@@ -768,6 +789,19 @@ void MMatchServer::StageFinishGame(const MUID& uidStage)
 	if (pStage == NULL) return;
 
 	bool bIsRelayMapUnFinish = true;
+	if(pStage->GetStageType() == MST_LADDER)
+	{
+		ClanReDef::iterator it = ClanRejoiner.begin();
+		while(it != ClanRejoiner.end())
+		{
+			if(it->second->StageUID == uidStage)
+			{
+				ClanRejoiner.erase(it++);
+			}
+			else
+			++it;
+		}
+	}
 
 	if(pStage->IsRelayMap())
 	{ // ¸±·¹ÀÌ ¸ÊÀÏ¶§¿¡´Â ¹èÆ²À» ´Ù½Ã ½ÃÀÛÇØÁØ´Ù. 
@@ -905,7 +939,7 @@ void MMatchServer::OnStageCreate(const MUID& uidChar, char* pszStageName, bool b
 		RouteResponseToListener(pObj, MC_MATCH_RESPONSE_STAGE_CREATE, MERR_CANNOT_CREATE_STAGE);
 		return;
 	}
-	StageJoin(uidChar, uidStage);
+	StageJoin(uidChar, uidStage, false, MMT_BLUE);
 
 	MMatchStage* pStage = FindStage(uidStage);
 	if (pStage)
@@ -994,7 +1028,7 @@ void MMatchServer::OnPrivateStageJoin(const MUID& uidPlayer, const MUID& uidStag
 		}
 	}
 
-	StageJoin(uidPlayer, pStage->GetUID());
+	StageJoin(uidPlayer, pStage->GetUID(), false, MMT_BLUE);
 }
 
 void MMatchServer::OnStageFollow(const MUID& uidPlayer, const char* pszTargetName)
@@ -1040,7 +1074,7 @@ void MMatchServer::OnStageFollow(const MUID& uidPlayer, const char* pszTargetNam
 			RouteResponseToListener( pPlayerObj, MC_MATCH_RESPONSE_STAGE_FOLLOW, MERR_CANNOT_FOLLOW );
 #endif
 		} else {
-			StageJoin(uidPlayer, pTargetObj->GetStageUID());
+			StageJoin(uidPlayer, pTargetObj->GetStageUID(), false, MMT_BLUE);
 		}
 	}
 	else {

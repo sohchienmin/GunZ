@@ -63,6 +63,7 @@ private:
 public:
 	vector<string> Ignores;
 	int LastVoteID;
+	bool IsRejoin;
 	MUID& GetTempChannelUID()						{ return m_uidTempChannel; }
 	void SetTempChannelUID(MUID& uid)				{ m_uidTempChannel = uid; }
 	struct DTCHARINFO {

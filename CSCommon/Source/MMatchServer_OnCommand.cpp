@@ -103,6 +103,7 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 		case MC_MATCH_PLAYERWARS_VOTE:
 			{
 				MMatchObject* pObj = (MMatchObject*)GetObject(pCommand->GetSenderUID());
+				
 				if (pObj)
 				{
 					int Map;
@@ -110,10 +111,27 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 					if(Map < 0 || Map > 2) return true;
 					MMatchChannel* chan = MGetMatchServer()->FindChannel(pObj->GetChannelUID());
 					if(chan) {
+						
 						GetLadderMgr()->UpdatePlayerVote(Map, pObj);
 					}
 				}
 				
+			}
+			break;
+		case MC_MATCH_STAGE_REQUEST_REJOIN:
+			{
+				MMatchObject* pObj = (MMatchObject*)GetObject(pCommand->GetSenderUID());
+				if (pObj)
+				{
+					ClanReDef::iterator it = ClanRejoiner.find(pObj->GetCharInfo()->m_nCID);
+					if(it != ClanRejoiner.end())
+					{
+						if(!StageJoin(pObj->GetUID(), it->second->StageUID, true, it->second->Team))
+						{
+							NotifyMessage(pObj->GetUID(), MATCHNOTIFY_STAGE_NOT_EXIST);
+						}
+					}
+				} 
 			}
 			break;
 		case MC_REQUEST_NEWS:

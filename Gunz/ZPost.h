@@ -1284,5 +1284,10 @@ inline void ZPostPlayerWarsVote(int Map)
 	ZPOSTCMD1(MC_MATCH_PLAYERWARS_VOTE, MCmdParamInt(Map));
 }
 
+inline void ZPostStageRequestRejoin()
+{
+	ZPOSTCMD0(MC_MATCH_STAGE_REQUEST_REJOIN);
+}
+
 
 #endif

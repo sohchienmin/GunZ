@@ -65,7 +65,18 @@ enum COUNT_CODE_STATUS
 	CCS_NON,
 };
 
+struct ClanRejoin
+{
+	MMatchTeam Team;
+	MUID StageUID;
+	ClanRejoin(MMatchTeam team, MUID stageUID)
+	{
+		Team = team;
+		StageUID = stageUID;
+	}
+};
 
+typedef map<unsigned long, ClanRejoin*> ClanReDef;
 class MMatchServer : public MServer{
 private:
 	static MMatchServer*	m_pInstance;		///< 전역 인스턴스
@@ -76,7 +87,7 @@ private:
 
 protected:
 	unsigned long		m_nItemFileChecksum;	// ZItem.xml 의 변조방지 검사
-
+	ClanReDef			ClanRejoiner;
 	MUID				m_NextUseUID;
 	MCriticalSection	m_csUIDGenerateLock;
 	MCriticalSection	m_csTickTimeLock;
@@ -321,7 +332,7 @@ protected:
 	friend MNJ_DBAgentClient;
 	bool StageAdd(MMatchChannel* pChannel, const char* pszStageName, bool bPrivate, const char* pszStagePassword, MUID* pAllocUID, bool bIsAllowNullChannel = false);
 	bool StageRemove(const MUID& uidStage, MMatchStageMap::iterator* pNextItor);
-	bool StageJoin(const MUID& uidPlayer, const MUID& uidStage);
+	bool StageJoin(const MUID& uidPlayer, const MUID& uidStage, bool rejoin,MMatchTeam Team);
 	bool StageLeave(const MUID& uidPlayer);//, const MUID& uidStage);
 	bool StageEnterBattle(const MUID& uidPlayer, const MUID& uidStage);
 	bool StageLeaveBattle(const MUID& uidPlayer, bool bGameFinishLeaveBattle, bool bForcedLeave);//, const MUID& uidStage);
