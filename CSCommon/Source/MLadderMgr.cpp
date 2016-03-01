@@ -77,11 +77,6 @@ void MLadderMgr::AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup, bool wa
 		}
 	}
 	else {
-		//Launch warm up here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FUCK
-		//LOG_DEBUG = 1, LOG_FILE = 3, LOG_PROG = 7
-		string x = "LAUNCHING WARM UP IN MLADDERMGR.CPP";
-		//MessageBox(0, "Wow", "MessageBox caption", MB_OK);
-		//Log(LOG_DEBUG,x.c_str());
 		LaunchWarmUp(nLadderType, pGroup->GetID());
 	}
 }

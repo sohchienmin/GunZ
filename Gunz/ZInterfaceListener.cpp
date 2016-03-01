@@ -2059,7 +2059,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 					ppMember[0] = (char*)ZGetMyInfo()->GetCharName();
 					nCount = 1;
 					MButton* pButton2 = (MButton*)pResource->FindWidget("AntiLeadCheckBox");
-					mlog("fuck send clan war request in ZINTERFACELISTENER.CPP\n");
+					
 					ZPostLadderRequestChallenge(ppMember, nCount, nBalancedMatching, nAntiLead, nDodge, false);
 				}
 				else
@@ -2528,7 +2528,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamGameWarmUpListener, MBTN_CLK_MSG)
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(true,true);
-		mlog("FUCKING PWIDGET\n");
+		
 		// 팀플레이 선수로 선택가능한 사람 리스트를 요청한다
 		unsigned long int nPlaceFilter = 0;
 		SetBitSet(nPlaceFilter, MMP_LOBBY);
@@ -2547,7 +2547,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamWarmUpDialogOkListener, MBTN_CLK_MSG)
 	ZPlayerSelectListBox *pPlayerList = (ZPlayerSelectListBox*)pResource->FindWidget("ArrangedTeamWarmUpSelect");
 	if(pPlayerList)
 	{
-		mlog("FOUND THE FUCKING WIDGEST FOR PLAYERS LIST\n");
+		
 		const int nMaxInviteCount = max(MAX_LADDER_TEAM_MEMBER,MAX_CLANBATTLE_TEAM_MEMBER) - 1;
 
 		char szNames[nMaxInviteCount][MATCHOBJECT_NAME_LENGTH];
@@ -2570,7 +2570,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamWarmUpDialogOkListener, MBTN_CLK_MSG)
 
 				if((0<nCount))
 				{
-					mlog("making request in zinterfacelistener.cpp");
+					
 					ZGetGameClient()->RequestProposal(MPROPOSAL_CLAN_WARMUP_INVITE, ppNames, nCount);
 					
 				}

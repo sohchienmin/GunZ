@@ -199,29 +199,15 @@ void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB
 //WARM UP
 void MMatchServer::WarmUpGameLaunch(MLadderGroup* pGroupA, int MapID)
 {
-	//LOG_DEBUG = 1, LOG_FILE = 3, LOG_PROG = 7
-	//MessageBox(0, "Wow", "MessageBox caption", MB_OK);
 
 	if ((MGetServerConfig()->GetServerMode() != MSM_LADDER) && 
 		(MGetServerConfig()->GetServerMode() != MSM_CLAN)) return;
 
 	MUID uidStage = MUID(0,0);
 	StageAdd(NULL, "LADDER_GAME", true, "", &uidStage);
-		/*
-		GetLadderMgr()->CancelChallenge(pGroupA->GetID(), "");
-		//GetLadderMgr()->CancelChallenge(pGroupB->GetID(), "");
-		return;
-	}*/
-	MMatchStage* pStage = FindStage(uidStage);
-	/*
-	if (pStage == NULL) {
 		
-		GetLadderMgr()->CancelChallenge(pGroupA->GetID(), "");
-		//GetLadderMgr()->CancelChallenge(pGroupB->GetID(), "");
-		return;
-	}*/
-
-	// A 그룹 입장
+	MMatchStage* pStage = FindStage(uidStage);
+	
 	int count = 0;
 	int size = pGroupA->GetPlayerCount() - 1;
 	for (list<MUID>::iterator i=pGroupA->GetPlayerListBegin(); i!= pGroupA->GetPlayerListEnd(); i++)
@@ -431,11 +417,7 @@ void MMatchServer::OnLadderRequestChallenge(const MUID& uidRequestMember, void* 
 	for (int i=0; i<nMemberCount; i++) {
 		pGroup->AddPlayer( pMemberObjects[i] );
 	}
-	//mlog("FUCK SENDING CHALLENGE IN MMATCHSERVER_LADDER.CPP");
-	string x = "Got this MMATCHSERVER_LADDER.CPP, going to call getladdermgr->challenge() \n";
-	Log(LOG_DEBUG, x.c_str());
-	Log(LOG_FILE, x.c_str());
-	Log(LOG_PROG, x.c_str());
+	
 	GetLadderMgr()->Challenge(pGroup, warmUp);
 }
 

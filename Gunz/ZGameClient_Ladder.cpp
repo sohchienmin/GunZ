@@ -225,7 +225,7 @@ void ZGameClient::OnReplyAgreement(const MUID& uidProposer,
 	ZNetAgreementBuilder::_BuildReplyResult nResult;
 	nResult = m_AgreementBuilder.BuildReply(szReplierName, nProposalMode, nRequestID, bAgreement);
 
-	mlog("in zgameclientladder.cpp onreplyagreement");
+	
 	if (nResult == ZNetAgreementBuilder::BRR_ALL_AGREED)	// 모두 동의했을경우
 	{
 		switch (nProposalMode)
@@ -286,7 +286,7 @@ void ZGameClient::OnReplyAgreement(const MUID& uidProposer,
 				}
 
 				MButton* pButton2 = (MButton*)pResource->FindWidget("AntiLeadCheckBox");
-				mlog(" FUCK Posting clan war request");
+				
 				ZPostLadderRequestChallenge(ppMember, nCount, nBalancedMatching, nAntiLead, nDodge, false);
 			}
 			break;
@@ -303,7 +303,7 @@ void ZGameClient::OnReplyAgreement(const MUID& uidProposer,
 				// 자신도 넣는다.
 				strcpy(szMember[0], ZGetMyInfo()->GetCharName());
 				nCount++;
-				mlog("FUCK Posting warm up request");
+				
 				ZPostLadderRequestChallenge(ppMember, nCount, 1, 1, 1, true);
 			}
 		};

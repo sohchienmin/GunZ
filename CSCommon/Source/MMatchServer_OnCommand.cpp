@@ -1656,10 +1656,6 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 			break;
 		case MC_MATCH_LADDER_REQUEST_CHALLENGE:
 			{
-				string x = "fuck received mc_match_ladder_request_challenge in mmatchserver_oncommand.cpp\n";
-				Log(LOG_DEBUG, x.c_str());
-				Log(LOG_FILE, x.c_str());
-				Log(LOG_PROG, x.c_str());
 				int nMemberCount;
 				unsigned long int nOptions;
 				unsigned long int nAntiLead;
@@ -1676,10 +1672,6 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 				if( NULL == pMemberNamesBlob )
 					break;
 				
-				//LOG_DEBUG = 1, LOG_FILE = 3, LOG_PROG = 7
-				Log(LOG_DEBUG, x.c_str());
-				Log(LOG_FILE, x.c_str());
-				Log(LOG_PROG, x.c_str());
 				OnLadderRequestChallenge(pCommand->GetSenderUID(), pMemberNamesBlob, nOptions, nAntiLead, nDodge, warmUp);
 			}
 			break;

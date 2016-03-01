@@ -952,7 +952,7 @@ inline void ZPostLadderRequestChallenge(char** ppMemberCharNames, const int nMem
 		MTD_LadderTeamMemberNode* pMemberNode = (MTD_LadderTeamMemberNode*)MGetBlobArrayElement(pBlobMembersName, i);
 		strcpy(pMemberNode->szName, ppMemberCharNames[i]);
 	}
-	mlog("post command in zpost.h\n");
+	
 	ZPOSTCMD6( MC_MATCH_LADDER_REQUEST_CHALLENGE, MCmdParamInt(nMemberCount), MCmdParamUInt(nOptions),
 		MCmdParamBlob(pBlobMembersName, MGetBlobArraySize(pBlobMembersName)), MCmdParamUInt(nAntiLead), MCmdParamUInt(bDodge), MCmdParamBool(warmUp)); //was ZPOSTCMD4 ~ Monckey100
 		
