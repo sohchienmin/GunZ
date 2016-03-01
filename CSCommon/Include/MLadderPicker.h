@@ -67,6 +67,7 @@ public:
 	void AddTicket(MLadderGroup* pGroup, int nRandomArg);	// 예전 액션리그 시절의 유물
 	void AddTicket(MLadderGroup* pGroup, int nClanPoint, int nTickCount, int nRandomArg);
 
+	bool GetLatestMatch(int* nGroup);
 	bool PickMatch(int* pGroupA, int* pGroupB);
 	void Shuffle();
 };

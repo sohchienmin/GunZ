@@ -34,6 +34,8 @@ public:
 	/// Stage에서 필요한 LadderInfo를 세팅한다.
 	virtual void SetStageLadderInfo(MMatchLadderTeamInfo* poutRedLadderInfo, MMatchLadderTeamInfo* poutBlueLadderInfo,
 									MLadderGroup* pRedGroup, MLadderGroup* pBlueGroup) = 0;
+	virtual void SetWarmUpInfo(MMatchLadderTeamInfo* poutRedLadderInfo, MMatchLadderTeamInfo* poutBlueLadderInfo,
+									MLadderGroup* pGroup) = 0;
 
 	/// 게임이 끝났을때 결과를 DB 저장한다.
 	virtual void SavePointOnFinishGame(MMatchStage* pStage, MMatchTeam nWinnerTeam, bool bIsDrawGame,
@@ -64,6 +66,8 @@ public:
 	virtual void SetLadderGroup(MLadderGroup* pGroup, MMatchObject** ppMemberObjects, int nMemberCount) { }
 	virtual void SetStageLadderInfo(MMatchLadderTeamInfo* poutRedLadderInfo, MMatchLadderTeamInfo* poutBlueLadderInfo,
 									MLadderGroup* pRedGroup, MLadderGroup* pBlueGroup);
+	virtual void SetWarmUpInfo(MMatchLadderTeamInfo* poutRedLadderInfo, MMatchLadderTeamInfo* poutBlueLadderInfo,
+									MLadderGroup* pGroup);
 	virtual void SavePointOnFinishGame(MMatchStage* pStage, MMatchTeam nWinnerTeam, bool bIsDrawGame,
 		                               MMatchLadderTeamInfo* pRedLadderInfo, MMatchLadderTeamInfo* pBlueLadderInfo);
 	virtual int GetRandomMap(int nTeamMember);
@@ -90,6 +94,8 @@ public:
 	virtual void SetLadderGroup(MLadderGroup* pGroup, MMatchObject** ppMemberObjects, int nMemberCount);
 	virtual void SetStageLadderInfo(MMatchLadderTeamInfo* poutRedLadderInfo, MMatchLadderTeamInfo* poutBlueLadderInfo,
 									MLadderGroup* pRedGroup, MLadderGroup* pBlueGroup);
+	virtual void SetWarmUpInfo(MMatchLadderTeamInfo* poutRedLadderInfo, MMatchLadderTeamInfo* poutBlueLadderInfo,
+									MLadderGroup* pGroup);
 	virtual void SavePointOnFinishGame(MMatchStage* pStage, MMatchTeam nWinnerTeam, bool bIsDrawGame,
 		                               MMatchLadderTeamInfo* pRedLadderInfo, MMatchLadderTeamInfo* pBlueLadderInfo);
 	virtual int GetRandomMap(int nTeamMember);

@@ -589,6 +589,7 @@ void MMatchServer::OnChannelRequestAllPlayerList(const MUID& uidPlayer, const MU
 void MMatchServer::ChannelResponseAllPlayerList(const MUID& uidPlayer, const MUID& uidChannel, unsigned long int nPlaceFilter,
 												unsigned long int nOptions)
 {
+	//mlog("in channel response all player list");
 	MMatchChannel* pChannel = FindChannel(uidChannel);
 	if (pChannel == NULL) return;
 	MMatchObject* pObj = (MMatchObject*)GetObject(uidPlayer);

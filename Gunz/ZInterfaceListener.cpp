@@ -2059,7 +2059,8 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 					ppMember[0] = (char*)ZGetMyInfo()->GetCharName();
 					nCount = 1;
 					MButton* pButton2 = (MButton*)pResource->FindWidget("AntiLeadCheckBox");
-					ZPostLadderRequestChallenge(ppMember, nCount, nBalancedMatching, nAntiLead, nDodge);
+					mlog("fuck send clan war request in ZINTERFACELISTENER.CPP\n");
+					ZPostLadderRequestChallenge(ppMember, nCount, nBalancedMatching, nAntiLead, nDodge, false);
 				}
 				else
 				{
@@ -2192,10 +2193,6 @@ BEGIN_IMPLEMENT_LISTENER(ZGetMyClanChannel, MBTN_CLK_MSG)
 	if(ZGetMyInfo()->IsClanJoined())
 	{
 		ZPostChannelRequestJoinFromChannelName(ZGetMyUID(),MCHANNEL_TYPE_CLAN,ZGetMyInfo()->GetClanName());
-
-#ifdef LOCALE_NHNUSA
-		GetNHNUSAReport().ReportJoinChannel();
-#endif
 
 		ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 		MWidget* pFindWidget = pResource->FindWidget("ChannelListFrame");
@@ -2519,4 +2516,82 @@ END_IMPLEMENT_LISTENER();
 BEGIN_IMPLEMENT_LISTENER( ZGetRegisterListener, MBTN_CLK_MSG)
 //	ShellExecute( g_hWnd, "open", "IEXPLORE.EXE", "http://www.gunzonline.com/start.htm", NULL, SW_SHOW);
 //	ShowWindow( g_hWnd, SW_SHOWMINIMIZED);
+END_IMPLEMENT_LISTENER();
+
+
+
+
+//-----------------------------------------------------------------------------------------------WARM UP GAMES LOBBY WEW-----------------
+BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamGameWarmUpListener, MBTN_CLK_MSG)
+	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
+	MWidget* pWidget = pResource->FindWidget("ArrangedTeamGameWarmUpDialog");
+	if(pWidget!=NULL)
+	{
+		pWidget->Show(true,true);
+		mlog("FUCKING PWIDGET\n");
+		// 팀플레이 선수로 선택가능한 사람 리스트를 요청한다
+		unsigned long int nPlaceFilter = 0;
+		SetBitSet(nPlaceFilter, MMP_LOBBY);
+
+		ZPostRequestChannelAllPlayerList(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetChannelUID(),nPlaceFilter,
+			MCP_MATCH_CHANNEL_REQUEST_ALL_PLAYER_LIST_MYCLAN);
+	}
+END_IMPLEMENT_LISTENER();
+
+BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamWarmUpDialogOkListener, MBTN_CLK_MSG)
+	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
+	MWidget* pWidget = pResource->FindWidget("ArrangedTeamGameWarmUpDialog");
+	if(pWidget!=NULL)
+		pWidget->Show(false);
+
+	ZPlayerSelectListBox *pPlayerList = (ZPlayerSelectListBox*)pResource->FindWidget("ArrangedTeamWarmUpSelect");
+	if(pPlayerList)
+	{
+		mlog("FOUND THE FUCKING WIDGEST FOR PLAYERS LIST\n");
+		const int nMaxInviteCount = max(MAX_LADDER_TEAM_MEMBER,MAX_CLANBATTLE_TEAM_MEMBER) - 1;
+
+		char szNames[nMaxInviteCount][MATCHOBJECT_NAME_LENGTH];
+		char *ppNames[nMaxInviteCount];
+		int nCount = 0;
+		for(int i=0;i<pPlayerList->GetCount();i++)
+		{
+			MListItem *pItem = pPlayerList->Get(i);
+			if(pItem->m_bSelected) {
+				strcpy(szNames[nCount],pItem->GetString());
+				ppNames[nCount]=szNames[nCount];
+				nCount ++;
+			}
+		}
+
+		switch (ZGetGameClient()->GetServerMode())
+		{
+		case MSM_CLAN:
+			{
+
+				if((0<nCount))
+				{
+					mlog("making request in zinterfacelistener.cpp");
+					ZGetGameClient()->RequestProposal(MPROPOSAL_CLAN_WARMUP_INVITE, ppNames, nCount);
+					
+				}
+				else
+				{
+					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), 
+						ZErrStr(MSG_LADDER_INVALID_COUNT));
+				}
+			}
+			break;
+		}
+	}
+END_IMPLEMENT_LISTENER();
+
+BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamWarmUpDialogCloseListener, MBTN_CLK_MSG)
+	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
+	MWidget* pWidget = pResource->FindWidget("ArrangedTeamGameWarmUpDialog");
+	if(pWidget!=NULL)
+		pWidget->Show(false);
+
+	pWidget = pResource->FindWidget("LobbyFindClanTeam");
+	if(pWidget!=NULL)
+		pWidget->Show(false);
 END_IMPLEMENT_LISTENER();

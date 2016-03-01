@@ -161,6 +161,43 @@ void MLadderGameStrategy::SetStageLadderInfo(MMatchLadderTeamInfo* poutRedLadder
 
 }
 
+//WARM UP
+void MLadderGameStrategy::SetWarmUpInfo(MMatchLadderTeamInfo* poutRedLadderInfo, MMatchLadderTeamInfo* poutBlueLadderInfo,
+								MLadderGroup* pGroup)
+{
+	poutRedLadderInfo->nTID = pGroup->GetID();
+	poutBlueLadderInfo->nTID = pGroup->GetID();
+
+	poutRedLadderInfo->nFirstMemberCount = (int)pGroup->GetLadderType();
+	poutBlueLadderInfo->nFirstMemberCount = (int)pGroup->GetLadderType();
+
+	poutRedLadderInfo->nCLID = 0;
+	poutBlueLadderInfo->nCLID = 0;
+	poutRedLadderInfo->nCharLevel = 0;
+	poutBlueLadderInfo->nCharLevel = 0;
+	poutRedLadderInfo->nContPoint = 0;
+	poutBlueLadderInfo->nContPoint = 0;
+
+}
+
+void MClanGameStrategy::SetWarmUpInfo(MMatchLadderTeamInfo* poutRedLadderInfo, MMatchLadderTeamInfo* poutBlueLadderInfo,
+								MLadderGroup* pGroup)
+{
+	poutRedLadderInfo->nTID = pGroup->GetID();
+	poutBlueLadderInfo->nTID = pGroup->GetID();
+
+	poutRedLadderInfo->nFirstMemberCount = (int)pGroup->GetLadderType();
+	poutBlueLadderInfo->nFirstMemberCount = (int)pGroup->GetLadderType();
+
+	poutRedLadderInfo->nCLID = 0;
+	poutBlueLadderInfo->nCLID = 0;
+	poutRedLadderInfo->nCharLevel = 0;
+	poutBlueLadderInfo->nCharLevel = 0;
+	poutRedLadderInfo->nContPoint = 0;
+	poutBlueLadderInfo->nContPoint = 0;
+
+}
+
 void MLadderGameStrategy::SavePointOnFinishGame(MMatchStage* pStage, MMatchTeam nWinnerTeam, bool bIsDrawGame,
 		                               MMatchLadderTeamInfo* pRedLadderInfo, MMatchLadderTeamInfo* pBlueLadderInfo)
 {

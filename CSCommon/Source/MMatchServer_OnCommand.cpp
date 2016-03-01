@@ -1654,26 +1654,33 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 				OnRequestCharInfoDetail(pCommand->GetSenderUID(), szCharName);
 			}
 			break;
-
-
 		case MC_MATCH_LADDER_REQUEST_CHALLENGE:
 			{
+				string x = "fuck received mc_match_ladder_request_challenge in mmatchserver_oncommand.cpp\n";
+				Log(LOG_DEBUG, x.c_str());
+				Log(LOG_FILE, x.c_str());
+				Log(LOG_PROG, x.c_str());
 				int nMemberCount;
 				unsigned long int nOptions;
 				unsigned long int nAntiLead;
 				unsigned long int nDodge;
+				bool warmUp;
 				pCommand->GetParameter(&nMemberCount,		0, MPT_INT);
 				pCommand->GetParameter(&nOptions,			1, MPT_UINT);
 				pCommand->GetParameter(&nAntiLead,			3, MPT_UINT);
 				pCommand->GetParameter(&nDodge, 4, MPT_UINT);
+				pCommand->GetParameter(&warmUp, 5, MPT_BOOL); //from 4 to 5 ~ Monckey100
 				MCommandParameter* pMemberNamesBlobParam = pCommand->GetParameter(2);
 				if(pMemberNamesBlobParam->GetType()!=MPT_BLOB) break;
-
 				void* pMemberNamesBlob = pMemberNamesBlobParam->GetPointer();
 				if( NULL == pMemberNamesBlob )
 					break;
-
-				OnLadderRequestChallenge(pCommand->GetSenderUID(), pMemberNamesBlob, nOptions, nAntiLead, nDodge);
+				
+				//LOG_DEBUG = 1, LOG_FILE = 3, LOG_PROG = 7
+				Log(LOG_DEBUG, x.c_str());
+				Log(LOG_FILE, x.c_str());
+				Log(LOG_PROG, x.c_str());
+				OnLadderRequestChallenge(pCommand->GetSenderUID(), pMemberNamesBlob, nOptions, nAntiLead, nDodge, warmUp);
 			}
 			break;
 		case MC_MATCH_LADDER_REQUEST_CANCEL_CHALLENGE:

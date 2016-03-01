@@ -1340,6 +1340,10 @@ void ZGameClient::OnChannelAllPlayerList(const MUID& uidChannel, void* pBlob, in
 	if(pDialog && pDialog->IsVisible())
 		pListBox = (MListBox*)pResource->FindWidget("ArrangedTeamSelect");
 
+	pDialog = pResource->FindWidget("ArrangedTeamGameWarmUpDialog");
+	if(pDialog && pDialog->IsVisible())
+		pListBox = (MListBox*)pResource->FindWidget("ArrangedTeamWarmUpSelect");
+
 	if(pListBox && pListBox->IsVisible())  {
 		pListBox->RemoveAll();
 		for(int i=0;i<nBlobCount;i++)

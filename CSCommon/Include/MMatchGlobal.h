@@ -76,6 +76,7 @@ enum MMatchProposalMode
 	MPROPOSAL_NONE = 0,				// 사용하지 않음
 	MPROPOSAL_LADDER_INVITE,		// 래더게임 요청
 	MPROPOSAL_CLAN_INVITE,			// 클랜전 요청
+	MPROPOSAL_CLAN_WARMUP_INVITE,
 	MPROPOSAL_END
 };
 

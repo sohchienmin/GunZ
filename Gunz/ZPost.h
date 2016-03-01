@@ -944,7 +944,7 @@ inline void ZPostReplyAgreement(const MUID& uidProposer, const MUID& uidChar, ch
 
 
 // 래더게임 신청
-inline void ZPostLadderRequestChallenge(char** ppMemberCharNames, const int nMemberCount, unsigned long int nOptions, unsigned long int nAntiLead, unsigned long int bDodge)	// 자신까지 포함
+inline void ZPostLadderRequestChallenge(char** ppMemberCharNames, const int nMemberCount, unsigned long int nOptions, unsigned long int nAntiLead, unsigned long int bDodge, bool warmUp)	// 자신까지 포함
 {
 	void* pBlobMembersName = MMakeBlobArray(sizeof(MTD_ReplierNode), nMemberCount);
 	for (int i = 0; i < nMemberCount; i++)
@@ -952,9 +952,9 @@ inline void ZPostLadderRequestChallenge(char** ppMemberCharNames, const int nMem
 		MTD_LadderTeamMemberNode* pMemberNode = (MTD_LadderTeamMemberNode*)MGetBlobArrayElement(pBlobMembersName, i);
 		strcpy(pMemberNode->szName, ppMemberCharNames[i]);
 	}
-
-	ZPOSTCMD5( MC_MATCH_LADDER_REQUEST_CHALLENGE, MCmdParamInt(nMemberCount), MCmdParamUInt(nOptions),
-		MCmdParamBlob(pBlobMembersName, MGetBlobArraySize(pBlobMembersName)), MCmdParamUInt(nAntiLead), MCmdParamUInt(bDodge)); //was ZPOSTCMD4 ~ Monckey100
+	mlog("post command in zpost.h\n");
+	ZPOSTCMD6( MC_MATCH_LADDER_REQUEST_CHALLENGE, MCmdParamInt(nMemberCount), MCmdParamUInt(nOptions),
+		MCmdParamBlob(pBlobMembersName, MGetBlobArraySize(pBlobMembersName)), MCmdParamUInt(nAntiLead), MCmdParamUInt(bDodge), MCmdParamBool(warmUp)); //was ZPOSTCMD4 ~ Monckey100
 		
 
 	MEraseBlobArray(pBlobMembersName);

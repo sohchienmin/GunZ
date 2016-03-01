@@ -86,6 +86,11 @@ DECLARE_LISTENER(ZGetArrangedTeamDialogOkListener);
 DECLARE_LISTENER(ZGetArrangedTeamDialogCloseListener);
 DECLARE_LISTENER(ZGetArrangedTeamGame_CancelListener);
 
+
+DECLARE_LISTENER(ZGetArrangedTeamGameWarmUpListener);
+DECLARE_LISTENER(ZGetArrangedTeamWarmUpDialogOkListener);
+DECLARE_LISTENER(ZGetArrangedTeamWarmUpDialogCloseListener);
+
 DECLARE_LISTENER(ZGetLeaveClanOKListener);
 DECLARE_LISTENER(ZGetLeaveClanCancelListener);
 

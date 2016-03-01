@@ -752,6 +752,10 @@ bool ZGameInterface::InitInterfaceListener()
 	SetListenerWidget("ArrangedTeamDialogClose", ZGetArrangedTeamDialogCloseListener());
 	SetListenerWidget("ArrangedTeamGame_Cancel", ZGetArrangedTeamGame_CancelListener());
 
+	SetListenerWidget("ArrangedTeamGameWarmUp", ZGetArrangedTeamGameWarmUpListener());
+	SetListenerWidget("ArrangedTeamWarmUpDialogOk", ZGetArrangedTeamWarmUpDialogOkListener());
+	SetListenerWidget("ArrangedTeamWarmUpDialogClose", ZGetArrangedTeamWarmUpDialogCloseListener());
+
 	SetListenerWidget("LeaveClanOK",		ZGetLeaveClanOKListener());
 	SetListenerWidget("LeaveClanCancel",	ZGetLeaveClanCancelListener());
 
@@ -1920,6 +1924,9 @@ void ZGameInterface::OnLobbyCreate(void)
 	if ( pWidget)		pWidget->Enable( bEnable);
 	
 	pWidget = m_IDLResource.FindWidget( "ArrangedTeamGame");
+	if ( pWidget)		pWidget->Enable( bEnable);
+
+	pWidget = m_IDLResource.FindWidget( "ArrangedTeamGameWarmUp");
 	if ( pWidget)		pWidget->Enable( bEnable);
 
 	pWidget = m_IDLResource.FindWidget( "ChannelChattingInput");
@@ -5653,6 +5660,9 @@ void ZGameInterface::InitClanLobbyUI(bool bClanBattleEnable)
 	pWidget= m_IDLResource.FindWidget( "ArrangedTeamGame" );
 	if(pWidget) pWidget->Show(bClanBattleEnable);
 
+	pWidget= m_IDLResource.FindWidget( "ArrangedTeamGameWarmUp" );
+	if(pWidget) pWidget->Show(bClanBattleEnable);
+
 	m_CombatMenu.EnableItem(ZCombatMenu::ZCMI_BATTLE_EXIT, !bClanBattleEnable);
 //	pWidget= m_IDLResource.FindWidget( "BattleExit" );
 //	if(pWidget) pWidget->Enable(!bClanBattleEnable);
@@ -5858,6 +5868,9 @@ void ZGameInterface::InitLadderUI(bool bLadderEnable)
 	pWidget= m_IDLResource.FindWidget( "ArrangedTeamGame" );
 	if(pWidget) pWidget->Show(bLadderEnable);
 
+	pWidget= m_IDLResource.FindWidget( "ArrangedTeamGameWarmUp" );
+	if(pWidget) pWidget->Show(bLadderEnable);
+
 	m_CombatMenu.EnableItem(ZCombatMenu::ZCMI_BATTLE_EXIT, !bLadderEnable);
 	//pWidget= m_IDLResource.FindWidget( "BattleExit" );
 	//if(pWidget) pWidget->Enable(!bLadderEnable);
@@ -5883,6 +5896,9 @@ void ZGameInterface::OnArrangedTeamGameUI(bool bFinding, bool isvote)
 		pWidget = m_IDLResource.FindWidget("ArrangedTeamGame");
 		if (pWidget) pWidget->Show(false);
 
+		pWidget= m_IDLResource.FindWidget( "ArrangedTeamGameWarmUp" );
+		if(pWidget) pWidget->Show(false);
+
 		pWidget = m_IDLResource.FindWidget("LobbyFindClanTeam");
 		if (pWidget != NULL) pWidget->Show(false);
 
@@ -5899,6 +5915,9 @@ void ZGameInterface::OnArrangedTeamGameUI(bool bFinding, bool isvote)
 		if (pWidget) pWidget->Show(false);
 		pWidget = m_IDLResource.FindWidget("ArrangedTeamGame");
 		if (pWidget) pWidget->Show(!bFinding);
+
+		pWidget= m_IDLResource.FindWidget( "ArrangedTeamGameWarmUp" );
+		if(pWidget) pWidget->Show(!bFinding);
 
 		pWidget = m_IDLResource.FindWidget("LobbyFindClanTeam");
 		if (pWidget != NULL) pWidget->Show(bFinding);

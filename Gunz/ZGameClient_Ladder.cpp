@@ -173,18 +173,22 @@ void ZGameClient::OnAskAgreement(const MUID& uidProposer, void* pMemberNamesBlob
 		{
 		case MPROPOSAL_LADDER_INVITE:
 			{
-//				ZTransMsg(szTemp, MSG_LADDER_REPLIER_AGREEMENT_LABEL, 1, szMemberNames[0]);
 				ZTransMsg(szTemp, MSG_LADDER_REPLIER_AGREEMENT_LABEL, 1, szMemberNames[0]);
 				strcat(szTemp, szMembers);
 			}
 			break;
 		case MPROPOSAL_CLAN_INVITE:
 			{
-//				ZTransMsg(szTemp, MSG_CLANBATTLE_REPLIER_AGREEMENT_LABEL, 1, szMemberNames[0]);
+
 				ZTransMsg(szTemp, MSG_CLANBATTLE_REPLIER_AGREEMENT_LABEL, 1, szMemberNames[0]);
 				strcat(szTemp, szMembers);
 			}
 			break;
+		case MPROPOSAL_CLAN_WARMUP_INVITE:
+			{
+				ZTransMsg(szTemp, MSG_CLANBATTLE_REPLIER_AGREEMENT_LABEL, 1, szMemberNames[0]);
+				strcat(szTemp, szMembers);
+			}
 		};
 
 		
@@ -221,6 +225,7 @@ void ZGameClient::OnReplyAgreement(const MUID& uidProposer,
 	ZNetAgreementBuilder::_BuildReplyResult nResult;
 	nResult = m_AgreementBuilder.BuildReply(szReplierName, nProposalMode, nRequestID, bAgreement);
 
+	mlog("in zgameclientladder.cpp onreplyagreement");
 	if (nResult == ZNetAgreementBuilder::BRR_ALL_AGREED)	// 모두 동의했을경우
 	{
 		switch (nProposalMode)
@@ -240,7 +245,7 @@ void ZGameClient::OnReplyAgreement(const MUID& uidProposer,
 				nCount++;
 
 				// 여기서 실제로 요청
-				ZPostLadderRequestChallenge(ppMember, nCount, 0, 0, 0);
+				ZPostLadderRequestChallenge(ppMember, nCount, 0, 0, 0, false);
 			}
 			break;
 		case MPROPOSAL_CLAN_INVITE:
@@ -281,10 +286,28 @@ void ZGameClient::OnReplyAgreement(const MUID& uidProposer,
 				}
 
 				MButton* pButton2 = (MButton*)pResource->FindWidget("AntiLeadCheckBox");
-				ZPostLadderRequestChallenge(ppMember, nCount, nBalancedMatching, nAntiLead, nDodge);
+				mlog(" FUCK Posting clan war request");
+				ZPostLadderRequestChallenge(ppMember, nCount, nBalancedMatching, nAntiLead, nDodge, false);
 			}
 			break;
+		case MPROPOSAL_CLAN_WARMUP_INVITE:
+			{
+				char szMember[MAX_CLANBATTLE_TEAM_MEMBER][MATCHOBJECT_NAME_LENGTH];
+				char* ppMember[MAX_CLANBATTLE_TEAM_MEMBER];
+
+				for(int i=0; i<MAX_CLANBATTLE_TEAM_MEMBER; i++) {
+					ppMember[i] = szMember[i];
+				}
+				int nCount = m_AgreementBuilder.GetReplierNames(&ppMember[1], MAX_CLANBATTLE_TEAM_MEMBER-1);
+
+				// 자신도 넣는다.
+				strcpy(szMember[0], ZGetMyInfo()->GetCharName());
+				nCount++;
+				mlog("FUCK Posting warm up request");
+				ZPostLadderRequestChallenge(ppMember, nCount, 1, 1, 1, true);
+			}
 		};
+
 
 		ShowProposalWaitFrame(false);
 		return;
@@ -316,6 +339,11 @@ void ZGameClient::RequestProposal(const MMatchProposalMode nProposalMode, char**
 			}
 			break;
 		case MPROPOSAL_CLAN_INVITE:
+			{
+
+			}
+			break;
+		case MPROPOSAL_CLAN_WARMUP_INVITE:
 			{
 
 			}

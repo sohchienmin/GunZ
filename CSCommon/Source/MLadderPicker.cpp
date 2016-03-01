@@ -30,7 +30,18 @@ void MLadderPicker::Shuffle()
 
 	m_LadderMatchList.sort(CompareLadderTicket);
 }
+//Gets the latest match
+bool MLadderPicker::GetLatestMatch(int* pGroup) {
+	if (m_LadderMatchList.empty()){
+		return false;
+	}
+	MLadderTicket* pTicket = (*m_LadderMatchList.end());
+	*pGroup = pTicket->GetGroupID();
+	//m_LadderMatchList.pop_back();
 
+	return true;
+
+}
 bool MLadderPicker::PickMatch(int* pGroupA, int* pGroupB)
 {
 	int nGroupA = 0, nGroupB = 0;
@@ -38,15 +49,6 @@ bool MLadderPicker::PickMatch(int* pGroupA, int* pGroupB)
 	int nCounter = 0;
 	while (true)
 	{
-#ifdef _DEBUG
-		// test
-		if (nCounter++ >= 100)
-		{
-			//_ASSERT(0);
-			return false;
-		}
-#endif
-
 		if (m_LadderMatchList.size() < 2) return false;
 
 		MLadderTicket* pTicketA = (*m_LadderMatchList.begin());

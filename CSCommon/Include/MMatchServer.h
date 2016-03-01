@@ -426,6 +426,7 @@ protected:	// 래더
 	friend MLadderMgr;
 	bool LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatchTeam nTeam);
 	void LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB, int MapID);
+	void WarmUpGameLaunch(MLadderGroup* pGroupA,int MapID);
 
 protected:	// 래더
 	void OnLadderRequestInvite(const MUID& uidPlayer, void* pGroupBlob);
@@ -433,7 +434,7 @@ protected:	// 래더
 	void OnLadderInviteCancel(const MUID& uidPlayer);
 	bool IsLadderRequestUserInRequestClanMember( const MUID& uidRequestMember
 		, const MTD_LadderTeamMemberNode* pRequestMemberNode );
-	void OnLadderRequestChallenge(const MUID& uidRequestMember, void* pGroupBlob, unsigned long int nOptions, unsigned long int nAntiLead, unsigned long int nDodge);
+	void OnLadderRequestChallenge(const MUID& uidRequestMember, void* pGroupBlob, unsigned long int nOptions, unsigned long int nAntiLead, unsigned long int nDodge, bool warmUp);
 	void OnLadderRequestCancelChallenge(const MUID& uidPlayer);
 
 	void OnRequestProposal(const MUID& uidProposer, const int nProposalMode, const int nRequestID, 

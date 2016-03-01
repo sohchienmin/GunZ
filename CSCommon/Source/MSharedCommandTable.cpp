@@ -721,6 +721,7 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 			P(MPT_BLOB, "MemberNames")		// ·¹´õÆÀ ¸â¹ö ÀÌ¸§µé
 			P(MPT_UINT, "AntiLead")
 			P(MPT_UINT, "Dodge")
+			P(MPT_BOOL, "warmUp")
 
 		C(MC_MATCH_LADDER_RESPONSE_CHALLENGE, "Match.Ladder.Response.Challenge", "Response Challenge a Ladder", MCDT_MACHINE2MACHINE)
 			P(MPT_INT, "Result")

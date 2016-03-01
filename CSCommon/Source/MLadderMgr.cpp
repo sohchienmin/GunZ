@@ -8,6 +8,10 @@
 #include "MSharedCommandTable.h"
 #include "MMatchUtil.h"
 #include "MTeamGameStrategy.h"
+////////////////////////////////////////////////
+#include "MCommandCommunicator.h"
+#include "Msg.h"
+#include "MDebug.h"
 
 MLadderGroupMap* MLadderMgr::GetWaitGroupContainer(MLADDERTYPE nLadderType)
 {
@@ -45,7 +49,7 @@ bool MLadderMgr::Init()
 	return true;
 }
 
-void MLadderMgr::AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup)
+void MLadderMgr::AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup, bool warmUp)
 {
 	pGroup->SetLadderType(nLadderType);
 
@@ -56,24 +60,35 @@ void MLadderMgr::AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup)
 	m_GroupList.push_back(pGroup);
 
 	// Ladder 상대 찾는중 알림(for UI)
-	for (list<MUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
-	{
-		MUID uidPlayer = (*i);
-		MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_SEARCH_RIVAL, uidPlayer);
-		
-		MMatchObject* pObj = MMatchServer::GetInstance()->GetObject(uidPlayer);
-		if (!IsEnabledObject(pObj))
+	if (!warmUp) { 
+		for (list<MUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
 		{
-			delete pCmd;
-			continue;
-		}
+			MUID uidPlayer = (*i);
+			MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_SEARCH_RIVAL, uidPlayer);
+		
+			MMatchObject* pObj = MMatchServer::GetInstance()->GetObject(uidPlayer);
+			if (!IsEnabledObject(pObj))
+			{
+				delete pCmd;
+				continue;
+			}
 
-		MMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
-	}	
+			MMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
+		}
+	}
+	else {
+		//Launch warm up here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! FUCK
+		//LOG_DEBUG = 1, LOG_FILE = 3, LOG_PROG = 7
+		string x = "LAUNCHING WARM UP IN MLADDERMGR.CPP";
+		//MessageBox(0, "Wow", "MessageBox caption", MB_OK);
+		//Log(LOG_DEBUG,x.c_str());
+		LaunchWarmUp(nLadderType, pGroup->GetID());
+	}
 }
 
-bool MLadderMgr::Challenge(MLadderGroup* pGroup)
+bool MLadderMgr::Challenge(MLadderGroup* pGroup, bool warmUp)
 {
+	
 	int nPlayerCount = (int)pGroup->GetPlayerCount();
 
 	if (nPlayerCount > 0)
@@ -82,15 +97,13 @@ bool MLadderMgr::Challenge(MLadderGroup* pGroup)
 		{
 			if (nPlayerCount == GetNeedMemberCount(MLADDERTYPE(i)))
 			{
-				AddGroup(MLADDERTYPE(i), pGroup);
+				
+				AddGroup(MLADDERTYPE(i), pGroup, warmUp);
 			}
 		}
 
-		//AddGroup(MLADDERTYPE(nPlayerCount-1), pGroup);
 		return true;
 	}
-
-	//_ASSERT("UNKNOWN LADDERTYPE");
 
 	return false;
 }
@@ -149,16 +162,6 @@ int MLadderMgr::MakeMatch(MLADDERTYPE nLadderType)
 	{
 		MLadderGroup* pGroup = (*i).second;
 		pGroup->UpdateTick();
-
-/*
-#ifdef _DEBUG
-		const unsigned int MIN_ADDTICKET_TICK = 3000;
-		if (MGetTimeDistance(MMatchServer::GetInstance()->GetTickTime(), pGroup->GetRegTime()) < MIN_ADDTICKET_TICK) continue;
-#endif
-*/
-
-		//ladderPicker.AddTicket( pGroup, time.MakeNumber(0,pGroup->GetScore()) );
-		
 		int nClanPoint = DEFAULT_CLAN_POINT;
 		MMatchClan* pClan = MMatchServer::GetInstance()->GetClanMap()->GetClan(pGroup->GetCLID());
 		if (pClan)
@@ -238,12 +241,6 @@ void MLadderMgr::CleaningGarbages()
 
 void MLadderMgr::LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB)
 {
-#ifdef _DEBUG
-	//char szLog[128];
-	//sprintf(szLog, "Team(%d) vs Group(%d) LADDER LAUNCHED \n", nGroupA, nGroupB);
-	//OutputDebugString(szLog);
-#endif 
-
 	MLadderGroupMap* pGroupMap = GetWaitGroupContainer(nLadderType);
 	if (pGroupMap == NULL) return;
 
@@ -260,9 +257,6 @@ void MLadderMgr::LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB)
 	RemoveFromGroupList(pGroupB);
 
 	if ((pGroupA == NULL) || (pGroupB == NULL)) {
-#ifdef _DEBUG
-		OutputDebugString("LADDER 불발 \n");
-#endif
 		return;
 	}
 	
@@ -290,6 +284,7 @@ void MLadderMgr::LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB)
 	pCommand->AddParameter(new MCmdParamInt(m->Maps[0]));
 	pCommand->AddParameter(new MCmdParamInt(m->Maps[1]));
 	pCommand->AddParameter(new MCmdParamInt(m->Maps[2]));
+
 	for (list<MUID>::iterator i=pGroupA->GetPlayerListBegin(); i!= pGroupA->GetPlayerListEnd(); i++)
 	{
 		MUID uidPlayer = (*i);
@@ -315,12 +310,100 @@ void MLadderMgr::LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB)
 	delete pCommand;
 	m->pGroupA = pGroupA;
 	m->pGroupB = pGroupB;
+	m->warmUp = false;
 	WaitingMapSelectionGames.insert(map<unsigned long int, LadderGameMapVoteInfo*>::value_type(ID, m));
-	
 
-	/*
+}
+// WITHOUT MAP VOTING WARMUP
+/*void MLadderMgr::LaunchWarmUp(MLADDERTYPE nLadderType, int nGroupA)
+{
+	
+	MLadderGroupMap* pGroupMap = GetWaitGroupContainer(nLadderType);
+	if (pGroupMap == NULL) {
+		MessageBox(0, "Pgroupmap is null", "MessageBox caption", MB_OK);
+		return;
+	}
+
+	MLadderGroup* pGroupA = pGroupMap->Find(nGroupA);
+	//MLadderGroup* pGroupB;
+	// 만약 같은 클랜이거나 같은 그룹이면 런치가 안된다.
+	if ((pGroupA == NULL)) {
+		MessageBox(0, "PgroupA is null", "MessageBox caption", MB_OK);
+		return;
+	}
+
+	pGroupMap->Remove(nGroupA);
+
+	RemoveFromGroupList(pGroupA);
+	//RemoveFromGroupList(pGroupB);
+	
 	MMatchServer* pServer = MMatchServer::GetInstance();
-	pServer->LadderGameLaunch(pGroupA, pGroupB);*/
+	pServer->WarmUpGameLaunch(pGroupA, 0);
+}
+*/
+// WITH MAP VOTING
+void MLadderMgr::LaunchWarmUp(MLADDERTYPE nLadderType, int nGroupA)
+{
+	
+	MLadderGroupMap* pGroupMap = GetWaitGroupContainer(nLadderType);
+	if (pGroupMap == NULL) {
+		return;
+	}
+
+	MLadderGroup* pGroupA = pGroupMap->Find(nGroupA);
+
+	if ((pGroupA == NULL)) {
+		return;
+	}
+
+	pGroupMap->Remove(nGroupA);
+
+	RemoveFromGroupList(pGroupA);
+
+	LadderGameMapVoteInfo* m = new LadderGameMapVoteInfo();
+	m->warmUp = true;
+	for(int i = 0; i < 3; i++)
+	{
+		m->Votes[i] = 0;
+		m->Maps[i] = -1;
+	}
+	MBaseTeamGameStrategy* pTeamGameStrategy = MBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
+	if (pTeamGameStrategy)
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			int index = pTeamGameStrategy->GetPlayerWarsRandomMap((int)pGroupA->GetPlayerCount());
+			while(index == m->Maps[0] || index == m->Maps[1] || index == m->Maps[2])
+				index = pTeamGameStrategy->GetPlayerWarsRandomMap((int)pGroupA->GetPlayerCount());
+			m->Maps[i] = index;
+		}
+	};
+	int ID = counter++;
+	m->RegisterTime = timeGetTime();
+	MMatchServer* pServer = MMatchServer::GetInstance();
+	MCommand* pCommand = pServer->CreateCommand(MC_MATCH_PLAYERWARS_RANDOM_MAPS,  MUID(0,0));
+	pCommand->AddParameter(new MCmdParamInt(m->Maps[0]));
+	pCommand->AddParameter(new MCmdParamInt(m->Maps[1]));
+	pCommand->AddParameter(new MCmdParamInt(m->Maps[2]));
+
+	for (list<MUID>::iterator i=pGroupA->GetPlayerListBegin(); i!= pGroupA->GetPlayerListEnd(); i++)
+	{
+		MUID uidPlayer = (*i);
+		MMatchObject* pObj = (MMatchObject*)pServer->GetObject(uidPlayer);
+		if (pObj) 
+		{
+			pObj->PlayerWarsIdentifier = ID;
+			MCommand* pSendCmd = pCommand->Clone();
+			pServer->RouteToListener(pObj, pSendCmd);
+		}
+	}	
+
+	delete pCommand;
+	m->pGroupA = pGroupA;
+	m->pGroupB = nullptr;
+	WaitingMapSelectionGames.insert(map<unsigned long int, LadderGameMapVoteInfo*>::value_type(ID, m));
+
+
 }
 
 void MLadderMgr::UpdatePlayerVote(int VoteID, MMatchObject* pObj)
@@ -407,7 +490,12 @@ void MLadderMgr::UpdateMapCountDown(unsigned long int NowTime)
 				}
 			}
 			i = WaitingMapSelectionGames.erase(i);
-			pServer->LadderGameLaunch(m->pGroupA, m->pGroupB, winningmapindex);
+			if (m->warmUp) {
+				pServer->WarmUpGameLaunch(m->pGroupA, winningmapindex);
+			}
+			else {
+				pServer->LadderGameLaunch(m->pGroupA, m->pGroupB, winningmapindex);
+			}
 			continue;
 		}
 		else
@@ -426,14 +514,16 @@ void MLadderMgr::UpdateMapCountDown(unsigned long int NowTime)
 					pServer->RouteToListener(pObj, pSendCmd);
 				}
 			}
-			for (list<MUID>::iterator i = m->pGroupB->GetPlayerListBegin(); i != m->pGroupB->GetPlayerListEnd(); i++)
-			{
-				MUID uidPlayer = (*i);
-				MMatchObject* pObj = (MMatchObject*)pServer->GetObject(uidPlayer);
-				if (pObj)
+			if (m->pGroupB && !m->warmUp) {
+				for (list<MUID>::iterator i = m->pGroupB->GetPlayerListBegin(); i != m->pGroupB->GetPlayerListEnd(); i++)
 				{
-					MCommand* pSendCmd = pCommand->Clone();
-					pServer->RouteToListener(pObj, pSendCmd);
+					MUID uidPlayer = (*i);
+					MMatchObject* pObj = (MMatchObject*)pServer->GetObject(uidPlayer);
+					if (pObj)
+					{
+						MCommand* pSendCmd = pCommand->Clone();
+						pServer->RouteToListener(pObj, pSendCmd);
+					}
 				}
 			}
 			delete pCommand;

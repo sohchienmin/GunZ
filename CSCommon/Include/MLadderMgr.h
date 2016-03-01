@@ -8,6 +8,7 @@
 class MMatchObject;
 struct LadderGameMapVoteInfo
 {
+	bool warmUp;
 	MLadderGroup* pGroupA;
 	MLadderGroup* pGroupB;
 	int Maps[3];
@@ -33,9 +34,10 @@ protected:
 	void UpdateMapCountDown(unsigned long int NowTime);
 	inline MLadderGroupMap* GetWaitGroupContainer(MLADDERTYPE nLadderType);
 
-	void AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup);
+	void AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup, bool warmUp);
 	int MakeMatch(MLADDERTYPE nLadderType);
 	void LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB);
+	void LaunchWarmUp(MLADDERTYPE nLadderType, int nGroupA);
 	void RemoveFromGroupList(MLadderGroup* pGroup);
 	void CleaningGarbages();
 	unsigned long int GetTickInterval();
@@ -47,7 +49,7 @@ public:
 	bool Init();
 	MLadderGroup* CreateLadderGroup();
 	MLadderGroup* FindLadderGroup(int nGroupID);
-	bool Challenge(MLadderGroup* pGroup);
+	bool Challenge(MLadderGroup* pGroup, bool warmUp);
 	void CancelChallenge(int nGroupID, const char* pszCancelName);
 
 	void UpdatePlayerVote(int VoteID, MMatchObject* pObj);

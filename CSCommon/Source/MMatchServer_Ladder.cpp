@@ -75,6 +75,7 @@ bool MMatchServer::LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatc
 
 void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB, int MapID)
 {
+
 	if ((MGetServerConfig()->GetServerMode() != MSM_LADDER) && 
 		(MGetServerConfig()->GetServerMode() != MSM_CLAN)) return;
 
@@ -117,9 +118,6 @@ void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB
 			LadderJoin(uidPlayer, uidStage, MMT_BLUE);
 		}
 	}
-
-	// Agent 준비
-//	ReserveAgent(pStage);
 
 	//////////////////////////////////////////////////////////////////////////////
 	int nRandomMap = 0;
@@ -198,6 +196,114 @@ void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB
 		}
 	}
 }
+//WARM UP
+void MMatchServer::WarmUpGameLaunch(MLadderGroup* pGroupA, int MapID)
+{
+	//LOG_DEBUG = 1, LOG_FILE = 3, LOG_PROG = 7
+	//MessageBox(0, "Wow", "MessageBox caption", MB_OK);
+
+	if ((MGetServerConfig()->GetServerMode() != MSM_LADDER) && 
+		(MGetServerConfig()->GetServerMode() != MSM_CLAN)) return;
+
+	MUID uidStage = MUID(0,0);
+	StageAdd(NULL, "LADDER_GAME", true, "", &uidStage);
+		/*
+		GetLadderMgr()->CancelChallenge(pGroupA->GetID(), "");
+		//GetLadderMgr()->CancelChallenge(pGroupB->GetID(), "");
+		return;
+	}*/
+	MMatchStage* pStage = FindStage(uidStage);
+	/*
+	if (pStage == NULL) {
+		
+		GetLadderMgr()->CancelChallenge(pGroupA->GetID(), "");
+		//GetLadderMgr()->CancelChallenge(pGroupB->GetID(), "");
+		return;
+	}*/
+
+	// A 그룹 입장
+	int count = 0;
+	int size = pGroupA->GetPlayerCount() - 1;
+	for (list<MUID>::iterator i=pGroupA->GetPlayerListBegin(); i!= pGroupA->GetPlayerListEnd(); i++)
+	{
+		MUID uidPlayer = (*i);
+		MMatchObject* pObj = (MMatchObject*)GetObject(uidPlayer);
+		if (pObj) 
+		{
+			pObj->PlayerWarsIdentifier = -1;
+			pObj->LastVoteID = -1;
+			if (count > size/2) 
+			{
+				LadderJoin(uidPlayer, uidStage, MMT_BLUE);
+			}
+			else {
+				LadderJoin(uidPlayer, uidStage, MMT_RED);
+			}
+		}
+		count++;
+	}
+
+	//////////////////////////////////////////////////////////////////////////////
+	int nRandomMap = 0;
+	MBaseTeamGameStrategy* pTeamGameStrategy = MBaseTeamGameStrategy::GetInstance(MGetServerConfig()->GetServerMode());
+	if (pTeamGameStrategy)
+	{
+		nRandomMap = pTeamGameStrategy->GetRandomMap((int)pGroupA->GetPlayerCount());
+	};
+
+	MMATCH_GAMETYPE nGameType = MMATCH_GAMETYPE_DEATHMATCH_TEAM;
+
+	// Game 설정
+	pStage->SetStageType(MST_LADDER);
+	pStage->ChangeRule(nGameType);
+
+	// 클랜전은 Stage의 팀정보에 CLID까지 설정해야한다.
+	if (pTeamGameStrategy)
+	{
+		MMatchLadderTeamInfo a_RedLadderTeamInfo, a_BlueLadderTeamInfo;
+		pTeamGameStrategy->SetWarmUpInfo(&a_RedLadderTeamInfo, &a_BlueLadderTeamInfo, pGroupA);
+
+		pStage->SetLadderTeam(&a_RedLadderTeamInfo, &a_BlueLadderTeamInfo);
+	};
+
+	MMatchStageSetting* pSetting = pStage->GetStageSetting();
+	pSetting->SetMasterUID(MUID(0,0));
+	pSetting->SetMapIndex(MapID);
+	pSetting->SetGameType(nGameType);
+
+	pSetting->SetLimitTime(3);	
+	pSetting->SetRoundMax(99);		// 최대 99라운드까지 진행할 수 있다.
+	pSetting->SetAntiLead(pGroupA->GetAntiLeadMatching());
+
+	MCommand* pCmd = CreateCmdResponseStageSetting(uidStage);
+	RouteToStage(uidStage, pCmd);	// Stage Setting 전송
+
+
+	if ( (MGetMapDescMgr()->MIsCorrectMap(nRandomMap)) && (MGetGameTypeMgr()->IsCorrectGameType(nGameType)) )
+	{
+		if (pStage->StartGame(MGetServerConfig()->IsUseResourceCRC32CacheCheck()) == true) {		// 게임시작
+			ReserveAgent(pStage);
+
+			MMatchObjectCacheBuilder CacheBuilder;
+			CacheBuilder.Reset();
+			for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
+				MUID uidObj = (MUID)(*i).first;
+				MMatchObject* pScanObj = (MMatchObject*)GetObject(uidObj);
+				if (pScanObj) {
+					CacheBuilder.AddObject(pScanObj);
+				}
+			}
+			MCommand* pCmdCacheAdd = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
+			RouteToStage(pStage->GetUID(), pCmdCacheAdd);
+			/////////////////////////////////////////////////////////////////////////////////////////////
+
+			MCommand* pCmd = CreateCommand(MC_MATCH_LADDER_LAUNCH, MUID(0,0));
+			pCmd->AddParameter(new MCmdParamUID(uidStage));
+			pCmd->AddParameter(new MCmdParamStr( const_cast<char*>(pStage->GetMapName()) ));
+			RouteToStage(uidStage, pCmd);
+		}
+	}
+}
 
 
 bool MMatchServer::IsLadderRequestUserInRequestClanMember( const MUID& uidRequestMember
@@ -224,7 +330,7 @@ bool MMatchServer::IsLadderRequestUserInRequestClanMember( const MUID& uidReques
 	return true;
 }
 
-void MMatchServer::OnLadderRequestChallenge(const MUID& uidRequestMember, void* pMemberNamesBlob, unsigned long int nOptions, unsigned long int nAntiLead, unsigned long int nDodge)
+void MMatchServer::OnLadderRequestChallenge(const MUID& uidRequestMember, void* pMemberNamesBlob, unsigned long int nOptions, unsigned long int nAntiLead, unsigned long int nDodge, bool warmUp)
 {
 	if ((MGetServerConfig()->GetServerMode() != MSM_LADDER) && 
 		(MGetServerConfig()->GetServerMode() != MSM_CLAN)) return;
@@ -325,8 +431,12 @@ void MMatchServer::OnLadderRequestChallenge(const MUID& uidRequestMember, void* 
 	for (int i=0; i<nMemberCount; i++) {
 		pGroup->AddPlayer( pMemberObjects[i] );
 	}
-
-	GetLadderMgr()->Challenge(pGroup);
+	//mlog("FUCK SENDING CHALLENGE IN MMATCHSERVER_LADDER.CPP");
+	string x = "Got this MMATCHSERVER_LADDER.CPP, going to call getladdermgr->challenge() \n";
+	Log(LOG_DEBUG, x.c_str());
+	Log(LOG_FILE, x.c_str());
+	Log(LOG_PROG, x.c_str());
+	GetLadderMgr()->Challenge(pGroup, warmUp);
 }
 
 void MMatchServer::OnLadderRequestCancelChallenge(const MUID& uidPlayer)
@@ -408,6 +518,11 @@ void MMatchServer::OnRequestProposal(const MUID& uidProposer, const int nProposa
 			nRet = pClanGameStrategy->ValidateRequestInviteProposal(pProposerObject, ppReplierObjects, nReplierCount);
 		}
 		break;
+	case MPROPOSAL_CLAN_WARMUP_INVITE:
+		{
+			MClanGameStrategy* pClanGameStrategy = MClanGameStrategy::GetInstance();
+			nRet = pClanGameStrategy->ValidateRequestInviteProposal(pProposerObject, ppReplierObjects, nReplierCount);
+		}
 	};
 
 	if (nRet != MOK)
