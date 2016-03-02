@@ -60,8 +60,9 @@ void MLadderMgr::AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup, bool wa
 	m_GroupList.push_back(pGroup);
 
 	// Ladder 상대 찾는중 알림(for UI)
-	if (!warmUp) { 
-		for (list<MUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
+	if (!warmUp) {
+		LaunchDuelWhileWait(nLadderType, pGroup->GetID());
+		/*for (list<MUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
 		{
 			MUID uidPlayer = (*i);
 			MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_SEARCH_RIVAL, uidPlayer);
@@ -74,7 +75,7 @@ void MLadderMgr::AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup, bool wa
 			}
 
 			MMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
-		}
+		}*/
 	}
 	else {
 		LaunchWarmUp(nLadderType, pGroup->GetID());
@@ -182,7 +183,8 @@ int MLadderMgr::MakeMatch(MLADDERTYPE nLadderType)
 		MLadderGroup* pGroupB = pGroupMap->Find(nGroupB);
 		if(pGroupA->GetAntiLeadMatching() != pGroupB->GetAntiLeadMatching())
 			break;
-
+		// I TRIED DOING IT HERE <------ THIS IS KICKING THEM OUT BEFORE VOTING STARTS
+		MMatchServer* pServer = MMatchServer::GetInstance();
 		LaunchLadder(nLadderType, nGroupA, nGroupB);
 		nLaunchCount++;
 	}
@@ -239,12 +241,15 @@ void MLadderMgr::LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB)
 	MLadderGroupMap* pGroupMap = GetWaitGroupContainer(nLadderType);
 	if (pGroupMap == NULL) return;
 
+
 	MLadderGroup* pGroupA = pGroupMap->Find(nGroupA);
 	MLadderGroup* pGroupB = pGroupMap->Find(nGroupB);
 
 	// 만약 같은 클랜이거나 같은 그룹이면 런치가 안된다.
-	if ((pGroupA != NULL) && (pGroupB != NULL) && (pGroupA->IsSameGroup(pGroupB))) return;
+	if ((pGroupA->IsSameGroup(pGroupB))) return;
 
+	
+	
 	pGroupMap->Remove(nGroupA);
 	pGroupMap->Remove(nGroupB);
 
@@ -275,15 +280,18 @@ void MLadderMgr::LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB)
 	int ID = counter++;
 	m->RegisterTime = timeGetTime();
 	MMatchServer* pServer = MMatchServer::GetInstance();
-	MCommand* pCommand = pServer->CreateCommand(MC_MATCH_PLAYERWARS_RANDOM_MAPS,  MUID(0,0));
+	pServer = MMatchServer::GetInstance();
+	MCommand* pCommand = pServer->CreateCommand(MC_MATCH_PLAYERWARS_LEAVE_RANDOM_MAPS,  MUID(0,0));
 	pCommand->AddParameter(new MCmdParamInt(m->Maps[0]));
 	pCommand->AddParameter(new MCmdParamInt(m->Maps[1]));
 	pCommand->AddParameter(new MCmdParamInt(m->Maps[2]));
 
+	//THIS SENDS THE RANDOM MAPS <------------------------------------------------
 	for (list<MUID>::iterator i=pGroupA->GetPlayerListBegin(); i!= pGroupA->GetPlayerListEnd(); i++)
 	{
 		MUID uidPlayer = (*i);
 		MMatchObject* pObj = (MMatchObject*)pServer->GetObject(uidPlayer);
+		
 		if (pObj) 
 		{
 			pObj->PlayerWarsIdentifier = ID;
@@ -295,6 +303,7 @@ void MLadderMgr::LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB)
 	{
 		MUID uidPlayer = (*i);
 		MMatchObject* pObj = (MMatchObject*)pServer->GetObject(uidPlayer);
+		
 		if (pObj) 
 		{
 			pObj->PlayerWarsIdentifier = ID;
@@ -306,8 +315,8 @@ void MLadderMgr::LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB)
 	m->pGroupA = pGroupA;
 	m->pGroupB = pGroupB;
 	m->warmUp = false;
-	WaitingMapSelectionGames.insert(map<unsigned long int, LadderGameMapVoteInfo*>::value_type(ID, m));
 
+	WaitingMapSelectionGames.insert(map<unsigned long int, LadderGameMapVoteInfo*>::value_type(ID, m));
 }
 // WITHOUT MAP VOTING WARMUP
 /*void MLadderMgr::LaunchWarmUp(MLADDERTYPE nLadderType, int nGroupA)
@@ -401,6 +410,25 @@ void MLadderMgr::LaunchWarmUp(MLADDERTYPE nLadderType, int nGroupA)
 
 }
 
+void MLadderMgr::LaunchDuelWhileWait(MLADDERTYPE nLadderType, int nGroupA) {
+
+	MLadderGroupMap* pGroupMap = GetWaitGroupContainer(nLadderType);
+	if (pGroupMap == NULL) {
+		MessageBox(0, "Pgroupmap is null", "MessageBox caption", MB_OK);
+		return;
+	}
+
+	MLadderGroup* pGroupA = pGroupMap->Find(nGroupA);
+	
+	if ((pGroupA == NULL)) {
+		MessageBox(0, "PgroupA is null", "MessageBox caption", MB_OK);
+		return;
+	}
+
+	MMatchServer* pServer = MMatchServer::GetInstance();
+	pServer->DuelLaunch(pGroupA);
+}
+
 void MLadderMgr::UpdatePlayerVote(int VoteID, MMatchObject* pObj)
 {
 	if (pObj->PlayerWarsIdentifier != -1)
@@ -489,6 +517,8 @@ void MLadderMgr::UpdateMapCountDown(unsigned long int NowTime)
 				pServer->WarmUpGameLaunch(m->pGroupA, winningmapindex);
 			}
 			else {
+				//I TRIED DOING IT HERE
+				//---------------------------------------------------------------------------------------------------/
 				pServer->LadderGameLaunch(m->pGroupA, m->pGroupB, winningmapindex);
 			}
 			continue;

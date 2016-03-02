@@ -260,10 +260,6 @@ bool MMatchServer::StageLeave(const MUID& uidPlayer)//, const MUID& uidStage)
 {
 	MMatchObject* pObj = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObj)) return false;
-	// MMatchStage* pStage = FindStage(uidStage);
-
-	//if(pObj->GetStageUID()!=uidStage)
-	//	mlog(" stage leave hack %s (%d, %d) ignore\n", pObj->GetName(), uidPlayer.High, uidPlayer.Low);
 
 	MMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return false;

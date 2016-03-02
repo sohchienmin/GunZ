@@ -38,6 +38,7 @@ protected:
 	int MakeMatch(MLADDERTYPE nLadderType);
 	void LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB);
 	void LaunchWarmUp(MLADDERTYPE nLadderType, int nGroupA);
+	void LaunchDuelWhileWait(MLADDERTYPE nLadderType, int nGroupA);
 	void RemoveFromGroupList(MLadderGroup* pGroup);
 	void CleaningGarbages();
 	unsigned long int GetTickInterval();

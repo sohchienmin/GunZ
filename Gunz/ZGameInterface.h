@@ -152,6 +152,8 @@ protected:
 	bool			m_bLeaveBattleReserved;
 	bool			m_bLeaveStageReserved;
 	DWORD			m_dwLeaveBattleTime;
+	bool			specialCase;
+	DWORD			timeSpecialCase;
 
 
 	int				m_nLoginState;
@@ -355,7 +357,8 @@ public:
 
 	void RespawnMyCharacter();	// 혼자테스트할때 클릭하면 되살아난다.
 
-	void ReserveLeaveStage();	// 스테이지에서 나갈때 일정시간 흐른뒤 나간다
+	void ReserveLeaveStage();
+	void ReserveLeaveStagePreGame();	// 스테이지에서 나갈때 일정시간 흐른뒤 나간다
 	void ReserveLeaveBattle();	// 대기방으로 나갈떄 일정시간 흐른뒤 나간다
 	void FinishGame(void);
 	bool IsLeaveBattleReserved() { return m_bLeaveBattleReserved; }

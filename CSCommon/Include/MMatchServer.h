@@ -425,8 +425,10 @@ protected:
 protected:	// 래더
 	friend MLadderMgr;
 	bool LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatchTeam nTeam);
+	bool DuelJoin(const MUID& uidPlayer, const MUID& uidStage);
 	void LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB, int MapID);
 	void WarmUpGameLaunch(MLadderGroup* pGroupA,int MapID);
+	void DuelLaunch(MLadderGroup* pGroup);
 
 protected:	// 래더
 	void OnLadderRequestInvite(const MUID& uidPlayer, void* pGroupBlob);

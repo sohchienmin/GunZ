@@ -163,7 +163,25 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			}
 			ZGetGameInterface()->OnArrangedTeamGameUI(true, true);
 		}
-
+		case MC_MATCH_PLAYERWARS_LEAVE_RANDOM_MAPS:
+		{
+			int nRandomIndex[3];
+			pCommand->GetParameter(&nRandomIndex[0], 0, MPT_INT);
+			pCommand->GetParameter(&nRandomIndex[1], 1, MPT_INT);
+			pCommand->GetParameter(&nRandomIndex[2], 2, MPT_INT);
+			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
+			char Name[100];
+			for(int i = 0; i < 3; i++)
+			{
+				sprintf(Name, "PlayerWarsMap%d", i );
+				MLabel* pLabel = (MLabel*)pResource->FindWidget(Name);
+				if ( pLabel)
+					pLabel->SetText(MGetMapDescMgr()->GetMapName(nRandomIndex[i]));
+			}
+		
+			//ZGetGameInterface()->OnArrangedTeamGameUI(true, true);
+			ZGetGameInterface()->ReserveLeaveStagePreGame();
+		}
 		case MC_MATCH_PLAYERWARS_VOTE_UPDATE:
 		{
 			int nRandomIndex[3];
