@@ -43,7 +43,7 @@ int MMatchServer::ValidateChallengeLadderGame(MMatchObject** ppMemberObject, int
 
 ///////////////////////////////////////////////////////////////////////////
 // LadderStage
-bool MMatchServer::LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatchTeam nTeam)
+bool MMatchServer::LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatchTeam nTeam, bool duel)
 {
 	MMatchObject* pObj = GetObject(uidPlayer);
 	if (pObj == NULL) return false;
@@ -53,7 +53,13 @@ bool MMatchServer::LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatc
 
 	MMatchStage* pStage = FindStage(uidStage);
 	if (pStage == NULL) return false;
-	ClanRejoiner.insert(ClanReDef::value_type(pObj->GetCharInfo()->m_nCID, new ClanRejoin(nTeam, uidStage)));
+	if (!duel) {
+		if (ClanRejoiner.count(pObj->GetCharInfo()->m_nCID)) {
+			ClanReDef::iterator it = ClanRejoiner.find(pObj->GetCharInfo()->m_nCID);
+			ClanRejoiner.erase(it);
+		}
+		ClanRejoiner.insert(ClanReDef::value_type(pObj->GetCharInfo()->m_nCID, new ClanRejoin(nTeam, uidStage)));
+	}
 	pObj->OnStageJoin();
 
 	// Join
@@ -69,7 +75,7 @@ bool MMatchServer::LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatc
 	pCmd->AddParameter(new MCmdParamUID(uidStage));
 	pCmd->AddParameter(new MCmdParamInt(nTeam));
 	Post(pCmd);
-
+	
 	return true;
 }
 
@@ -130,7 +136,7 @@ void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB
 		{
 			pObj->PlayerWarsIdentifier = -1;
 			pObj->LastVoteID = -1;
-			LadderJoin(uidPlayer, uidStage, MMT_RED);
+			LadderJoin(uidPlayer, uidStage, MMT_RED, false);
 		}
 	}
 	// B 그룹 입장
@@ -142,7 +148,7 @@ void MMatchServer::LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB
 		{
 			pObj->PlayerWarsIdentifier = -1;
 			pObj->LastVoteID = -1;
-			LadderJoin(uidPlayer, uidStage, MMT_BLUE);
+			LadderJoin(uidPlayer, uidStage, MMT_BLUE, false);
 		}
 	}
 
@@ -247,10 +253,10 @@ void MMatchServer::WarmUpGameLaunch(MLadderGroup* pGroupA, int MapID)
 			pObj->LastVoteID = -1;
 			if (count > size/2) 
 			{
-				LadderJoin(uidPlayer, uidStage, MMT_BLUE);
+				LadderJoin(uidPlayer, uidStage, MMT_BLUE, false);
 			}
 			else {
-				LadderJoin(uidPlayer, uidStage, MMT_RED);
+				LadderJoin(uidPlayer, uidStage, MMT_RED, false);
 			}
 		}
 		count++;
@@ -317,89 +323,7 @@ void MMatchServer::WarmUpGameLaunch(MLadderGroup* pGroupA, int MapID)
 		}
 	}
 }
-/*
-void MMatchServer::DuelLaunch(MLadderGroup* pGroup) {
-	if ((MGetServerConfig()->GetServerMode() != MSM_LADDER) && 
-		(MGetServerConfig()->GetServerMode() != MSM_CLAN)) return;
 
-	MUID uidStage = MUID(0,0);
-	if (StageAdd(NULL, "LADDER_GAME", true, "", &uidStage) == false) {
-		// Group 해체
-		GetLadderMgr()->CancelChallenge(pGroup->GetID(), "");
-	}
-	MMatchStage* pStage = FindStage(uidStage);
-	if (pStage == NULL) {
-		// Group 해체
-		GetLadderMgr()->CancelChallenge(pGroup->GetID(), "");
-		return;
-	}
-
-	// A 그룹 입장
-	
-	int count = 0;
-	int size = pGroup->GetPlayerCount() - 1;
-	for (list<MUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
-	{
-		MUID uidPlayer = (*i);
-		MMatchObject* pObj = (MMatchObject*)GetObject(uidPlayer);
-		if (pObj) 
-		{
-			pObj->PlayerWarsIdentifier = -1;
-			pObj->LastVoteID = -1;
-			if (count > size/2) 
-			{
-				LadderJoin(uidPlayer, uidStage, MMT_BLUE);
-			}
-			else {
-				LadderJoin(uidPlayer, uidStage, MMT_RED);
-			}
-		}
-		count++;
-	}
-
-	MMATCH_GAMETYPE nGameType = MMATCH_GAMETYPE_DEATHMATCH_TEAM;
-
-	// Game 설정
-	pStage->SetStageType(MST_LADDER);
-	pStage->ChangeRule(nGameType);
-
-	MMatchStageSetting* pSetting = pStage->GetStageSetting();
-	pSetting->SetMasterUID(MUID(0,0));
-	pSetting->SetMapIndex(2);
-	pSetting->SetGameType(nGameType);
-
-	pSetting->SetLimitTime(3);	
-	pSetting->SetRoundMax(99);		// 최대 99라운드까지 진행할 수 있다.
-	pSetting->SetAntiLead(pGroup->GetAntiLeadMatching());
-
-	MCommand* pCmd = CreateCmdResponseStageSetting(uidStage);
-	RouteToStage(uidStage, pCmd);	// Stage Setting 전송
-
-
-	ReserveAgent(pStage);
-
-	MMatchObjectCacheBuilder CacheBuilder;
-	CacheBuilder.Reset();
-		for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
-				MUID uidObj = (MUID)(*i).first;
-				MMatchObject* pScanObj = (MMatchObject*)GetObject(uidObj);
-				if (pScanObj) {
-					CacheBuilder.AddObject(pScanObj);
-				}
-		}
-			MCommand* pCmdCacheAdd = CacheBuilder.GetResultCmd(MATCHCACHEMODE_UPDATE, this);
-			RouteToStage(pStage->GetUID(), pCmdCacheAdd);
-			/////////////////////////////////////////////////////////////////////////////////////////////
-
-			pCmd = CreateCommand(MC_MATCH_STAGE_LAUNCH, MUID(0,0));
-			pCmd->AddParameter(new MCmdParamUID(uidStage));
-			pCmd->AddParameter(new MCmdParamStr( const_cast<char*>(pStage->GetMapName()) ));
-			RouteToStage(uidStage, pCmd);
-
-			// Ladder Log 남긴다.
-		
-}
-*/
 
 void MMatchServer::DuelLaunch(MLadderGroup* pGroupA)
 {
@@ -424,10 +348,10 @@ void MMatchServer::DuelLaunch(MLadderGroup* pGroupA)
 			pObj->LastVoteID = -1;
 			if (count > size/2) 
 			{
-				LadderJoin(uidPlayer, uidStage, MMT_BLUE);
+				LadderJoin(uidPlayer, uidStage, MMT_BLUE, true);
 			}
 			else {
-				LadderJoin(uidPlayer, uidStage, MMT_RED);
+				LadderJoin(uidPlayer, uidStage, MMT_RED, true);
 			}
 		}
 		count++;

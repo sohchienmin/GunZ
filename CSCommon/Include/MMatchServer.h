@@ -424,7 +424,7 @@ protected:
 	void SaveGamePlayerLog(MMatchObject* pObj, unsigned int nStageID);
 protected:	// ·¡´õ
 	friend MLadderMgr;
-	bool LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatchTeam nTeam);
+	bool LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatchTeam nTeam, bool duel);
 	bool DuelJoin(const MUID& uidPlayer, const MUID& uidStage);
 	void LadderGameLaunch(MLadderGroup* pGroupA, MLadderGroup* pGroupB, int MapID);
 	void WarmUpGameLaunch(MLadderGroup* pGroupA,int MapID);

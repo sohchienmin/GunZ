@@ -115,26 +115,45 @@ bool MMatchServer::StageRemove(const MUID& uidStage, MMatchStageMap::iterator* p
 }
 
 
-bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage, bool rejoin,MMatchTeam Team)
+bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage, bool rejoin, MMatchTeam Team)
 {
 	MMatchObject* pObj = GetObject(uidPlayer);
-	if (!IsEnabledObject(pObj)) return false;
+	if (!IsEnabledObject(pObj)) {
+		string x = "ISENABLEDOBJECT";
+		LOG(LOG_PROG, x.c_str());
+		return false;
+	}
 
 	if (pObj->GetStageUID() != MUID(0,0))
 		StageLeave(pObj->GetUID());//, pObj->GetStageUID());
 
 	MMatchChannel* pChannel = FindChannel(pObj->GetChannelUID());
-	if (pChannel == NULL) return false;
-	if (pChannel->GetChannelType() == MCHANNEL_TYPE_DUELTOURNAMENT) return false;
+	if (pChannel == NULL) {
+		string x = "PCHANNEL";
+		LOG(LOG_PROG, x.c_str());
+		return false;
+	}
+	if (pChannel->GetChannelType() == MCHANNEL_TYPE_DUELTOURNAMENT) {
+		string x = "PCHANNEL == duel";
+		LOG(LOG_PROG, x.c_str());
+		return false;
+	}
 
 	MMatchStage* pStage = FindStage(uidStage);
-	if (pStage == NULL) return false;
+	if (pStage == NULL) {
+		string x = "PSTAGE";
+		LOG(LOG_PROG, x.c_str());
+		return false;
+	}
 	if(rejoin == true)
 	{
 		//GetDBMgr()->InsertRejoinLog(pStage->GetName(), pObj->GetCharInfo()->m_nCID, pStage->GetBlueCLID(), pStage->GetRedCLID(), (int)Team, pStage->GetUID().Low);
 	}
 	int ret = ValidateStageJoin(uidPlayer, uidStage);
 	if (ret != MOK) {
+		RouteResponseToListener(pObj, MC_MATCH_RESPONSE_STAGE_JOIN, ret);
+		string x = "RET != MOK";
+		LOG(LOG_PROG, x.c_str());
 		RouteResponseToListener(pObj, MC_MATCH_RESPONSE_STAGE_JOIN, ret);
 		return false;
 	}
@@ -159,6 +178,7 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage, bool r
 	if(rejoin && pStage->GetStageType() != MST_LADDER) rejoin = false;
 	if(!rejoin)
 	{
+		pObj->SetTeam(pStage->GetRecommandedTeam());
 		MCommand* pNew = new MCommand(m_CommandManager.GetCommandDescByID(MC_MATCH_STAGE_JOIN), MUID(0,0), m_This);
 		pNew->AddParameter(new MCommandParameterUID(uidPlayer));
 		pNew->AddParameter(new MCommandParameterUID(pStage->GetUID()));
@@ -253,6 +273,8 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage, bool r
 		RouteToListener(pObj, pCmd);
 		StageEnterBattle(uidPlayer, uidStage);
 	}
+	string x = "REJOINED!!!!!!!!!!!!!!";
+	LOG(LOG_PROG, x.c_str());
 	return true;
 }
 
@@ -785,7 +807,7 @@ void MMatchServer::StageFinishGame(const MUID& uidStage)
 	if (pStage == NULL) return;
 
 	bool bIsRelayMapUnFinish = true;
-	if(pStage->GetStageType() == MST_LADDER)
+	if(pStage->GetStageType() == MST_LADDER || pStage->GetStageType() == MST_NORMAL)
 	{
 		ClanReDef::iterator it = ClanRejoiner.begin();
 		while(it != ClanRejoiner.end())
@@ -794,8 +816,9 @@ void MMatchServer::StageFinishGame(const MUID& uidStage)
 			{
 				ClanRejoiner.erase(it++);
 			}
-			else
-			++it;
+			else {
+				++it;
+			}
 		}
 	}
 

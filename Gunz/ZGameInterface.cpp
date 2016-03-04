@@ -4079,10 +4079,11 @@ bool ZGameInterface::Update(float fElapsed)
 	if(ZGetGame()!=NULL && m_bLeaveBattleReserved && (m_dwLeaveBattleTime < timeGetTime()))
 		LeaveBattle();
 
-	/*if(specialCase && timeSpecialCase < timeGetTime()) {
+	if(specialCase && timeSpecialCase < timeGetTime()) {
 		specialCase = false;
+		timeSpecialCase = 0;
 		OnArrangedTeamGameUI(true, true);
-	}*/
+	}
 
 	__EP(13);
 
@@ -5454,14 +5455,14 @@ void ZGameInterface::ReserveLeaveStage()
 
 void ZGameInterface::ReserveLeaveStagePreGame()
 {
-	/*ShowMenu(false);
-	m_bGameFinishLeaveBattle = false;
+	//ShowMenu(false);
+	//m_bGameFinishLeaveBattle = false;
 	ZPostStageLeave(ZGetGameClient()->GetPlayerUID());
 	ZApplication::GetGameInterface()->SetState(GUNZ_LOBBY);
-	ZGetGameInterface()->SetCursorEnable(true);
-	m_bLeaveBattleReserved = false;
-	m_bLeaveStageReserved = false;
-	specialCase = true;*/
+	//ZGetGameInterface()->SetCursorEnable(true);
+	//m_bLeaveBattleReserved = false;
+	//m_bLeaveStageReserved = false;
+	specialCase = true;
 	timeSpecialCase = timeGetTime() + 1000;
 }
 
@@ -5915,28 +5916,28 @@ void ZGameInterface::OnArrangedTeamGameUI(bool bFinding, bool isvote)
 	MWidget *pWidget;
 	if (isvote == true)
 	{
-		mlog("FUCKING GOT THE CLAN WAR MAP VOTE OKAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY\n");
+		//mlog("FUCKING GOT THE CLAN WAR MAP VOTE OKAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY\n");
 		pWidget = m_IDLResource.FindWidget("ArrangedTeamGame");
 		if (pWidget) {
-			mlog("ArrangedTeamGame not null\n");
+			//mlog("ArrangedTeamGame not null\n");
 			pWidget->Show(false);
 		}
 
 		pWidget= m_IDLResource.FindWidget( "ArrangedTeamGameWarmUp" );
 		if(pWidget) { 
 			pWidget->Show(false);
-			mlog("ArrangedTeamGameWarmUp not null\n");
+			//mlog("ArrangedTeamGameWarmUp not null\n");
 		}
 
 		pWidget = m_IDLResource.FindWidget("LobbyFindClanTeam");
 		if (pWidget != NULL){
 			pWidget->Show(false);
-			mlog("LobbyFindClanTeam not null\n");
+			//mlog("LobbyFindClanTeam not null\n");
 		}
 		pWidget = m_IDLResource.FindWidget("PlayerWarsMapVote");
 		if (pWidget)
 		{
-			mlog("PlayerWarsMapVote not null\n");
+			//mlog("PlayerWarsMapVote not null\n");
 			pWidget->Show(bFinding);
 			pWidget->SetText("Clan War Map Voter");
 		}
