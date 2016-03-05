@@ -52,6 +52,7 @@ public:
 	MLadderGroup* FindLadderGroup(int nGroupID);
 	bool Challenge(MLadderGroup* pGroup, bool warmUp);
 	void CancelChallenge(int nGroupID, const char* pszCancelName);
+	void CancelChallengeNew(int nGroupID, const char* pszCancelName);
 
 	void UpdatePlayerVote(int VoteID, MMatchObject* pObj);
 	void Tick(unsigned long nTick);

@@ -727,8 +727,14 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 			P(MPT_INT, "Result")
 		C(MC_MATCH_LADDER_SEARCH_RIVAL, "Match.Ladder.SearchRival", "Search a Ladder Rival", MCDT_MACHINE2MACHINE)
 		C(MC_MATCH_LADDER_REQUEST_CANCEL_CHALLENGE, "Match.Ladder.Request.CancelChallenge", "Request Cancel Challenge", MCDT_MACHINE2MACHINE)
+		C(MC_MATCH_LADDER_REQUEST_CANCEL_CHALLENGE_NEW, "Match.Ladder.Request.CancelChallengeNew", "Request Cancel Challenge New", MCDT_MACHINE2MACHINE)
+
 		C(MC_MATCH_LADDER_CANCEL_CHALLENGE, "Match.Ladder.CancelChallenge", "Cancel Ladder Challenge", MCDT_MACHINE2MACHINE)
 			P(MPT_STR, "CharName")
+		
+		C(MC_MATCH_LADDER_CANCEL_CHALLENGE_NEW, "Match.Ladder.CancelChallengeNew", "Cancel Ladder Challenge New", MCDT_MACHINE2MACHINE)
+			P(MPT_STR, "CharName")
+
 		C(MC_MATCH_LADDER_PREPARE, "Ladder.Prepare", "Prepare Ladder Game", MCDT_MACHINE2MACHINE)
 			P(MPT_UID, "uidStage")
 			P(MPT_INT, "nTeam")

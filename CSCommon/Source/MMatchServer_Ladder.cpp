@@ -382,7 +382,7 @@ void MMatchServer::DuelLaunch(MLadderGroup* pGroupA)
 
 	MMatchStageSetting* pSetting = pStage->GetStageSetting();
 	pSetting->SetMasterUID(MUID(0,0));
-	int MapID = 0;
+	int MapID = 16;
 	pSetting->SetMapIndex(MapID);
 	pSetting->SetGameType(nGameType);
 
@@ -555,6 +555,15 @@ void MMatchServer::OnLadderRequestCancelChallenge(const MUID& uidPlayer)
 	if (pObj->GetLadderGroupID() == 0) return;
 
 	GetLadderMgr()->CancelChallenge(pObj->GetLadderGroupID(), pObj->GetCharInfo()->m_szName);
+}
+
+void MMatchServer::OnLadderRequestCancelChallengeNew(const MUID& uidPlayer)
+{
+	MMatchObject* pObj = GetObject(uidPlayer);
+	if (!IsEnabledObject(pObj)) return;
+	if (pObj->GetLadderGroupID() == 0) return;
+
+	GetLadderMgr()->CancelChallengeNew(pObj->GetLadderGroupID(), pObj->GetCharInfo()->m_szName);
 }
 
 void MMatchServer::OnRequestProposal(const MUID& uidProposer, const int nProposalMode, const int nRequestID, 

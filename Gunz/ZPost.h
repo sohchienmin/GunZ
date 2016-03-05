@@ -965,6 +965,10 @@ inline void ZPostLadderCancel()
 	ZPOSTCMD0(MC_MATCH_LADDER_REQUEST_CANCEL_CHALLENGE)
 }
 
+inline void ZPostLadderCancelNew()
+{
+	ZPOSTCMD0(MC_MATCH_LADDER_REQUEST_CANCEL_CHALLENGE_NEW)
+}
 
 
 // Duel Tournament ///////////////////////////////////////////////////////////////////////////////////

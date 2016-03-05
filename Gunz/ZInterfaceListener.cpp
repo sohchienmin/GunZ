@@ -1759,10 +1759,10 @@ if (pWidget != NULL)
 	if (!pEditClanName)
 		return true;
 
-	MEdit *pEditClanPassword = (MEdit*)pResource->FindWidget("ClanCreate_ClanPassword");
+	/*MEdit *pEditClanPassword = (MEdit*)pResource->FindWidget("ClanCreate_ClanPassword");
 	if (!pEditClanPassword)
 		return true;
-
+	*/
 	int nNameLen = (int)strlen(pEditClanName->GetText());
 
 	if (nNameLen <= 0)
@@ -1792,7 +1792,8 @@ if (pWidget != NULL)
 		char szClanName[CLAN_NAME_LENGTH] = { 0, };
 		char szClanPassword[CLAN_NAME_LENGTH] = { 0, };
 		strcpy(szClanName, pEditClanName->GetText());
-		strcpy(szClanPassword, pEditClanPassword->GetText());
+		//REMOVING THE PASSWORD FOR CLAN CHANNEL
+		//strcpy(szClanPassword, pEditClanPassword->GetText());
 		ZGetGameClient()->RequestCreateClan(szClanName, szClanPassword);
 	}
 }
@@ -2045,12 +2046,12 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 						nBalancedMatching = 1;
 					}
 
-					int nAntiLead = 0;
-					MButton* pAntiLead = (MButton*)pResource->FindWidget("AntiLeadCheckBox");
+					int nAntiLead = 1;
+					/*MButton* pAntiLead = (MButton*)pResource->FindWidget("AntiLeadCheckBox");
 					if ((pAntiLead) && (pAntiLead->GetCheck()))
 					{
 						nAntiLead = 1;
-					}
+					}*/
 
 					int nDodge = 0;
 					MButton* pDodge = (MButton*)pResource->FindWidget("DodgeCheckBox");
@@ -2061,7 +2062,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 					char* ppMember[MAX_CLANBATTLE_TEAM_MEMBER];
 					ppMember[0] = (char*)ZGetMyInfo()->GetCharName();
 					nCount = 1;
-					MButton* pButton2 = (MButton*)pResource->FindWidget("AntiLeadCheckBox");
+					//MButton* pButton2 = (MButton*)pResource->FindWidget("AntiLeadCheckBox");
 					
 					ZPostLadderRequestChallenge(ppMember, nCount, nBalancedMatching, nAntiLead, nDodge, false);
 				}

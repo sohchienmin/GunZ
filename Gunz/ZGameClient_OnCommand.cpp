@@ -1635,6 +1635,26 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 						ZMsg(MSG_LADDER_FAILED) );
 				}
 			}break;
+		case MC_MATCH_LADDER_CANCEL_CHALLENGE_NEW:
+			{
+				ZGetGameInterface()->OnArrangedTeamGameUI(false, false);
+				
+				char szCharName[MATCHOBJECT_NAME_LENGTH];
+				pCommand->GetParameter(szCharName, 0, MPT_STR, sizeof(szCharName) );
+				mlog("MC_MATCH_LADDER CANCEL CHALLENGE, LEAVING THE STAGEEEEEEEEEEEEEEEEEEEEEEEE");
+				ZGetGameInterface()->ReserveLeaveStage();
+				
+				if(szCharName[0]!=0) {
+					char szOutput[256];
+					ZTransMsg(szOutput,MSG_LADDER_CANCEL,1,szCharName);
+					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), szOutput);
+
+				}else	 // 이름이 없으면 실패한경우다.
+				{
+					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), 
+						ZMsg(MSG_LADDER_FAILED) );
+				}
+			}break;
 		case MC_MATCH_LADDER_RESPONSE_CHALLENGE:
 			{
 				int nResult;

@@ -145,6 +145,40 @@ void MLadderMgr::CancelChallenge(int nGroupID, const char* pszCancelName)
 	delete pGroup;
 }
 
+void MLadderMgr::CancelChallengeNew(int nGroupID, const char* pszCancelName)
+{
+	MLadderGroup* pGroup = FindLadderGroup(nGroupID);
+	if (pGroup == NULL) return;
+	MLadderGroupMap* pGroupMap = GetWaitGroupContainer((MLADDERTYPE)pGroup->GetLadderType());
+	if (pGroupMap == NULL) return;
+
+	for (list<MUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
+	{
+		MUID uidMember = (*i);
+
+		MMatchObject* pMemberObject = MMatchServer::GetInstance()->GetObject(uidMember);
+		if (!IsEnabledObject(pMemberObject)) continue;
+		pMemberObject->SetLadderChallenging(false);
+		pMemberObject->SetLadderGroupID(0);
+
+		MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_CANCEL_CHALLENGE_NEW, uidMember);
+		pCmd->AddParameter(new MCmdParamStr(pszCancelName));
+
+		MMatchObject* pObj = MMatchServer::GetInstance()->GetObject(uidMember);
+		if (!IsEnabledObject(pObj))
+		{
+			delete pCmd;
+			continue;
+		}
+
+		MMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
+	}
+
+	pGroupMap->Remove(pGroup->GetID());
+	RemoveFromGroupList(pGroup);
+	delete pGroup;
+}
+
 int MLadderMgr::MakeMatch(MLADDERTYPE nLadderType)
 {
 	MLadderGroupMap* pWaitGroupMap = GetWaitGroupContainer(nLadderType);

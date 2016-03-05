@@ -438,6 +438,7 @@ protected:	// ·¡´õ
 		, const MTD_LadderTeamMemberNode* pRequestMemberNode );
 	void OnLadderRequestChallenge(const MUID& uidRequestMember, void* pGroupBlob, unsigned long int nOptions, unsigned long int nAntiLead, unsigned long int nDodge, bool warmUp);
 	void OnLadderRequestCancelChallenge(const MUID& uidPlayer);
+	void OnLadderRequestCancelChallengeNew(const MUID& uidPlayer);
 
 	void OnRequestProposal(const MUID& uidProposer, const int nProposalMode, const int nRequestID, 
 		const int nReplierCount, void* pReplierNamesBlob);

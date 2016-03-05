@@ -2170,8 +2170,8 @@ bool MMatchDBMgr::ReserveCloseClan(const int nCLID, const TCHAR* szClanName, con
 	CString strSQL;
 
 	try {		
-		string strClanName = m_DBFilter.Filtering(string(szClanName));
-		strSQL.Format(g_szDB_RESERVE_CLOSE_CLAN, nCLID, &strClanName[0], nMasterCID, strDeleteDate.c_str());
+		//string strClanName = m_DBFilter.Filtering(string(szClanName));
+		strSQL.Format(g_szDB_RESERVE_CLOSE_CLAN, nCLID, szClanName, nMasterCID, strDeleteDate.c_str());
 		m_DB.ExecuteSQL( strSQL );
 	} 
 	catch(CDBException* e) {

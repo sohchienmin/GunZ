@@ -1690,6 +1690,13 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 				OnLadderRequestCancelChallenge(pCommand->GetSenderUID());
 			}
 			break;
+		case MC_MATCH_LADDER_REQUEST_CANCEL_CHALLENGE_NEW:
+			{
+				string x = "Clan war just got cancelled";
+				LOG(LOG_DEBUG,x.c_str());
+				OnLadderRequestCancelChallengeNew(pCommand->GetSenderUID());
+			}
+			break;
 		case MC_MATCH_REQUEST_PROPOSAL:
 			{
 				MUID uidChar;

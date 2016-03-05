@@ -32,12 +32,14 @@ void ShowProposalWaitFrame(bool bVisible, const char* szTitle=NULL, const char* 
 void OnAskReplierAgreement_OnExpire()
 {
 	ZChatOutput( ZMsg(MSG_CANCELED) );
+	mlog("CLAN WAR CANCELLEDDD ONASKREPLIERAGREEMENT");
 	ZGetGameClient()->ReplyAgreement(false);
 }
 
 
 void ShowProposalWaitFrame_OnExpire()
 {
+	mlog("CLAN WAR CANCELLEDDD SHOWPROPOSALWAITFRAME");
 	ZChatOutput( ZMsg(MSG_CANCELED) );
 }
 
@@ -321,9 +323,15 @@ void ZGameClient::OnReplyAgreement(const MUID& uidProposer,
 
 		// 거절한 사람 반환, 거절한 사람이 없을 경우는 그냥 마지막에 대답한 사람으로 정한다.
 		if (!m_AgreementBuilder.GetRejecter(szRejecter)) strcpy(szRejecter, szReplierName);
-
-		ZTransMsg(temp, MSG_LADDER_REPLIER_AGREEMENT_REJECT, 1, szRejecter);
-		ZApplication::GetGameInterface()->ShowMessage(temp, NULL, MSG_LADDER_REPLIER_AGREEMENT_REJECT);
+		mlog("FUCKING REJECTED OMFGGGGGGGGGGGGGGGGGG");
+		GunzState nGameState = ZApplication::GetGameInterface()->GetState();
+		if (nGameState == GUNZ_LOBBY) 
+		{
+			ZTransMsg(temp, MSG_LADDER_REPLIER_AGREEMENT_REJECT, 1, szRejecter);
+			ZApplication::GetGameInterface()->ShowMessage(temp, NULL, MSG_LADDER_REPLIER_AGREEMENT_REJECT);
+		}
+		
+		
 	}
 }
 
