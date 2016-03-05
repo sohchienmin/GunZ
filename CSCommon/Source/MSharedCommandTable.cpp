@@ -1821,10 +1821,14 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 
 	C(MC_MATCH_PLAYERWARS_VOTE, "Maps", "Maps", MCDT_MACHINE2MACHINE)
 		P(MPT_INT, "Map");
+
 	C(MC_MATCH_PLAYERWARS_VOTE_UPDATE, "Maps", "Maps", MCDT_MACHINE2MACHINE)
 		P(MPT_INT, "1");
 		P(MPT_INT, "2");
 		P(MPT_INT, "3");
+
+	C(MC_MATCH_UPDATE_PREGAME, "PreGame", "PreGame", MCDT_MACHINE2MACHINE)
+		P(MPT_BOOL, "inPreGame");
 
 	END_CMD_DESC();
 }

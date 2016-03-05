@@ -35,7 +35,7 @@ void CopyChannelPlayerListNodeForTrans(MTD_ChannelPlayerListNode* pDest, MMatchO
 	pDest->nPlayerFlags = pSrcObject->GetPlayerFlags();
 	pDest->nCLID = pSrcObject->GetCharInfo()->m_ClanInfo.m_nClanID;
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	pDest->nChannelRed = pSrcObject->GetCharInfo()->m_nRedColor;
 	pDest->nChannelGreen = pSrcObject->GetCharInfo()->m_nGreenColor;
 	pDest->nChannelBlue = pSrcObject->GetCharInfo()->m_nBlueColor;
@@ -383,7 +383,7 @@ bool MMatchServer::ChannelChat(const MUID& uidPlayer, const MUID& uidChannel, ch
 	pCmd->AddParameter(new MCommandParameterString(pszChat));
 	pCmd->AddParameter(new MCommandParameterInt(nGrade));
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	pCmd->AddParameter(new MCommandParameterInt(nR));
 	pCmd->AddParameter(new MCommandParameterInt(nG));
 	pCmd->AddParameter(new MCommandParameterInt(nB));

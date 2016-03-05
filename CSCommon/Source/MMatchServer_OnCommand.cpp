@@ -275,7 +275,7 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 
 				pCommand->GetParameter(&uidChannel, 1, MPT_UID);
 				pCommand->GetParameter(szChat, 2, MPT_STR, CHAT_STRING_LEN);
-#ifdef _RGGunz
+#ifdef _GZFGunz
 				pCommand->GetParameter(&nR, 3, MPT_INT);
 				pCommand->GetParameter(&nG, 4, MPT_INT);
 				pCommand->GetParameter(&nB, 5, MPT_INT);
@@ -576,7 +576,7 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 
 				pCommand->GetParameter(&uidStage, 1, MPT_UID);
 				pCommand->GetParameter(szChat, 2, MPT_STR, CHAT_STRING_LEN);
-#ifdef _RGGunz
+#ifdef _GZFGunz
 				pCommand->GetParameter(&nR, 3, MPT_INT);
 				pCommand->GetParameter(&nG, 4, MPT_INT);
 				pCommand->GetParameter(&nB, 5, MPT_INT);

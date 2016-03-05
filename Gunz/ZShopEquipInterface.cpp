@@ -161,7 +161,7 @@ MMatchCharItemParts ZShopEquipInterface::RecommendEquipParts(MMatchItemSlotType 
 			parts = MMCIP_AVATAR;
 		}
 	}
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	else if (slot == MMIST_DANCE)
 	{
 		if (ZGetMyInfo()->GetItemList()->GetEquipedItemID(MMCIP_DANCE) == 0)
@@ -318,7 +318,7 @@ bool ZShopEquipInterface::IsKindableItem(MMatchCharItemParts nParts, MMatchItemS
 		if ( nParts == MMCIP_AVATAR)
 			return true;
 		break;
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	case MMIST_DANCE:
 		if (nParts == MMCIP_DANCE)
 			return true;
@@ -819,7 +819,7 @@ void ZShopEquipInterface::SelectEquipmentFrameList( const char* szName, bool bOp
 
 int ZShopEquipInterface::GetArmorWeaponTabIndexContainItemParts(MMatchCharItemParts parts)
 {
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	if (parts < MMCIP_MELEE || parts == MMCIP_AVATAR || parts == MMCIP_DANCE )
 		return 0;
 	if (parts >= MMCIP_MELEE && parts < MMCIP_LONGBUFF2 + 1 && parts != MMCIP_AVATAR && parts != MMCIP_DANCE)

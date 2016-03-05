@@ -58,7 +58,7 @@ bool ZCharacterItem::Confirm(MMatchCharItemParts parts, MMatchItemDesc* pDesc)
 			}
 		}
 		break;
-#ifdef _RGGunz
+#ifdef _GZFGunz
 		case MMCIP_DANCE:
 		{
 			if (pDesc->m_nType.Ref() != MMIT_DANCE)

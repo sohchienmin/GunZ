@@ -160,7 +160,7 @@ void ZInterfaceBackground::Draw(void)
 
 	switch ( m_nSceneNumber)
 	{
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	case  LOGIN_SCENE_MAIN:
 	{
 		DWORD dwClock = (timeGetTime() - m_dwClock);

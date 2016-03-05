@@ -698,7 +698,7 @@ bool MMatchServer::StageChat(const MUID& uidPlayer, const MUID& uidStage, char* 
 	pCmd->AddParameter(new MCommandParameterUID(uidStage));
 	pCmd->AddParameter(new MCommandParameterString(pszChat));
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	pCmd->AddParameter(new MCommandParameterInt(nR));
 	pCmd->AddParameter(new MCommandParameterInt(nG));
 	pCmd->AddParameter(new MCommandParameterInt(nB));

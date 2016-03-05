@@ -220,7 +220,7 @@ bool ZGameInterface::OnCommand(MCommand* pCommand)
 				(int)pCharInfo->nHair, (int)pCharInfo->nFace);
 			ZGetMyInfo()->GetItemList()->SetEquipItemInfo(pCharInfo->uidEquipedItem, pCharInfo->nEquipedItemDesc, pCharInfo->nEquipedItemCount);
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 			ZGetMyInfo()->SetRed(pCharInfo->nRedColor);
 			ZGetMyInfo()->SetGreen(pCharInfo->nGreenColor);
 			ZGetMyInfo()->SetBlue(pCharInfo->nBlueColor);

@@ -972,7 +972,7 @@ void MMatchClient::ReplaceObjCache(MMatchObjCache* pCache)
 	MMatchObjCache* pScanCache = FindObjCache(pCache->GetUID());
 	if (pScanCache == NULL) return;
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	pScanCache->SetInfo(pCache->GetUID(), pCache->GetName(), pCache->GetClanName(), pCache->GetLevel(),
 		pCache->GetUGrade(), pCache->GetPGrade()
 		, pCache->GetRank(), pCache->GetKillCount(), pCache->GetDeathCount(), pCache->GetDTGrade()
@@ -994,7 +994,7 @@ void MMatchClient::UpdateObjCache(MMatchObjCache* pCache)
 	if (pScanCache != NULL) return;
 
 	MMatchObjCache* pNewCache = new MMatchObjCache;
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	pNewCache->SetInfo(pCache->GetUID(), pCache->GetName(), pCache->GetClanName(), pCache->GetLevel(), 
 		pCache->GetUGrade(), pCache->GetPGrade()
 		, pCache->GetRank(), pCache->GetKillCount(), pCache->GetDeathCount(), pCache->GetDTGrade()

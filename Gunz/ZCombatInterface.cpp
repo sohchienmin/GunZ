@@ -753,7 +753,7 @@ void ZCombatInterface::DrawHPAPNumbers(MDrawContext* pDC)
 		for (ZCharacterManager::iterator itor = ZGetGame()->m_CharacterManager.begin(); itor != ZGetGame()->m_CharacterManager.end(); ++itor)
 		{
 			ZCharacter* pChar = (ZCharacter*)(*itor).second;
-			if (pChar->GetTeamID() == ZGetGame()->m_pMyCharacter->GetTeamID()) {
+			if (pChar->GetTeamID() == ZGetGame()->m_pMyCharacter->GetTeamID() && pChar != ZGetGame()->m_pMyCharacter) {
 				float itemy = y + linespace;
 				float texty = itemy + (linespace - (float)pDC->GetFont()->GetHeight() / (float)MGetWorkspaceHeight())*.5f;
 				char szBuffer[64];
@@ -782,6 +782,14 @@ void ZCombatInterface::DrawHPAPNumbers(MDrawContext* pDC)
 				y += 20.f / 600.f;
 			}
 		}
+	}
+
+	if (ZGetGameClient()->inPreGame) {
+		char cancel[128];
+		sprintf(cancel, "Please type /cancel to cancel the clan war");
+		pDC->SetColor(124, 252, 0);
+		pDC->SetFont(MFontManager::Get("FONTa10_O2Wht"));
+		TextRelative(pDC, 500.f / 800.f, 50.f / 600.f, cancel);
 	}
 }
 
@@ -2373,7 +2381,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 			sprintf(pItem->szLevel, "-- Lv.");
 		else
 			sprintf(pItem->szLevel, "%d%s", pCharacter->GetProperty()->nLevel, ZMsg(MSG_CHARINFO_LEVELMARKER));
-#ifdef _RGGunz
+
 		pItem->SetColor(MCOLOR(pCharacter->GetCharInfo()->nRedColor, pCharacter->GetCharInfo()->nGreenColor, pCharacter->GetCharInfo()->nBlueColor));
 
 		if (pCharacter->IsAdminName())
@@ -2389,7 +2397,7 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 		else
 			sprintf(pItem->szGrade, "%s", "");
 
-#endif
+
 		sprintf(pItem->szName,"%s", pCharacter->GetUserName());
 		memcpy(pItem->szClan,pCharacter->GetProperty()->GetClanName(),CLAN_NAME_LENGTH);
 

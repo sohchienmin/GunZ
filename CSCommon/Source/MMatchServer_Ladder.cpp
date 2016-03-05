@@ -75,7 +75,14 @@ bool MMatchServer::LadderJoin(const MUID& uidPlayer, const MUID& uidStage, MMatc
 	pCmd->AddParameter(new MCmdParamUID(uidStage));
 	pCmd->AddParameter(new MCmdParamInt(nTeam));
 	Post(pCmd);
-	
+
+	if(duel)
+	{
+		MCommand* pCmd = CreateCommand(MC_MATCH_UPDATE_PREGAME, uidPlayer);
+		pCmd->AddParameter(new MCmdParamBool(duel));
+		Post(pCmd);
+	}
+
 	return true;
 }
 

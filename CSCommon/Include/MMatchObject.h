@@ -795,6 +795,7 @@ protected:
 public :
 	int KillStreak;
 	int LastVoteID;
+	
 	unsigned long int PlayerWarsIdentifier;
 	MASYNCJOBQ			m_DBJobQ;
 	unsigned long int st_nLastChannelChat;

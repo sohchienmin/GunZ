@@ -25,7 +25,7 @@ void ZPlayerManager::AddPlayer( MUID& uID, ZPlayerInfo* pInfo)
 
 void ZPlayerManager::AddPlayer( MUID& uID, const char* name, int rank, int kill, int death, int red, int green, int blue)
 {
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	ZPlayerInfo* pInfo = new ZPlayerInfo(name, rank, kill, death, red, green, blue);
 #else
 	ZPlayerInfo* pInfo = new ZPlayerInfo(name, rank, kill, death);

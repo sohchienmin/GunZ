@@ -156,7 +156,7 @@ inline void ZPostPeerChat(char* szMsg, int nTeam=0)
 	char szSendMsg[ 256 ] = {0,};
 	
 	const size_t nInputLen = strlen( szMsg );
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	if( 256 > nInputLen )
 	{
 		ZPOSTCMD5(MC_PEER_CHAT, MCmdParamInt(nTeam), MCommandParameterString(szMsg), MCommandParameterInt(ZGetMyInfo()->GetRed()), MCommandParameterInt(ZGetMyInfo()->GetGreen()), MCommandParameterInt(ZGetMyInfo()->GetBlue()))
@@ -360,7 +360,7 @@ inline void ZPostIgnoreList()
 
 inline void ZPostStageChat(const MUID& uidChar, const MUID& uidStage, char* szChat)
 {
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	ZPOSTCMD6(MC_MATCH_STAGE_CHAT, MCommandParameterUID(uidChar), MCommandParameterUID(uidStage), MCmdParamStr(szChat), MCommandParameterInt(ZGetMyInfo()->GetRed()), MCommandParameterInt(ZGetMyInfo()->GetGreen()), MCommandParameterInt(ZGetMyInfo()->GetBlue()));
 #else
 	ZPOSTCMD3(MC_MATCH_STAGE_CHAT, MCommandParameterUID(uidChar), MCommandParameterUID(uidStage), MCmdParamStr(szChat));

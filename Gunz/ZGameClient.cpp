@@ -283,6 +283,7 @@ ZGameClient::ZGameClient() : MMatchClient() , m_pUPnP(NULL)
 	m_UPDCommadHackShield.Init();
 	LastVoteID = -1;
 	IsRejoin = false;
+	inPreGame = false;
 }
 
 
@@ -437,7 +438,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 			for(int i=0; i<nCount; i++){
 				MMatchObjCache* pCache = (MMatchObjCache*)MGetBlobArrayElement(pBlob, i);
 				if (pCache->CheckFlag(MTD_PlayerFlags_AdminHide) == false) {	//  Skip on AdminHide
-#ifdef _RGGunz
+#ifdef _GZFGunz
 					pList->AddPlayer(pCache->GetUID(), MOSS_NONREADY, pCache->GetLevel(),
 						pCache->GetName(), pCache->GetClanName(), pCache->GetCLID(), false, MMT_ALL, pCache->GetDTGrade()
 						, pCache->GetRed(), pCache->GetGreen(), pCache->GetBlue());
@@ -452,7 +453,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 					else if (pCache->GetEmblemChecksum() != 0) {
 						vecClanID.push_back( pCache->GetCLID() );
 					}
-#ifdef _RGGunz
+#ifdef _GZFGunz
 					ZGetPlayerManager()->AddPlayer(pCache->GetUID(), pCache->GetName(), pCache->GetRank(), pCache->GetKillCount(), pCache->GetDeathCount(), pCache->GetRed(), pCache->GetGreen(), pCache->GetGreen());
 #else
 					ZGetPlayerManager()->AddPlayer( pCache->GetUID(), pCache->GetName(), pCache->GetRank(), pCache->GetKillCount(), pCache->GetDeathCount());
@@ -463,7 +464,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 			for(int i=0; i<nCount; i++){
 				MMatchObjCache* pCache = (MMatchObjCache*)MGetBlobArrayElement(pBlob, i);
 				if (pCache->CheckFlag(MTD_PlayerFlags_AdminHide) == false) {	//  Skip on AdminHide
-#ifdef _RGGunz
+#ifdef _GZFGunz
 					pList->AddPlayer(pCache->GetUID(), MOSS_NONREADY, pCache->GetLevel(),
 						pCache->GetName(), pCache->GetClanName(), pCache->GetCLID(), false, MMT_ALL, pCache->GetDTGrade()
 						, pCache->GetRed(), pCache->GetGreen(), pCache->GetBlue());
@@ -479,7 +480,7 @@ void ZGameClient::OnObjectCache(unsigned int nType, void* pBlob, int nCount)
 						vecClanID.push_back( pCache->GetCLID() );
 					}
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 					ZGetPlayerManager()->AddPlayer(pCache->GetUID(), pCache->GetName(), pCache->GetRank(), pCache->GetKillCount(), pCache->GetDeathCount(), pCache->GetRed(), pCache->GetGreen(), pCache->GetGreen());
 #else
 					ZGetPlayerManager()->AddPlayer( pCache->GetUID(), pCache->GetName(), pCache->GetRank(), pCache->GetKillCount(), pCache->GetDeathCount());
@@ -609,7 +610,7 @@ void ZGameClient::OnChannelResponseJoin(const MUID& uidChannel, MCHANNEL_TYPE nC
 
 void ZGameClient::OnChannelChat(const MUID& uidChannel, char* szName, char* szChat, int nGrade, int nR, int nG, int nB)
 {
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	if (find(Ignores.begin(), Ignores.end(), szName) != Ignores.end()) return;
 	if (GetChannelUID() != uidChannel)		return;
 	if ((szChat[0] == 0) || (szName[0] == 0))	return;
@@ -988,7 +989,7 @@ void ZGameClient::OnStageMaster(const MUID& uidStage, const MUID& uidChar)
 
 void ZGameClient::OnStageChat(const MUID& uidChar, const MUID& uidStage, char* szChat, int nR, int nG, int nB)
 {
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	if (GetStageUID() != uidStage) return;
 	if (szChat[0] == 0) return;
 	string name = GetObjName(uidChar);
@@ -1291,7 +1292,7 @@ void ZGameClient::OnChannelPlayerList(int nTotalPlayerCount, int nPage, void* pB
 				else if (pNode->nEmblemChecksum != 0) {
 					vecClanID.push_back( pNode->nCLID );
 				}
-#ifdef _RGGunz
+#ifdef _GZFGunz
 				pPlayerListBox->AddPlayer(pNode->uidPlayer, state, pNode->nLevel, pNode->szName, pNode->szClanName, pNode->nCLID,
 					(MMatchUserGradeID)pNode->nGrade, pNode->nDTLastWeekGrade, pNode->nChannelRed, pNode->nChannelGreen, pNode->nChannelBlue);
 #else

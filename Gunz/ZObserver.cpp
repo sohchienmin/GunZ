@@ -534,7 +534,7 @@ void ZObserver::OnDraw(MDrawContext* pDC)
 	{
 		char szName[128];
 		sprintf(szName, "%s (HP:%d, AP:%d)", m_pTargetCharacter->GetUserName(), (int)m_pTargetCharacter->GetHP(), (int)m_pTargetCharacter->GetAP());
-#ifdef _RGGunz
+#ifdef _GZFGunz
 		int nRed = m_pTargetCharacter->GetCharInfo()->nRedColor, nGreen = m_pTargetCharacter->GetCharInfo()->nGreenColor, nBlue = m_pTargetCharacter->GetCharInfo()->nBlueColor;
 		pDC->SetColor(MCOLOR(nRed, nGreen, nBlue));
 #endif

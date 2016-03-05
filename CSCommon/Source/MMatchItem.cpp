@@ -751,7 +751,7 @@ bool MMatchItemDescMgr::ParseItem(MXmlElement& element)
 			else if (!stricmp(szAttrValue, MICTOK_TYPE_CUSTOM))		pNewDesc->m_nType.Set(MMIT_CUSTOM);
 			else if( !stricmp(szAttrValue, MICTOK_TYPE_TICKET) )	pNewDesc->m_nType.Set(MMIT_TICKET);
 			else if( !stricmp(szAttrValue, MICTOK_TYPE_AVATAR) )	pNewDesc->m_nType.Set(MMIT_AVATAR);
-#ifdef _RGGunz
+#ifdef _GZFGunz
 			else if (!stricmp(szAttrValue, "dance"))				pNewDesc->m_nType.Set(MMIT_DANCE);
 			else if (!stricmp(szAttrValue, "dash"))					pNewDesc->m_nType.Set(MMIT_DASH);
 #endif
@@ -787,7 +787,7 @@ bool MMatchItemDescMgr::ParseItem(MXmlElement& element)
 			else if (!stricmp(szAttrValue, MICTOK_SLOT_FINGER))		pNewDesc->m_nSlot = MMIST_FINGER;
 			else if (!stricmp(szAttrValue, MICTOK_SLOT_EXTRA))		pNewDesc->m_nSlot = MMIST_EXTRA;
 			else if (!stricmp(szAttrValue, MICTOK_SLOT_AVATAR))		pNewDesc->m_nSlot = MMIST_AVATAR;
-#ifdef _RGGunz
+#ifdef _GZFGunz
 			else if (!stricmp(szAttrValue, "dance"))				pNewDesc->m_nSlot = MMIST_DANCE;
 			else if (!stricmp(szAttrValue, "dash"))					pNewDesc->m_nSlot = MMIST_DASH;
 #endif
@@ -1724,7 +1724,7 @@ bool IsSuitableItemSlot(MMatchItemSlotType nSlotType, MMatchCharItemParts nParts
 		if((nParts == MMCIP_LONGBUFF1) || (nParts == MMCIP_LONGBUFF2)) return true;
 		else return false;
 	}
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	else if (nSlotType == MMIST_DANCE)
 	{
 		if (nParts == MMCIP_DANCE) return true;
@@ -1754,7 +1754,7 @@ MMatchCharItemParts GetSuitableItemParts(MMatchItemSlotType nSlotType)
 	case MMIST_FEET:		return MMCIP_FEET;
 	case MMIST_FINGER:		return MMCIP_FINGERL;
 	case MMIST_AVATAR:		return MMCIP_AVATAR;
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	case MMIST_DANCE:		return MMCIP_DANCE;
 	case MMIST_DASH:		return MMCIP_DASH;
 #endif
@@ -1794,7 +1794,7 @@ MMatchItemSlotType	GetSuitableItemSlot(MMatchCharItemParts nParts)
 	case MMCIP_AVATAR:
 		return MMIST_AVATAR;
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	case MMCIP_DANCE:
 		return MMIST_DANCE;
 	case MMCIP_DASH:

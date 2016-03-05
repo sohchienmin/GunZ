@@ -173,7 +173,7 @@ bool ZShop::CheckTypeWithListFilter(int type, bool bEnchantItem)
 		}
 	}
 		break;
-#ifdef _RGGunz
+#ifdef _GZFGunz
 		case zshop_item_filter_dance:
 		{
 			if (type == MMIST_DANCE || type == MMIST_DASH)

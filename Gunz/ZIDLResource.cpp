@@ -174,7 +174,7 @@ ZItemSlotView* ZIDLResource::GetItemSlot(MXmlElement& element)
 	else if (!stricmp(szParts, "fingerl"))		pWidget->SetParts(MMCIP_FINGERL);
 	else if (!stricmp(szParts, "fingerr"))		pWidget->SetParts(MMCIP_FINGERR);
 	else if (!stricmp(szParts, "avatar"))		pWidget->SetParts(MMCIP_AVATAR);
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	else if (!stricmp(szParts, "dance"))		pWidget->SetParts(MMCIP_DANCE);
 	else if (!stricmp(szParts, "dash"))			pWidget->SetParts(MMCIP_DASH);
 #endif

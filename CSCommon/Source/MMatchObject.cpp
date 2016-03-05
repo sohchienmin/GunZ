@@ -110,6 +110,7 @@ MMatchObject::MMatchObject(const MUID& uid) : MObject(uid)
 	st_nLastDance = 0;
 	PlayerWarsIdentifier = -1;
 	LastVoteID = -1;
+	
 }
 
 MMatchObject::~MMatchObject()

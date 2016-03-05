@@ -99,7 +99,7 @@ MBitmap* GetItemIconBitmap(MMatchItemDesc* pItemDesc)
 
 		// TodoH(상) - 아바타 아이템의 슬롯 리소스가 필요
 	case MMIST_AVATAR:	strcpy(szFileName, "slot_icon_ringS");	break;
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	case MMIST_DANCE:	strcpy(szFileName, "dance_slot");	break;
 	case MMIST_DASH:	strcpy(szFileName, "dash_slot");	break;
 #endif
@@ -168,7 +168,7 @@ MBitmap* GetItemThumbnailBitmap(MMatchItemDesc* pDesc)
 	char szFilePath[256];
 	sprintf(szAliasName, "%d", pDesc->m_nID);
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	sprintf(szFilePath, "interface/loadable/itemicon%d.png", pDesc->m_nID);
 #else
 	sprintf(szFilePath, "interface/loadable/itemicon%d.dds", pDesc->m_nID);

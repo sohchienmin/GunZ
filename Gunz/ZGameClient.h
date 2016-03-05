@@ -64,6 +64,7 @@ public:
 	vector<string> Ignores;
 	int LastVoteID;
 	bool IsRejoin;
+	bool inPreGame;
 	MUID& GetTempChannelUID()						{ return m_uidTempChannel; }
 	void SetTempChannelUID(MUID& uid)				{ m_uidTempChannel = uid; }
 	struct DTCHARINFO {
@@ -135,6 +136,7 @@ protected:
 	void OnChannelResponseRule(const MUID& uidchannel, const char* pszRuleName);
 
 	void OnLadderPrepare(const MUID& uidStage, const int nTeam);
+	void OnPreGame(bool status);
 	void OnLadderLaunch(const MUID& uidStage, const char* pszMapName);
 	void OnLadderResponseChallenge(const int nResult);
 

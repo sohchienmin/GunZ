@@ -34,7 +34,7 @@ void MMatchObjectCacheBuilder::AddObject(MMatchObject* pObj)
 	MMatchObjectDuelTournamentCharInfo* pDTCharInfo = pObj->GetDuelTournamentCharInfo();
 	int nDTLastWeekGrade = pDTCharInfo ? pDTCharInfo->GetLastWeekGrade() : 0;
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	pCache->SetInfo(pObj->GetUID(), pObj->GetName(), pCharInfo->m_ClanInfo.m_szClanName,
 		pCharInfo->m_nLevel, pObj->GetAccountInfo()->m_nUGrade, pObj->GetAccountInfo()->m_nPGrade
 		, pCharInfo->m_nRank, pCharInfo->m_nTotalKillCount, pCharInfo->m_nTotalDeathCount, nDTLastWeekGrade
@@ -97,7 +97,7 @@ MCommand* MMatchObjectCacheBuilder::GetResultCmd(MATCHCACHEMODE nMode, MCommandC
 		MMatchObjCache* pSrcCache = (*itor);
 
 		
-#ifdef _RGGunz
+#ifdef _GZFGunz
 		pTrgCache->SetInfo(pSrcCache->GetUID(), pSrcCache->GetName(), pSrcCache->GetClanName(),
 			pSrcCache->GetLevel(), pSrcCache->GetUGrade(), pSrcCache->GetPGrade()
 			, pSrcCache->GetRank(), pSrcCache->GetKillCount(), pSrcCache->GetDeathCount(), pSrcCache->GetDTGrade()

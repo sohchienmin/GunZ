@@ -47,7 +47,7 @@ void ZItemSlotView::SetDefaultText(MMatchCharItemParts nParts)
 #ifdef _AVATAR_ENABLE
 	case MMCIP_AVATAR:			SetText("< Avatar >");			 break;
 #endif
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	case MMCIP_DANCE:			SetText("< Dance >");			 break;
 	case MMCIP_DASH:			SetText("< Dash >");			 break;
 #endif
@@ -166,7 +166,7 @@ void ZItemSlotView::OnDraw(MDrawContext* pDC)
 		case MMCIP_FINGERL:
 		case MMCIP_FINGERR:
 		case MMCIP_AVATAR:
-#ifdef _RGGunz
+#ifdef _GZFGunz
 		case MMCIP_DANCE:
 		case MMCIP_DASH:
 #endif

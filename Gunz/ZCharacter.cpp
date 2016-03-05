@@ -3038,7 +3038,7 @@ void ZCharacter::OutputDebugString_CharacterState()
 	ELSE_IF_SITEM_ENUM(MMCIP_FINGERR)
 	ELSE_IF_SITEM_ENUM(MMCIP_AVATAR)
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	ELSE_IF_SITEM_ENUM(MMCIP_DANCE)
 	ELSE_IF_SITEM_ENUM(MMCIP_DASH)
 #endif

@@ -216,7 +216,7 @@ bool ZMyItemList::CheckTypeWithListFilter(int type, bool bEnchantItem)
 			}
 		}
 		break;
-#ifdef _RGGunz
+#ifdef _GZFGunz
 		case zequip_item_filter_dance:
 		{
 			if (type == MMIST_DANCE || type == MMIST_DASH)

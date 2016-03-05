@@ -834,7 +834,7 @@ bool MMatchDBMgr::GetAccountCharList(const int nAID, MTD_AccountCharInfo* poutCh
 
 		poutCharList[t].nCharNum = rs.Field("CharNum").AsInt();
 		poutCharList[t].nLevel = rs.Field("Level").AsInt();
-#ifdef _RGGunz
+#ifdef _GZFGunz
 		poutCharList[t].nRed = rs.Field("nRedColor").AsInt();
 		poutCharList[t].nGreen = rs.Field("nGreenColor").AsInt();
 		poutCharList[t].nBlue = rs.Field("nBlueColor").AsInt();
@@ -885,7 +885,7 @@ bool MMatchDBMgr::GetAccountCharInfo(const int nAID, const int nCharIndex, MTD_C
 	poutCharInfo->nBP = (unsigned long)rs.Field("BP").AsLong();	
 	poutCharInfo->nDTLastWeekGrade = -1;
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	poutCharInfo->nRedColor = rs.Field("nRedColor").AsInt();
 	poutCharInfo->nGreenColor = rs.Field("nGreenColor").AsInt();
 	poutCharInfo->nBlueColor = rs.Field("nBlueColor").AsInt();
@@ -940,7 +940,7 @@ bool MMatchDBMgr::GetCharInfoByAID( const int nAID, const int nCharIndex, MMatch
 	poutCharInfo->m_nTotalDeathCount	= rs.Field("DeathCount").AsInt();
 	poutCharInfo->m_nTotalPlayTimeSec	= rs.Field("PlayTime").AsInt();
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	poutCharInfo->m_nRedColor = (int)rs.Field("nRedColor").AsInt();
 	poutCharInfo->m_nGreenColor = (int)rs.Field("nGreenColor").AsInt();
 	poutCharInfo->m_nBlueColor = (int)rs.Field("nBlueColor").AsInt();

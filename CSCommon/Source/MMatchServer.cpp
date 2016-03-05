@@ -158,7 +158,7 @@ void CopyCharInfoForTrans(MTD_CharInfo* pDest, MMatchCharInfo* pSrcCharInfo, MMa
 		pDest->nFace = (char)pSrcCharInfo->m_nFace;
 		pDest->nHair = (char)pSrcCharInfo->m_nHair;
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 		pDest->nRedColor = (int)pSrcCharInfo->m_nRedColor;
 		pDest->nGreenColor = (int)pSrcCharInfo->m_nGreenColor;
 		pDest->nBlueColor = (int)pSrcCharInfo->m_nBlueColor;
@@ -242,7 +242,7 @@ void CopyCharInfoDetailForTrans(MTD_CharInfo_Detail* pDest, MMatchCharInfo* pSrc
 
 		pDest->nKillCount = pSrcCharInfo->m_nTotalKillCount;
 		pDest->nDeathCount = pSrcCharInfo->m_nTotalDeathCount;
-#ifdef _RGGunz
+#ifdef _GZFGunz
 		pDest->nBPPlus = MGetMatchServer()->GetDBMgr()->GetCurrentCash(pSrcObject->GetAccountInfo()->m_nAID);
 		pDest->nEventCoins = MGetMatchServer()->GetDBMgr()->GetCurrentEventCoins(pSrcObject->GetAccountInfo()->m_nAID);
 		pDest->nRedColor = (int)pSrcCharInfo->m_nRedColor;
@@ -3114,7 +3114,7 @@ bool MMatchServer::CheckItemXML()
 		case MMIST_AVATAR :		nSlot = 11; break;
 		case MMIST_COMMUNITY :	nSlot = 12; break;
 		case MMIST_LONGBUFF :	nSlot = 13; break;
-#ifdef _RGGunz
+#ifdef _GZFGunz
 		case MMIST_DANCE:		nSlot = 14; break;
 		case MMIST_DASH:		nSlot = 15; break;
 #endif

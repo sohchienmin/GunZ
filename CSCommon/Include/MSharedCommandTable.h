@@ -709,6 +709,6 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType);
 #define MC_MATCH_STAGE_REQUEST_REJOIN			60012
 #define MC_MATCH_LADDER_REQUEST_CANCEL_CHALLENGE_NEW	60087
 #define MC_MATCH_LADDER_CANCEL_CHALLENGE_NEW		60088
-
+#define  MC_MATCH_UPDATE_PREGAME			60089
 
 #endif

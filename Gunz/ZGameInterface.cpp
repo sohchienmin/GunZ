@@ -987,7 +987,7 @@ bool ZGameInterface::InitInterfaceListener()
 	SetListenerWidget("ReplayClose",				ZGetReplayExitButtonListener());
 	SetListenerWidget("Replay_FileList",			ZGetReplayFileListBoxListener());
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	SetListenerWidget("Shop_AllFilter", ZGetShopAllFilterListener());
 	SetListenerWidget("Equip_AllFilter", ZGetEquipAllFilterListener());
 
@@ -2146,7 +2146,7 @@ char* GetItemSlotName( const char* szName, int nItem)
 		case MMCIP_FINGERL :	strcat( szTemp, "_EquipmentSlot_FingerL");		break;
 		case MMCIP_FINGERR :	strcat( szTemp, "_EquipmentSlot_FingerR");		break;
 		case MMCIP_AVATAR :		strcat( szTemp, "_EquipmentSlot_Avatar");		break;
-#ifdef _RGGunz
+#ifdef _GZFGunz
 		case MMCIP_DANCE:		strcat( szTemp, "_EquipmentSlot_Dance");		break;
 		case MMCIP_DASH:		strcat(szTemp,  "_EquipmentSlot_Dash");			break;
 #endif
@@ -3172,7 +3172,7 @@ void ZGameInterface::OnDrawStateLobbyNStage(MDrawContext* pDC)
 		{
 			sprintf( buf, "%s", ZGetMyInfo()->GetCharName() );
 			pLabel->SetText(buf);
-#ifdef _RGGunz
+#ifdef _GZFGunz
 			pLabel->SetTextColor(MCOLOR(ZGetMyInfo()->GetRed(), ZGetMyInfo()->GetGreen(), ZGetMyInfo()->GetBlue()));
 #endif
 		}
@@ -7002,7 +7002,7 @@ void ZGameInterface::UpdateDuelTournamantMyCharInfoPreviousUI()
 }
 
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 unsigned long int MMColorSett[] = {
 	0xFF808080,
 	0xFFFF0000,

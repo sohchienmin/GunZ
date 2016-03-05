@@ -617,7 +617,7 @@ void ZCharacterSelectView::UpdateInterface(int nSelIndex)
 	MWidget* pWidget;
 	MLabel* pLabel;
 
-#ifdef _RGGunz
+#ifdef _GZFGunz
 	for ( int i = 0; i < MAX_CHAR_COUNT; i++)
 	{
 		sprintf( szName, "CharSel_Name%d", i);
@@ -800,7 +800,7 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 			if ( pLabel)
 			{
 				pLabel->SetText( pAccountCharInfo->szName);
-#ifdef _RGGunz
+#ifdef _GZFGunz
 				pLabel->SetTextColor(MCOLOR(pAccountCharInfo->nRed, pAccountCharInfo->nGreen, pAccountCharInfo->nBlue));
 #endif
 				rect = pLabel->GetRect();
@@ -815,7 +815,7 @@ void ZCharacterSelectView::OnReceivedAccountCharInfo(void* pCharListBlob)
 				char szString[256];
 				sprintf( szString, "%d %s", pAccountCharInfo->nLevel, ZMsg(MSG_CHARINFO_LEVELMARKER));
 				pLabel->SetText( szString);
-#ifdef _RGGunz
+#ifdef _GZFGunz
 				pLabel->SetTextColor(MCOLOR(pAccountCharInfo->nRed, pAccountCharInfo->nGreen, pAccountCharInfo->nBlue));
 #endif
 				rect = pLabel->GetRect();

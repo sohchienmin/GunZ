@@ -4,8 +4,8 @@
 //#include "RMesh.h"
 #include "ZApplication.h"
 
-#define APPLICATION_NAME		"RevolutionGunz"
-#define GUNZ_FOLDER			"/RevolutionGunz"
+#define APPLICATION_NAME		"GunzFactorGunz"
+#define GUNZ_FOLDER			"/GunzFactorGunz"
 
 #define SCREENSHOT_FOLDER	"/Screenshots"
 #define REPLAY_FOLDER		"/Replay"

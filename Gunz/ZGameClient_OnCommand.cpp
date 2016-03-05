@@ -181,6 +181,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 		
 			//ZGetGameInterface()->OnArrangedTeamGameUI(true, true);
 			ZGetGameInterface()->ReserveLeaveStagePreGame();
+			ZGetGameClient()->inPreGame = false;
 		}
 		case MC_MATCH_PLAYERWARS_VOTE_UPDATE:
 		{
@@ -591,11 +592,11 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(&uidChar, 0, MPT_UID);
 				pCommand->GetParameter(&uidStage, 1, MPT_UID);
 				pCommand->GetParameter(szChat, 2, MPT_STR, sizeof(szChat));
-#ifdef _RGGunz
+
 				pCommand->GetParameter(&nR, 3, MPT_INT);
 				pCommand->GetParameter(&nG, 4, MPT_INT);
 				pCommand->GetParameter(&nB, 5, MPT_INT);
-#endif
+
 				CheckMsgAboutChat(szChat);
 
 
@@ -929,11 +930,11 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(szName, 1, MPT_STR, sizeof(szName));
 				pCommand->GetParameter(szChat, 2, MPT_STR, sizeof(szChat));
 				pCommand->GetParameter(&nGrade, 3, MPT_INT);
-#ifdef _RGGunz
+
 				pCommand->GetParameter(&nR, 4, MPT_INT);
 				pCommand->GetParameter(&nG, 5, MPT_INT);
 				pCommand->GetParameter(&nB, 6, MPT_INT);
-#endif 
+ 
 				CheckMsgAboutChat(szChat);
 
 				OnChannelChat(uidChannel, szName, szChat, nGrade, nR, nG, nB);
@@ -1641,7 +1642,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				
 				char szCharName[MATCHOBJECT_NAME_LENGTH];
 				pCommand->GetParameter(szCharName, 0, MPT_STR, sizeof(szCharName) );
-				mlog("MC_MATCH_LADDER CANCEL CHALLENGE, LEAVING THE STAGEEEEEEEEEEEEEEEEEEEEEEEE");
+				ZGetGameClient()->inPreGame = false;
 				ZGetGameInterface()->ReserveLeaveStage();
 				
 				if(szCharName[0]!=0) {
@@ -1660,6 +1661,13 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				int nResult;
 				pCommand->GetParameter(&nResult, 0, MPT_INT);
 				OnLadderResponseChallenge(nResult);
+			}
+			break;
+		case MC_MATCH_UPDATE_PREGAME:
+			{
+				bool status;
+				pCommand->GetParameter(&status, 0, MPT_BOOL);
+				OnPreGame(status);
 			}
 			break;
 		case MC_MATCH_LADDER_PREPARE:
