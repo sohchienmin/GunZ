@@ -273,12 +273,12 @@ void ZGameClient::OnReplyAgreement(const MUID& uidProposer,
 					nBalancedMatching = 1;
 				}
 
-				int nAntiLead = 0;
-				MButton* pAntiLead = (MButton*)pResource->FindWidget("AntiLeadCheckBox");
+				int nAntiLead = 0; // anti-lead by default
+				/*MButton* pAntiLead = (MButton*)pResource->FindWidget("AntiLeadCheckBox");
 				if ((pAntiLead) && (pAntiLead->GetCheck()))
 				{
 					nAntiLead = 1;
-				}
+				}*/
 
 				int nDodge = 0;
 				MButton* pDodge = (MButton*)pResource->FindWidget("DodgeCheckBox");

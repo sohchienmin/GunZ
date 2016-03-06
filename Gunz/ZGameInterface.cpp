@@ -1285,11 +1285,20 @@ bool ZGameInterface::OnGameCreate(void)
 #endif
 	ZGetInitialLoading()->Release();
 
+	if (ZGetGameClient()->inPreGame) 
+	{
+		m_CombatMenu.EnableItem(ZCombatMenu::ZCMI_STAGE_EXIT, false);
+	}
+	else
+	{
+		m_CombatMenu.EnableItem(ZCombatMenu::ZCMI_STAGE_EXIT, true);
+	}
+
 
 	if( (ZApplication::GetInstance()->GetLaunchMode() == ZApplication::ZLAUNCH_MODE_STANDALONE_REPLAY) ||
 		(ZGetGameClient()->IsLadderGame()) || 
 		ZGetGameTypeManager()->IsQuestDerived(ZGetGameClient()->GetMatchStageSetting()->GetGameType()) ||
-		ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT)
+		ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUELTOURNAMENT || ZGetGameClient()->inPreGame)
 	{
 		m_CombatMenu.EnableItem(ZCombatMenu::ZCMI_BATTLE_EXIT, false);
 	}
@@ -5361,7 +5370,10 @@ void ZGameInterface::EnableStageInterface(bool bEnable)
 	EnableWidget("EquipmentCaller4", bEnable);
 	EnableWidget("StageSettingCaller", bEnable);		// ¹æ¼³Á¤ ¹öÆ°
 	EnableWidget("StageObserverBtn", bEnable);			// °üÀü Ã¼Å© ¹öÆ°
-	EnableWidget("Lobby_StageExit", bEnable);			// ³ª°¡±â ¹öÆ°
+	EnableWidget("Lobby_StageExit", bEnable);
+
+	
+	// ³ª°¡±â ¹öÆ°
 
 	EnableWidget("MapSelection", bEnable);				// ¸Ê¼±ÅÃ ÄÞº¸¹Ú½º
 
