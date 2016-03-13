@@ -1,1 +1,6 @@
-﻿  MCountryFilter.vcxproj -> F:\Users\Monckey100\Desktop\GzF Source\MCountryFilter\Lib\MCountryFilter.lib
+﻿  stdafx.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  MCountryFilter.cpp
+  MCountryFilterDBMgr.cpp
+  Generating Code...
+  MCountryFilter.vcxproj -> F:\Users\Monckey100\Desktop\GunzFactorGunZ\MCountryFilter\Lib\MCountryFilter.lib

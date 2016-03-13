@@ -1,1 +1,57 @@
-﻿  cml.vcxproj -> F:\Users\Monckey100\Desktop\GzF Source\cml\Lib\cml.lib
+﻿  stdafx.cpp
+  CMError.c
+  CMLexicalAnalyzer.cpp
+  CfgFile.cpp
+  CommonLog.cpp
+  FileInfo.cpp
+  LibPak.cpp
+  MArchive.cpp
+  MBlobArray.cpp
+  MCheckSum.cpp
+  MChunkReWriter.cpp
+  MCrashDump.cpp
+  MDebug.cpp
+Source\MDebug.cpp(212): warning C4535: calling _set_se_translator() requires /EHa
+  MInet.cpp
+  MMatrix.cpp
+  MPdb.cpp
+  MProfiler.cpp
+  MRegistry.cpp
+  MStateMachine.cpp
+  MStrEx.cpp
+  MUtil.cpp
+  Generating Code...
+  Compiling...
+  MVector3.cpp
+  MXml.cpp
+  MZFileSystem.cpp
+  MZip.cpp
+Source\MZip.cpp(90): warning C4305: 'initializing' : truncation from 'int' to 'char'
+Source\MZip.cpp(90): warning C4309: 'initializing' : truncation of constant value
+  MemPool.cpp
+  hash.c
+  HMAC_SHA1.cpp
+  MAsyncHttp.cpp
+  MCRC32.cpp
+  MCrypt.cpp
+  MCsvParser.cpp
+  MDataChecker.cpp
+  MHttpSpooler.cpp
+  MInetUtil.cpp
+  MLex.cpp
+  MLocale.cpp
+  MMD5.cpp
+  MMemoryProxy.cpp
+  MPageArray.cpp
+  MProcessController.cpp
+  Generating Code...
+  Compiling...
+  MRsaEncrypt.cpp
+  MSmartRefresh.cpp
+  MSync.cpp
+  MThread.cpp
+  MTraceMemory.cpp
+  SHA1.cpp
+  seed.cpp
+  Generating Code...
+  cml.vcxproj -> F:\Users\Monckey100\Desktop\GunzFactorGunZ\cml\Lib\cml.lib

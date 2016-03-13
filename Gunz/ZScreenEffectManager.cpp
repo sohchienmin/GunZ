@@ -584,7 +584,7 @@ bool ZScreenEffectManager::Create()
 
 	m_CurrentComboLevel=ZCL_NONE;
 
-	m_pGaugeTexture=RCreateBaseTexture("Interface/Default/COMBAT/gauge.bmp");
+	m_pGaugeTexture=RCreateBaseTexture("Interface/Default/COMBAT/gauge.tga");
 
 	m_fGaugeHP=m_fGaugeAP=m_fGaugeEXP=0.f;
 	m_fCurGaugeHP=m_fCurGaugeAP=-1.f;
@@ -681,7 +681,18 @@ void DrawHPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, 
 	SETVERTEX(1, x2, y1+fYTop, 0, 1, 0, color);
 	SETVERTEX(2, x1 + fLean, y2, 0, 0, 1, color);
 	SETVERTEX(3, x2 + fLean, y2, 0, 1, 1, color);
+	RGetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, true); // Alpha mother fucker, fixed but wrecked the colors
+	RGetDevice()->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	RGetDevice()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
+	//RGetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1 , D3DTA_TEXTURE );
+	//RGetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2 , D3DTA_TFACTOR );
+
+	RGetDevice()->SetTextureStageState( 0, D3DTSS_ALPHAARG1 , D3DTA_TEXTURE );
+	RGetDevice()->SetTextureStageState( 0, D3DTSS_ALPHAOP , D3DTOP_SELECTARG1 );
+
+	RGetDevice()->SetTextureStageState( 1, D3DTSS_COLOROP	, D3DTOP_DISABLE );
+	RGetDevice()->SetTextureStageState( 1, D3DTSS_ALPHAOP , D3DTOP_DISABLE );
 	HRESULT hr = RGetDevice()->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, ver, sizeof(TLVERTEX));
 }
 // draw ap gauge
@@ -820,7 +831,18 @@ int ZScreenEffectManager::DrawResetGauges()
 		RGetDevice()->SetTexture(0,m_pGaugeTexture->GetTexture());
 	else
 		RGetDevice()->SetTexture(0,NULL);
+			RGetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, true); // Alpha mother fucker
+	RGetDevice()->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
+	RGetDevice()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
+	RGetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1 , D3DTA_TEXTURE );
+	RGetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2 , D3DTA_TFACTOR );
+
+	RGetDevice()->SetTextureStageState( 0, D3DTSS_ALPHAARG1 , D3DTA_TEXTURE );
+	RGetDevice()->SetTextureStageState( 0, D3DTSS_ALPHAOP , D3DTOP_SELECTARG1 );
+
+	RGetDevice()->SetTextureStageState( 1, D3DTSS_COLOROP	, D3DTOP_DISABLE );
+	RGetDevice()->SetTextureStageState( 1, D3DTSS_ALPHAOP , D3DTOP_DISABLE );
 	// hp
 	/*
 	if(_hp == 1.0f )	color = D3DCOLOR_ARGB(255,  0,128,255);
@@ -897,11 +919,9 @@ void ZScreenEffectManager::DrawGauges()
 		RGetDevice()->SetTexture(0,m_pGaugeTexture->GetTexture());
 	else
 		RGetDevice()->SetTexture(0,NULL);
-
 	// hp
-
 	if(m_fGaugeHP == 1.0f )		color = D3DCOLOR_ARGB(255, 68,193, 62);//GREEN
-	//else if(m_fGaugeHP > 0.7f)	color = D3DCOLOR_ARGB(255, 69,177,186);
+	else if(m_fGaugeHP > 0.7f)	color = D3DCOLOR_ARGB(255, 69,177,186);
 	else if(m_fGaugeHP > 0.3f)	color = D3DCOLOR_ARGB(255,231,220, 24);
 	else						color = D3DCOLOR_ARGB(255,233, 44, 22);
 
@@ -924,7 +944,15 @@ void ZScreenEffectManager::DrawGauges()
 	RGetDevice()->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE);
 	RGetDevice()->SetRenderState( D3DRS_SRCBLEND,   D3DBLEND_SRCALPHA );
 	RGetDevice()->SetRenderState( D3DRS_DESTBLEND,  D3DBLEND_INVSRCALPHA );
+	RGetDevice()->SetTextureStageState( 0, D3DTSS_ALPHAARG1 , D3DTA_TEXTURE ); //Added to draw alpha, alpha doesn't work for some reason ~ Monckey100
+	RGetDevice()->SetTextureStageState( 0, D3DTSS_ALPHAARG2 , D3DTA_DIFFUSE );
+	RGetDevice()->SetTextureStageState( 0, D3DTSS_COLOROP, D3DTOP_MODULATE );
+	RGetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1, D3DTA_TEXTURE );
+	RGetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2, D3DTA_DIFFUSE );
+	RGetDevice()->SetTextureStageState( 0, D3DTSS_ALPHAOP, D3DTOP_SELECTARG1 );
+	RGetDevice()->SetTextureStageState( 0, D3DTSS_ALPHAARG1, D3DTA_DIFFUSE );
 
+	//RGetDevice()->SetRenderState(D3DRS_ALPHATESTENABLE,	TRUE);
 	if(render_cur_hp) {
 
 		color = 0x60ef0000;
@@ -945,7 +973,7 @@ void ZScreenEffectManager::DrawGauges()
 		DrawGauge(84.f/800.f+x , 50.f/600.f , w , 13.f/600.f , -1.f ,color);
 	}
 
-	RGetDevice()->SetRenderState( D3DRS_ALPHABLENDENABLE, FALSE);
+	RGetDevice()->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE);
 
 }
 

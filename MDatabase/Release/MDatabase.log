@@ -1,1 +1,6 @@
-﻿  MDatabase.vcxproj -> F:\Users\Monckey100\Desktop\GzF Source\MDatabase\Lib\MDatabase.lib
+﻿  stdafx.cpp
+  _WIN32_WINNT not defined. Defaulting to _WIN32_WINNT_MAXVER (see WinSDKVer.h)
+  MDatabase.cpp
+  ODBCRecordset.cpp
+  Generating Code...
+  MDatabase.vcxproj -> F:\Users\Monckey100\Desktop\GunzFactorGunZ\MDatabase\Lib\MDatabase.lib

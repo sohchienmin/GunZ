@@ -1,2 +1,10 @@
-﻿  RealSoundWaveFile.cpp
-  RealSound.vcxproj -> F:\Users\Monckey100\Desktop\GzF Source\RealSound\Lib\RealSound.lib
+﻿  stdafx.cpp
+  MMTimer.cpp
+  RealSound.cpp
+  RealSoundBgm.cpp
+  RealSoundEffect.cpp
+  RealSoundEffectPlayer.cpp
+  RealSoundOgg.cpp
+  RealSoundWaveFile.cpp
+  Generating Code...
+  RealSound.vcxproj -> F:\Users\Monckey100\Desktop\GunzFactorGunZ\RealSound\Lib\RealSound.lib

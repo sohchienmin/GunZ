@@ -1,3 +1,57 @@
-﻿  RMeshMgr.cpp
-C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(1299,5): warning MSB8012: TargetPath(F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RealSpace2.lib) does not match the Library's OutputFile property value (F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Lib\RealSpace2.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
-  RealSpace2.vcxproj -> F:\Users\Monckey100\Desktop\GzF Source\RealSpace2\Release_publish\RealSpace2.lib
+﻿  stdafx.cpp
+  RAStar.cpp
+  RAniEventInfo.cpp
+  RAnimationFile.cpp
+  RAnimationNode.cpp
+  RBaseTexture.cpp
+  RBoundary.cpp
+  RBspObject.cpp
+  RCamera.cpp
+  RCharCloth.cpp
+  RCloth.cpp
+  RCollisionDetection.cpp
+  RCylinder.cpp
+  RDummyList.cpp
+  RDynamicLight.cpp
+  RError.cpp
+  RFont.cpp
+  RFrameWork.cpp
+  RHalfEdgeMesh.cpp
+  RLenzFlare.cpp
+  RLightList.cpp
+  Generating Code...
+  Compiling...
+  RMaterialList.cpp
+  RMesh.cpp
+  RMeshNodeData.cpp
+  RMeshNodeStringTable.cpp
+  RMtrl.cpp
+  RNavigationMesh.cpp
+  RNavigationNode.cpp
+  ROcclusionList.cpp
+  RPVS.cpp
+  RParticleSystem.cpp
+  RRoam.cpp
+  RShaderMgr.cpp
+  RSolidBsp.cpp
+  RSphere.cpp
+  RToken.cpp
+  RTypes.cpp
+  RealSpace2.cpp
+  RAnimation.cpp
+  RAnimationMgr.cpp
+  RMeshMgr.cpp
+  Generating Code...
+  Compiling...
+  RMeshNode.cpp
+  RMeshUtil.cpp
+  RMesh_Frame.cpp
+  RMesh_Load.cpp
+  RMesh_Mtrl.cpp
+  RMesh_Render.cpp
+  RVisualMesh.cpp
+  RVisualMeshMgr.cpp
+  RVisualMeshUtil.cpp
+  Generating Code...
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppBuild.targets(1299,5): warning MSB8012: TargetPath(F:\Users\Monckey100\Desktop\GunzFactorGunZ\RealSpace2\Release_publish\RealSpace2.lib) does not match the Library's OutputFile property value (F:\Users\Monckey100\Desktop\GunzFactorGunZ\RealSpace2\Lib\RealSpace2.lib). This may cause your project to build incorrectly. To correct this, please make sure that $(OutDir), $(TargetName) and $(TargetExt) property values match the value specified in %(Lib.OutputFile).
+  RealSpace2.vcxproj -> F:\Users\Monckey100\Desktop\GunzFactorGunZ\RealSpace2\Release_publish\RealSpace2.lib
