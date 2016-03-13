@@ -81,14 +81,30 @@ bool MVoteMgr::CheckDiscuss()
 	int nYesCount = (int)pDiscuss->GetYesVoterCount();
 	int nNoCount = (int)pDiscuss->GetNoVoterCount();
 
-//	char szLog[128]="";
-//	sprintf(szLog, "VOTERESULT: Y(%f), N(%f)", (float)nYesCount, (float)m_VoterMap.size() * 0.5f);
-//	MMatchServer::GetInstance()->LOG(MMatchServer::LOG_PROG, szLog);
-
-	if ( (float)nYesCount > (float)m_VoterMap.size() * 0.66f )	// 2/3이상 찬성하면.
-		return true;
-	else
-		return false;
+	if (!isPause) {
+		if ( (float)nYesCount > (float)m_VoterMap.size() * 0.66f )	// 2/3이상 찬성하면.
+			return true;
+		else
+			return false;
+		}
+	else {
+		if (balanced) {
+			if (nYesCount > m_VoterMap.size() * 0.5) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			if (nYesCount > m_VoterMap.size() * 0.5 || nYesCount > 0) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
 }
 
 void MVoteMgr::FinishDiscuss(bool bJudge)
@@ -141,12 +157,15 @@ void MVoteMgr::RemoveVoter(const MUID& uid)
 	SetLastError(VOTEMGR_ERROR_OK);
 }
 
-bool MVoteMgr::CallVote(MVoteDiscuss* pDiscuss)
+bool MVoteMgr::CallVote(MVoteDiscuss* pDiscuss, bool arg, bool bal)
 {
 	if (GetDiscuss()) {
 		SetLastError(VOTEMGR_ERROR_VOTE_INPROGRESS);
 		return false;
 	}
+
+	isPause = arg;
+	balanced = bal;
 
 	m_pDiscuss = pDiscuss;
 

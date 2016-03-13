@@ -2888,7 +2888,7 @@ void MMatchServer::OnVoteCallVote(const MUID& uidPlayer, const char* pszDiscuss,
 	MVoteDiscuss* pDiscuss = MVoteDiscussBuilder::Build(uidPlayer, pStage->GetUID(), pszDiscuss, pszArg);
 	if (pDiscuss == NULL) return;
 
-	if (pStage->GetVoteMgr()->CallVote(pDiscuss)) {
+	if (pStage->GetVoteMgr()->CallVote(pDiscuss, false, false)) {
 		pDiscuss->Vote(uidPlayer, MVOTE_YES);	// ¹ßÀÇÀÚ ¹«Á¶°Ç Âù¼º
 
 		MCommand* pCmd = CreateCommand(MC_MATCH_NOTIFY_CALLVOTE, MUID(0,0));
@@ -2951,6 +2951,105 @@ void MMatchServer::VoteAbort( const MUID& uidPlayer )
 	pCmd->AddParameter( new MCommandParameterInt(MERR_CANNOT_VOTE) );
 	RouteToListener( pObj, pCmd );
 }
+
+
+//functions for pausing
+void MMatchServer::OnVoteCallVotePause(const MUID& uidPlayer, const char* pszDiscuss)
+{
+	MMatchObject* pObj = GetObject(uidPlayer);
+	if (pObj == NULL) return;
+
+
+	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	if (pStage == NULL) return;
+
+	char szMsg[256];
+
+	if( pObj->WasCallVote() )
+	{
+		sprintf(szMsg, "%s%d", MTOK_ANNOUNCE_PARAMSTR, MERR_CANNOT_VOTE);
+		Announce(uidPlayer, szMsg);
+
+		return;
+	}
+	
+	// ÅõÇ¥¸¦ Çß´Ù´Â°É Ç¥½ÃÇØ³õÀ½.
+	pObj->SetVoteState( true );
+
+	if (pStage->GetStageType() != MST_LADDER)
+	{
+		sprintf(szMsg, "%s", "This command is only available in clan war.");
+		Announce(uidPlayer, szMsg);
+
+		return;
+	}
+
+	if (pStage->GetVoteMgr()->GetDiscuss())
+	{
+		sprintf(szMsg, "%s%d", MTOK_ANNOUNCE_PARAMSTR, MERR_VOTE_ALREADY_START);
+		Announce(uidPlayer, szMsg);
+
+		return;
+	}
+
+	string empty = "";
+	const char* random = empty.c_str();
+	MVoteDiscuss* pDiscuss = MVoteDiscussBuilder::Build(uidPlayer, pStage->GetUID(), pszDiscuss, pObj->GetName());
+	if (pDiscuss == NULL) return;
+
+
+	int noPlayers = pStage->GetPlayers();
+	bool balanced = false;
+	if (noPlayers % 2 == 0) {
+		balanced = true;
+	}
+	
+	if (pStage->GetVoteMgr()->CallVote(pDiscuss, true, balanced)) {
+		pDiscuss->Vote(uidPlayer, MVOTE_YES);	// ¹ßÀÇÀÚ ¹«Á¶°Ç Âù¼º
+
+		MCommand* pCmd = CreateCommand(MC_MATCH_NOTIFY_CALLVOTE_PAUSE, MUID(0,0));
+		pCmd->AddParameter(new MCmdParamStr(pszDiscuss));
+		pCmd->AddParameter(new MCmdParamStr(pObj->GetName()));
+		RouteToStage(pStage->GetUID(), pCmd);
+		return;
+	}
+	else
+	{
+		sprintf(szMsg, "%s%d", MTOK_ANNOUNCE_PARAMSTR, MERR_VOTE_FAILED);
+		Announce(uidPlayer, szMsg);
+
+		return;
+	}
+}
+
+void MMatchServer::OnVoteYesPause(const MUID& uidPlayer)
+{
+	MMatchObject* pObj = GetObject(uidPlayer);
+	if (pObj == NULL) return;
+
+	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	if (pStage == NULL) return;
+
+	MVoteDiscuss* pDiscuss = pStage->GetVoteMgr()->GetDiscuss();
+    if (pDiscuss == NULL) return;
+
+	pDiscuss->Vote(uidPlayer, MVOTE_YES);
+}
+
+void MMatchServer::OnVoteNoPause(const MUID& uidPlayer)
+{
+	MMatchObject* pObj = GetObject(uidPlayer);
+	if (pObj == NULL) return;
+
+	MMatchStage* pStage = FindStage(pObj->GetStageUID());
+	if (pStage == NULL) return;
+
+	MVoteDiscuss* pDiscuss = pStage->GetVoteMgr()->GetDiscuss();
+    if (pDiscuss == NULL) return;
+
+	pDiscuss->Vote(uidPlayer, MVOTE_NO);
+}
+
 
 
 

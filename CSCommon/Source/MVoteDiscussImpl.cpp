@@ -19,6 +19,11 @@ MVoteDiscuss* MVoteDiscussBuilder::Build(const MUID& uidDrafter, const MUID& uid
 		pDiscuss->m_strTarget = pszArg;
 		return pDiscuss;
 	}
+	else if ((stricmp(pszDiscuss, "pause") == 0)) {
+		MVoteDiscussPause* pDiscuss = new MVoteDiscussPause(uidStage);
+		pDiscuss->m_strTarget = pszArg;
+		return pDiscuss;
+	}
 	return NULL;
 }
 
@@ -59,6 +64,28 @@ bool MVoteDiscussKick::OnJudge(bool bJudge)
 	if (bJudge == true) {
 		if ( pStage->KickBanPlayer(m_strTarget.c_str()) ) {
 		}
+	}
+
+	return true;
+}
+
+///////////////////////////////////////////////////////
+// MVoteDiscussPause
+MVoteDiscussPause::MVoteDiscussPause(const MUID& uidStage) : MVoteDiscuss(uidStage)
+{
+}
+
+bool MVoteDiscussPause::OnJudge(bool bJudge)
+{
+	MMatchServer* pServer = MMatchServer::GetInstance();
+	MMatchStage* pStage = pServer->FindStage(GetStageUID());
+	if (pStage == NULL) return false;
+
+	if (bJudge == true) {
+		MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_PAUSE, MUID(0,0));
+		pCmd->AddParameter(new MCmdParamStr(m_strTarget.c_str()));
+		MMatchServer::GetInstance()->RouteToStage(GetStageUID(), pCmd);
+		
 	}
 
 	return true;

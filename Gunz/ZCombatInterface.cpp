@@ -169,6 +169,7 @@ ZCombatInterface::ZCombatInterface(const char* szName, MWidget* pParent, MListen
 	m_dAbuseHandicapTick = 0;
 
 	m_bSkipUIDrawByRule = false;
+	pause = false;
 }
 
 ZCombatInterface::~ZCombatInterface()
@@ -719,7 +720,7 @@ void ZCombatInterface::DrawHPAPNumbers(MDrawContext* pDC)
 
 	
 
-	sprintf(exp, "%d%%", ZGetMyInfo()->GetLevelPercent());
+	/*sprintf(exp, "%d%%", ZGetMyInfo()->GetLevelPercent());
 	pDC->SetColor(255, 255, 255);
 	pDC->SetFont(MFontManager::Get("FONTc8b"));
 	TextRelative(pDC, 125.f / 800.f, 65.f / 600.f, exp);
@@ -732,7 +733,7 @@ void ZCombatInterface::DrawHPAPNumbers(MDrawContext* pDC)
 	sprintf(ap, "AP : %d", (int)pCharacter->GetAP());
 	pDC->SetColor(255, 255, 255);
 	pDC->SetFont(MFontManager::Get("FONTa10_O2Wht"));
-	TextRelative(pDC, 100.f / 800.f, 50.f / 600.f, ap);
+	TextRelative(pDC, 100.f / 800.f, 50.f / 600.f, ap);*/
 
 	sprintf(fps, "FPS: %d", (int)g_fFPS);
 	pDC->SetColor(124, 252, 0);
@@ -791,6 +792,20 @@ void ZCombatInterface::DrawHPAPNumbers(MDrawContext* pDC)
 		pDC->SetFont(MFontManager::Get("FONTa10_O2Wht"));
 		TextRelative(pDC, 500.f / 800.f, 50.f / 600.f, cancel);
 	}
+
+	if (pause) {
+		char pause[128];
+		sprintf(pause, "You may type /resume to resume the clan war");
+		pDC->SetColor(124, 252, 0);
+		pDC->SetFont(MFontManager::Get("FONTa10_O2Wht"));
+		TextRelative(pDC, 500.f / 800.f, 50.f / 600.f, pause);
+	}
+
+	//if(pause) {
+		//DrawPauseShade(pDC);
+		//pDC->SetColor(0,0,0,150);
+		//pDC->FillRectangleW(0, 0, 999, 999);
+	//}
 }
 
 void ZCombatInterface::OnDraw(MDrawContext* pDC)
@@ -1551,15 +1566,7 @@ void ZCombatInterface::Update(float fElapsed)
 
 	float fGauge = 100.f;
 	float fCur,fMax;
-/*
-	bool bPre = false;
 
-	if(g_pGame&&g_pGame->GetMatch()) {
-//	if(g_pGame&&g_pGame->GetMatch()->GetRoundState()==MMATCH_ROUNDSTATE_PLAY) {
-//	if(g_pGame&&(g_pGame->GetReadyState()==ZGAME_READYSTATE_RUN)) {
-
-	if(bPre) 
-*/
 
 	if( ZGetGame() && ZGetGame()->GetMatch() )
 	{
@@ -3936,4 +3943,28 @@ void ZCombatInterface::OnRestore()
 	pCharView = GetWidgetCharViewResult();
 	if (pCharView)
 		pCharView->OnRestore();
+}
+
+
+
+/*void ZCombatInterface::UpdatePause(bool arg)
+{
+	pause = arg;
+}
+
+void ZCombatInterface::DrawPauseShade(MDrawContext* pDC)
+{
+	pDC->SetColor(128,128,128,150);
+	pDC->FillRectangleW(MGetWorkspaceWidth()/2, MGetWorkspaceHeight()/2, 7, 7);
+	
+}*/
+
+void ZCombatInterface::isOwnerOfPause(bool arg)
+{
+	pause = arg;
+}
+
+bool ZCombatInterface::returnPause()
+{
+	return pause;
 }

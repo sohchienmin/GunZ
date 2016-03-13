@@ -524,6 +524,9 @@ public:
 	void OnVoteNo(const MUID& uidPlayer);
 	void VoteAbort( const MUID& uidPlayer );
 
+	void OnVoteCallVotePause(const MUID& uidPlayer, const char* pszDiscuss);
+	void OnVoteYesPause(const MUID& uidPlayer);
+	void OnVoteNoPause(const MUID& uidPlayer);
 	void OnAdminServerHalt(void);
 
 protected:

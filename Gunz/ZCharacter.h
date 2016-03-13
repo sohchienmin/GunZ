@@ -260,7 +260,7 @@ struct ZCharacterStatus
 	int			nHeadShot;
 	int			nUnbelievable;
 	int			nExp;
-	int         Freeze;
+	int         Freeze;		
 	int			Mute;
 	int			ESP;
 	int			nHP;

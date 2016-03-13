@@ -101,6 +101,8 @@ void ChatCmd_AdminPopup(const char* line, const int argc, char **const argv);
 void ChatCmd_AllCommands(const char* line, const int argc, char **const argv);
 void ChatCmd_AllCommandsNoTarget(const char* line, const int argc, char **const argv);
 void ChatCmd_AdminChat(const char* line, const int argc, char **const argv);
+
+void ChatCmd_Resume(const char* line, const int argc, char **const argv);
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 void _AddCmdFromXml(ZChatCmdManager* pCmdManager, ZCmdXmlParser* pParser, 
@@ -133,7 +135,7 @@ void ZChat::InitCmds()
 	{
 		MLog("Error while Read Item Descriptor %s", "system/chatcmds.xml");
 	}
-
+	_CC_AC("resume",					&ChatCmd_Resume,		CCF_GAME, ARGVNoMin, ARGVNoMax, true, "/resume", "");
 	_CC_AC("cancel",					&ChatCmd_Cancel,		CCF_ALL, ARGVNoMin, ARGVNoMax, true, "/cancel", "");
 	_CC_AC("rejoin",					&ChatCmd_StageRejoin,		CCF_LOBBY, ARGVNoMin, ARGVNoMax, true, "/rejoin", "");
 	_CC_ACX(CCMD_ID_HELP,				&ChatCmd_Help,				CCF_ALL, ARGVNoMin, ARGVNoMax, true);
@@ -1340,7 +1342,20 @@ void ChatCmd_LaunchTest(const char* line,const int argc, char **const argv)
 
 void ChatCmd_Callvote(const char* line,const int argc, char **const argv)
 {
-	if ( (argv[1] == NULL) || (argv[2] == NULL) )
+	if ( (argv[1] == NULL))
+	{
+		OutputCmdWrongArgument(argv[0]);
+		return;
+	}
+
+	string firstArg = string(argv[1]);
+
+	if (firstArg == "pause") {
+		ZPOSTCMD1(MC_MATCH_CALLVOTE_PAUSE, MCmdParamStr(argv[1]))
+		return;
+	}
+	
+	if ((argv[2] == NULL))
 	{
 		OutputCmdWrongArgument(argv[0]);
 		return;
@@ -1549,5 +1564,18 @@ void ChatCmd_QUESTTEST_WeakNPCs(const char* line,const int argc, char **const ar
 	}
 #endif
 }
+
+
+void ChatCmd_Resume(const char* line, const int argc, char **const argv) {
+	if (!ZGetCombatInterface()->returnPause()) {
+		char szMsg[128];
+		sprintf(szMsg, "^2You may not resume the game as you are not the owner of the vote.");
+		ZChatOutput(szMsg);
+		return;
+	}
+	ZGetCombatInterface()->isOwnerOfPause(false);
+	ZPOSTCMD0(MC_MATCH_RESUME);
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////
