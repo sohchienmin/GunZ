@@ -646,6 +646,86 @@ void DrawGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, DW
 
 	HRESULT hr = RGetDevice()->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, ver, sizeof(TLVERTEX));
 }
+//NEW HP BAR
+void DrawHPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, DWORD color)
+{
+#ifndef _EXTRESOLUTION
+	if (RGetIsWidthScreen())
+	{
+		x = (x * 800 + 80) / 960;
+		fWidth = fWidth * 800 / 960;
+	}
+#endif
+
+	struct TLVERTEX {
+		float x, y, z, w;
+		DWORD color;
+		float u, v;
+	};
+
+	TLVERTEX ver[4];
+
+#define SETVERTEX(_a,_x,_y,_z,_u,_v,_color) { ver[_a].x=_x;ver[_a].y=_y;ver[_a].z=_z;ver[_a].u=_u;ver[_a].v=_v;ver[_a].color=_color;  ver[_a].w=.1f; }
+
+	float fLean = fHeight*(float)MGetWorkspaceHeight()*fLeanDir;
+	float fLeanTop = fHeight*(float)MGetWorkspaceWidth()*(-1.f/4);
+	float fYTop = fHeight*(float)MGetWorkspaceWidth()*(-1.f/14);
+
+	int x1, y1, x2, y2;
+	x1 = x*(float)MGetWorkspaceWidth();
+	y1 = y*(float)MGetWorkspaceHeight();
+	x2 = (x + fWidth)*(float)MGetWorkspaceWidth();
+	y2 = (y + fHeight)*(float)MGetWorkspaceHeight();
+
+	SETVERTEX(0, x1, y1+fLeanTop, 0, 0, 0, color);
+	SETVERTEX(1, x2, y1+fYTop, 0, 1, 0, color);
+	SETVERTEX(2, x1 + fLean, y2, 0, 0, 1, color);
+	SETVERTEX(3, x2 + fLean, y2, 0, 1, 1, color);
+
+	HRESULT hr = RGetDevice()->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, ver, sizeof(TLVERTEX));
+}
+// draw ap gauge
+void DrawAPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, DWORD color)
+{
+#ifndef _EXTRESOLUTION
+	if (RGetIsWidthScreen())
+	{
+		x = (x * 800 + 80) / 960;
+		fWidth = fWidth * 800 / 960;
+	}
+#endif
+
+	struct TLVERTEX {
+		float x, y, z, w;
+		DWORD color;
+		float u, v;
+	};
+
+	TLVERTEX ver[4];
+
+#define SETVERTEX(_a,_x,_y,_z,_u,_v,_color) { ver[_a].x=_x;ver[_a].y=_y;ver[_a].z=_z;ver[_a].u=_u;ver[_a].v=_v;ver[_a].color=_color;  ver[_a].w=.1f; }
+
+	float fLeanFront = fHeight*(float)MGetWorkspaceHeight()*(-1.f/1.5); // -0.5.f
+	float fLeanBack = fHeight*(float)MGetWorkspaceHeight()*fLeanDir; // -1.f 
+	float fLeanBottom = fHeight*(float)MGetWorkspaceWidth()*(1.f/2.2);
+	float fLeanTop = fHeight*(float)MGetWorkspaceWidth()*(1.f/2.2);
+	float maxWidth = 1.f* 165.f/800.f;
+	float fYBottom = (maxWidth - fWidth)*(float)MGetWorkspaceWidth() * (1.f/25);
+
+	int x1, y1, x2, y2;
+	x1 = x*(float)MGetWorkspaceWidth();
+	y1 = y*(float)MGetWorkspaceHeight();
+	x2 = (x + fWidth)*(float)MGetWorkspaceWidth();
+	y2 = (y + fHeight)*(float)MGetWorkspaceHeight();
+
+	SETVERTEX(0, x1, y1, 0, 0, 0, color);
+	SETVERTEX(1, x2, y1, 0, 1, 0, color);
+	SETVERTEX(2, x1 + fLeanFront, y2 + fLeanBottom, 0, 0, 1, color);
+	SETVERTEX(3, x2 + fLeanBack, y2 + fYBottom, 0, 1, 1, color);
+
+	HRESULT hr = RGetDevice()->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, ver, sizeof(TLVERTEX));
+}
+
 void ZScreenEffectManager::ReSetHpPanel()
 {
 	if(m_pHPPanel->GetVMesh()) {
@@ -750,13 +830,13 @@ int ZScreenEffectManager::DrawResetGauges()
 	*/
 	color = D3DCOLOR_ARGB(255,  0,128,255);
 
-	DrawGauge(70.f/800.f , 23.f/600.f , min(1.f,_hp) * 138.f/800.f , 13.f/600.f , 1.f ,color);
+	DrawHPGauge(70.f/800.f , 23.f/600.f , min(1.f,_hp) * 138.f/800.f , 13.f/600.f , 1.f ,color);
 
 	// ap
 
 	color = D3DCOLOR_ARGB(255, 68,193, 62);
 
-	DrawGauge(84.f/800.f , 50.f/600.f , min(1.f,_ap) * 138.f/800.f , 13.f/600.f , -1.f ,color);
+	DrawAPGauge(84.f/800.f , 50.f/600.f , min(1.f,_ap) * 138.f/800.f , 13.f/600.f , -1.f ,color);
 
 	// exp
 
@@ -820,24 +900,24 @@ void ZScreenEffectManager::DrawGauges()
 
 	// hp
 
-	if(m_fGaugeHP == 1.0f )		color = D3DCOLOR_ARGB(255,  0,128,255);
-	else if(m_fGaugeHP > 0.7f)	color = D3DCOLOR_ARGB(255, 69,177,186);
+	if(m_fGaugeHP == 1.0f )		color = D3DCOLOR_ARGB(255, 68,193, 62);//GREEN
+	//else if(m_fGaugeHP > 0.7f)	color = D3DCOLOR_ARGB(255, 69,177,186);
 	else if(m_fGaugeHP > 0.3f)	color = D3DCOLOR_ARGB(255,231,220, 24);
 	else						color = D3DCOLOR_ARGB(255,233, 44, 22);
 
-	DrawGauge(70.f/800.f , 23.f/600.f , min(1.f,m_fGaugeHP) * 138.f/800.f , 13.f/600.f , 1.f ,color);
+	DrawHPGauge(73.f/800.f , 23.f/600.f , min(1.f,m_fGaugeHP) * 156.f/800.f , 13.f/600.f , -1.f ,color);// ?,? ,?,height 
 
 	// ap
 
-	color = D3DCOLOR_ARGB(255, 68,193, 62);
+	color = D3DCOLOR_XRGB(255,255, 255);//white
 
-	DrawGauge(84.f/800.f , 50.f/600.f , min(1.f,m_fGaugeAP) * 138.f/800.f , 13.f/600.f , -1.f ,color);
+	DrawAPGauge(48.f/800.f , 40.f/600.f , min(1.f,m_fGaugeAP) * 165.f/800.f , 13.f/600.f , -1.f ,color);
 
 	// exp
 
 	color = D3DCOLOR_ARGB(255,200,200,200);
 
-	DrawGauge(66.f/800.f , 70.f/600.f , min(1.f,m_fGaugeEXP) * 138.f/800.f , 4.f/600.f , -1.f ,color);
+	//DrawGauge(66.f/800.f , 70.f/600.f , min(1.f,m_fGaugeEXP) * 138.f/800.f , 4.f/600.f , -1.f ,color);
 
 	// alpha
 
