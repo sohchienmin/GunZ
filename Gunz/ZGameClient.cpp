@@ -2356,7 +2356,7 @@ void ZGameClient::OnResponseCharInfoDetail(void* pBlob)
 void ZGameClient::OnNotifyCallVote(const char* pszDiscuss, const char* pszArg)
 {
 //	ZGetGameInterface()->GetCombatInterface()->GetVoteInterface()->ShowVote(true);
-
+	//MessageBox(0, "And text here", "MessageBox caption", MB_OK);
 	SetVoteInProgress(true);
 	SetCanVote(true);
 	
@@ -2367,6 +2367,10 @@ void ZGameClient::OnNotifyCallVote(const char* pszDiscuss, const char* pszArg)
 	}
 	else if ( stricmp(pszDiscuss, "kick") == 0 ) {
 		sprintf( m_szVoteText, ZMsg(MSG_VOTE_KICK), pszArg );
+		ZChatOutput(szText, ZChat::CMT_SYSTEM, ZChat::CL_CURRENT);
+	}
+	else if ( stricmp(pszDiscuss, "pause") == 0 ) {
+		sprintf( m_szVoteText, "%s wants to pause the game for 30 seconds. Please vote.", pszArg );
 		ZChatOutput(szText, ZChat::CMT_SYSTEM, ZChat::CL_CURRENT);
 	}
 }

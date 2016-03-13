@@ -473,6 +473,8 @@ ZGameInterface::ZGameInterface(const char* szName, MWidget* pParent, MListener* 
 
 	timeSpecialCase = 0;
 	specialCase = false;
+	paused = false;
+	tenSeconds = false;
 }
 
 ZGameInterface::~ZGameInterface()
@@ -4094,6 +4096,26 @@ bool ZGameInterface::Update(float fElapsed)
 		OnArrangedTeamGameUI(true, true);
 	}
 
+	if(paused) {
+		DWORD timeLeft = timePause - timeGetTime();
+		if (timeLeft <= 10000 && tenSeconds) {
+			tenSeconds = false;
+			char szMsg[128];
+			sprintf(szMsg, "^2The game will be unpaused in 10 seconds.");
+			ZChatOutput(szMsg);
+		}
+	}
+
+	if (paused && timePause < timeGetTime()) {
+		paused = false;
+		timePause = 0;
+		char szMsg[128];
+		sprintf(szMsg, "^2The game has been unpaused.");
+		ZChatOutput(szMsg);
+		ZGetGame()->m_pMyCharacter->GetStatus().CheckCrc();
+		ZGetGame()->m_pMyCharacter->GetStatus().Ref().Freeze = 0;
+		ZGetGame()->m_pMyCharacter->GetStatus().MakeCrc();
+	}
 	__EP(13);
 
 	return true;
@@ -5476,6 +5498,18 @@ void ZGameInterface::ReserveLeaveStagePreGame()
 	//m_bLeaveStageReserved = false;
 	specialCase = true;
 	timeSpecialCase = timeGetTime() + 1000;
+}
+
+void ZGameInterface::PauseGame()
+{
+	paused = true;
+	timePause = timeGetTime() + 60000;
+}
+
+void ZGameInterface::ResumeGame()
+{
+	paused = false;
+	timePause = 0;
 }
 
 void ZGameInterface::ReserveLeaveBattle()

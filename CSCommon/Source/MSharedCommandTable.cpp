@@ -941,6 +941,20 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 		C(MC_MATCH_VOTE_NO, "Match.VoteNo", "Vote", MCDT_MACHINE2MACHINE)
 		C(MC_MATCH_VOTE_STOP, "Vote stop", "Vote stop", MCDT_MACHINE2MACHINE )
 
+
+		//PAUSE
+		C(MC_MATCH_CALLVOTE_PAUSE, "Match.CallvotePause", "CallvotePause", MCDT_MACHINE2MACHINE)
+			P(MPT_STR, "strDiscuss")
+		C(MC_MATCH_NOTIFY_CALLVOTE_PAUSE, "Match.NotifyCallvote", "Notify Callvote", MCDT_MACHINE2MACHINE)
+			P(MPT_STR, "strDiscuss")
+			P(MPT_STR, "strArg")
+		C(MC_MATCH_NOTIFY_PAUSE, "Match.NotifyPause", "Notify Pause", MCDT_MACHINE2MACHINE)
+			P(MPT_STR, "strArg")
+		C(MC_MATCH_NOTIFY_RESUME, "Match.NotifyResume", "Notify Resume", MCDT_MACHINE2MACHINE)
+	   	C(MC_MATCH_RESUME, "Match.Resume", "Resume", MCDT_MACHINE2MACHINE)
+
+
+
 		C(MC_MATCH_BROADCAST_CLAN_RENEW_VICTORIES, "Match.Broadcast.ClanRenewVictories", "Broadcast Clan Renew Victories", MCDT_MACHINE2MACHINE)
 			P(MPT_STR, "strWinnerClanName")
 			P(MPT_STR, "strLoserClanName")

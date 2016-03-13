@@ -2035,7 +2035,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 					ZGetGameClient()->RequestProposal(MPROPOSAL_CLAN_INVITE, ppNames, nCount);
 					
 				}
-				/*else if(nCount == 0 && bRightMember) {
+				else if(nCount == 0 && bRightMember) {
 					//1_VS_1 UPDATEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
 
 					int nBalancedMatching = 0;
@@ -2065,7 +2065,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 					//MButton* pButton2 = (MButton*)pResource->FindWidget("AntiLeadCheckBox");
 					
 					ZPostLadderRequestChallenge(ppMember, nCount, nBalancedMatching, nAntiLead, nDodge, false);
-				}*/
+				}
 				else
 				{
 					ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), 

@@ -1749,6 +1749,38 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 				OnVoteCallVote(pCommand->GetSenderUID(), szDiscuss, szArg);
 			}
 			break;
+		case MC_MATCH_RESUME:
+			{
+				MUID uidPlayer = pCommand->GetSenderUID();
+
+				MMatchObject* pObj = GetObject(uidPlayer);
+				if (pObj == NULL) break;
+
+				MMatchStage* pStage = FindStage(pObj->GetStageUID());
+				if (pStage == NULL) break;
+
+					
+				for (MUIDRefCache::iterator itor = pStage->GetObjBegin(); itor != pStage->GetObjEnd(); itor++) {
+					MUID uidObj = (MUID)(*itor).first;
+					MMatchObject* pPlayer = (MMatchObject*)GetObject(uidObj);
+					if (pPlayer)
+					{
+						Log(LOG_PROG,pPlayer->GetName());
+						MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_RESUME, pPlayer->GetUID());
+						MMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
+					}
+				}
+			}
+			break;
+		case MC_MATCH_CALLVOTE_PAUSE:
+			{
+				char szDiscuss[ VOTE_DISCUSS_STRING_LEN ]="";
+				
+				pCommand->GetParameter(szDiscuss, 0, MPT_STR, VOTE_DISCUSS_STRING_LEN );
+
+				OnVoteCallVotePause(pCommand->GetSenderUID(), szDiscuss);
+			}
+			break;
 		case MC_MATCH_VOTE_YES:
 			{
 				OnVoteYes(pCommand->GetSenderUID());

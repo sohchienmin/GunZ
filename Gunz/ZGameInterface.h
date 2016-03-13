@@ -155,6 +155,9 @@ protected:
 	bool			specialCase;
 	DWORD			timeSpecialCase;
 
+	bool			paused;
+	DWORD			timePause;
+	bool			tenSeconds;
 
 	int				m_nLoginState;
 	DWORD			m_dwLoginTimer;
@@ -366,6 +369,9 @@ public:
 	void ReserveResetApp(bool b)	{ m_bReserveResetApp = b; }
 	bool IsReservedResetApp()		{ return m_bReserveResetApp; }
 
+
+	void PauseGame();
+	void ResumeGame();
 	void SaveScreenShot();
 
 	void ShowMessage(const char* szText, MListener* pCustomListenter=NULL, int nMessageID=0);

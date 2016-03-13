@@ -1713,6 +1713,15 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			{
 				char szDiscuss[128] = "";
 				char szArg[256] = "";
+				pCommand->GetParameter(szDiscuss, 0, MPT_STR, sizeof(szDiscuss) );
+				pCommand->GetParameter(szArg, 1, MPT_STR, sizeof(szArg) );
+				OnNotifyCallVote(szDiscuss, szArg);
+			}
+			break;
+		case MC_MATCH_NOTIFY_CALLVOTE_PAUSE:
+			{
+				char szDiscuss[128] = "";
+				char szArg[256] = "";
 
 				pCommand->GetParameter(szDiscuss, 0, MPT_STR, sizeof(szDiscuss) );
 				pCommand->GetParameter(szArg, 1, MPT_STR, sizeof(szArg) );
@@ -1727,6 +1736,43 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				pCommand->GetParameter(szDiscuss, 0, MPT_STR, sizeof(szDiscuss) );
 				pCommand->GetParameter(&nResult, 1, MPT_INT);
 				OnNotifyVoteResult(szDiscuss, nResult);
+			}
+			break;
+		case MC_MATCH_NOTIFY_PAUSE:
+			{
+				char szMsg[128];
+				char szDiscuss[128];
+				sprintf(szMsg, "^2The game has been paused for 30 seconds.");
+				ZChatOutput(szMsg);
+				pCommand->GetParameter(szDiscuss, 0, MPT_STR, sizeof(szDiscuss) );
+				ZGetGame()->m_pMyCharacter->GetStatus().CheckCrc();
+				ZGetGame()->m_pMyCharacter->GetStatus().Ref().Freeze = 1;
+				ZGetGame()->m_pMyCharacter->GetStatus().MakeCrc();
+				//ZGetCombatInterface()->DrawPauseShade();
+
+				if (!strcmp(ZGetGame()->m_pMyCharacter->GetName().c_str(), szDiscuss)) {
+					ZGetCombatInterface()->isOwnerOfPause(true);
+					//ZChatOutput(szMsg);
+				}
+				else {
+					ZGetCombatInterface()->isOwnerOfPause(false);
+				}
+				ZGetGameInterface()->PauseGame();
+
+			}
+			break;
+		case MC_MATCH_NOTIFY_RESUME:
+			{
+				char szMsg[128];
+				char szDiscuss[128];
+				sprintf(szMsg, "^2The game has been resumed.");
+				ZChatOutput(szMsg);
+				ZGetGameInterface()->ResumeGame();
+				pCommand->GetParameter(szDiscuss, 0, MPT_STR, sizeof(szDiscuss) );
+				ZGetCombatInterface()->isOwnerOfPause(false);
+				ZGetGame()->m_pMyCharacter->GetStatus().CheckCrc();
+				ZGetGame()->m_pMyCharacter->GetStatus().Ref().Freeze = 0;
+				ZGetGame()->m_pMyCharacter->GetStatus().MakeCrc();
 			}
 			break;
 		case MC_MATCH_VOTE_RESPONSE:

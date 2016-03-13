@@ -33,7 +33,7 @@ protected:
 	unsigned long	m_nBeginTime;		// 발의된 시간
 	list<MUID>		m_YesVoterList;		// 찬성자
 	list<MUID>		m_NoVoterList;		// 반대자
-
+	
 public:
 	MVoteDiscuss(const MUID& uidStage);
 	virtual ~MVoteDiscuss();
@@ -70,7 +70,8 @@ protected:
 protected:
 	bool CheckDiscuss();
 	void FinishDiscuss(bool bJudge);
-
+	bool isPause;
+	bool balanced;
 public:
 	MVoteMgr();
 	virtual ~MVoteMgr();
@@ -83,7 +84,7 @@ public:
 	VOTEMGR_ERROR GetLastError()	{ return m_nLastDiscussError; }
 	void SetLastError(VOTEMGR_ERROR nError)	{ m_nLastDiscussError = nError; }
 
-	bool CallVote(MVoteDiscuss* pDiscuss);
+	bool CallVote(MVoteDiscuss* pDiscuss, bool isPause, bool bal);
 	bool Vote(const MUID& uid, MVOTE nVote);
 	void Tick(unsigned long nClock);
 

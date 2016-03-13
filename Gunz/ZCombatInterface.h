@@ -155,6 +155,7 @@ protected:
 	DWORD				m_dLastTimeTick;
 	DWORD				m_dAbuseHandicapTick;
 
+	bool				pause;
 	void SetItemImageIndex(int nIndex);
 
 	void SetItemName(const char* szName);
@@ -282,6 +283,9 @@ public:
 
 	const char* GetRedClanName() const { return m_szRedClanName; }
 	const char* GetBlueClanName() const { return m_szBlueClanName; }
+
+	void isOwnerOfPause(bool arg);
+	bool returnPause();
 };
 
 void TextRelative(MDrawContext* pDC,float x,float y,const char *szText,bool bCenter=false);

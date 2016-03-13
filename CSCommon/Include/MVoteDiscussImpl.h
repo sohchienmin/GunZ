@@ -29,3 +29,14 @@ public:
 
 	virtual string GetImplTarget() { return m_strTarget; }
 };
+
+class MVoteDiscussPause : public MVoteDiscuss {
+public:
+	string		m_strTarget;
+
+public:
+	MVoteDiscussPause(const MUID& uidStage);
+	virtual bool OnJudge(bool bJudge);
+
+	virtual string GetImplTarget() { return m_strTarget; }
+};
