@@ -18,3 +18,5 @@ MCountryFilter/Release/MCountryFilter.log
 *.tlh
 *.obj
 cml/Release/CfgFile.obj
+*.ipch
+Gunz/Gunz.v11.suo
