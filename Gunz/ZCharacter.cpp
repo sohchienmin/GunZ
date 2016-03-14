@@ -3577,7 +3577,7 @@ void ZCharacter::InitMeshParts()
 			if (GetItems()->GetItem(MMCIP_HEAD)->IsEmpty()) {
 				ChangeCharHair(m_pVMesh, m_Property.nSex, m_Property.nHair);	
 			}
-			if (m_Property.nHair == 69)
+			if (m_Property.nFace == 69)
 				m_pVMesh->m_bSkipRenderFaceParts = true;
 			else
 				m_pVMesh->m_bSkipRenderFaceParts = false;
