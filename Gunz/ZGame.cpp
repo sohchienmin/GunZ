@@ -1805,14 +1805,14 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 					if(!uStatus.m_bChatEffect)
 					{
 						uStatus.m_bChatEffect=true;
-						if (pChar->GetName() == " ") {
+						//if (pChar->GetName() == " ") {
 							//ZGetEffectManager()->AddLostConIcon(pChar);
 							//ZGetEffectManager()->AddCommanderIcon(pChar,1);
 							//ZGetEffectManager()->AddDeathEffect(pChar);
 							//ZGetEffectManager()->AddBerserkerIcon(pChar);
 							//ZGetEffectManager()->AddCommanderIcon(pChar,0);
 							//ZGetEffectManager()->AddCommanderIcon(pChar,1);
-						} else
+						//} else
 							ZGetEffectManager()->AddChatIcon(pChar);
 					}
 				}

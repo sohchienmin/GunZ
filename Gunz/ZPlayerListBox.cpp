@@ -519,7 +519,7 @@ void ZPlayerListBox::AddPlayer(MUID& puid, MMatchObjectStageState state, int nLe
 	MCOLOR _color = MCOLOR(nR, nG, nB);
 
 	MMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(puid);
-	if (pObjCache->GetName() == " " || szName == " " || pObjCache->GetCostume()->nFace == 69)
+	if (!strcmp(szName," "))
 		sprintf(szLevel, "DEAD", nLevel);
 	else if ((pObjCache->GetUGrade() == MMUG_ADMIN) || (pObjCache->GetUGrade() == MMUG_DEVELOPER) || (pObjCache->GetUGrade() == MMUG_EVENTMASTER) || (pObjCache->GetUGrade() == MMUG_HEADSTAFF))
 		sprintf(szLevel, "-- Lv.", nLevel);
