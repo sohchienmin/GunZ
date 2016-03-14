@@ -960,7 +960,7 @@ void ZScreenEffectManager::DrawGauges()
 		float x = min(1.f,m_fGaugeHP) * 138.f/800.f;
 		float w = (m_fCurGaugeHP-m_fGaugeHP) * 138.f/800.f;
 
-		DrawGauge( 70.f/800.f+x, 23.f/600.f , w , 13.f/600.f , 1.f ,color);
+		DrawHPGauge( 70.f/800.f+x, 23.f/600.f , w , 13.f/600.f , 1.f ,color);
 	}	
 
 	if(render_cur_ap) {
@@ -970,7 +970,7 @@ void ZScreenEffectManager::DrawGauges()
 		float x = min(1.f,m_fGaugeAP) * 138.f/800.f;	
 		float w = (m_fCurGaugeAP-m_fGaugeAP) * 138.f/800.f;
 
-		DrawGauge(84.f/800.f+x , 50.f/600.f , w , 13.f/600.f , -1.f ,color);
+		DrawAPGauge(84.f/800.f+x , 50.f/600.f , w , 13.f/600.f , -1.f ,color);
 	}
 
 	RGetDevice()->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE);

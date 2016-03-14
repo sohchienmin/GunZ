@@ -2370,7 +2370,7 @@ void ZGameClient::OnNotifyCallVote(const char* pszDiscuss, const char* pszArg)
 		ZChatOutput(szText, ZChat::CMT_SYSTEM, ZChat::CL_CURRENT);
 	}
 	else if ( stricmp(pszDiscuss, "pause") == 0 ) {
-		sprintf( m_szVoteText, "%s wants to pause the game for 30 seconds. Please vote.", pszArg );
+		sprintf( m_szVoteText, "%s wants to pause the game for 1 minute. Please vote.", pszArg );
 		ZChatOutput(szText, ZChat::CMT_SYSTEM, ZChat::CL_CURRENT);
 	}
 }

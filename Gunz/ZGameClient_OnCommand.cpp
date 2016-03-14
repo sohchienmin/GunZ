@@ -1742,7 +1742,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			{
 				char szMsg[128];
 				char szDiscuss[128];
-				sprintf(szMsg, "^2The game has been paused for 30 seconds.");
+				sprintf(szMsg, "^2The game has been paused for 1 minute.");
 				ZChatOutput(szMsg);
 				pCommand->GetParameter(szDiscuss, 0, MPT_STR, sizeof(szDiscuss) );
 				ZGetGame()->m_pMyCharacter->GetStatus().CheckCrc();
@@ -1765,6 +1765,9 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			{
 				char szMsg[128];
 				char szDiscuss[128];
+
+				FlashWindow(FindWindow(0, APPLICATION_NAME), 1);
+
 				sprintf(szMsg, "^2The game has been resumed.");
 				ZChatOutput(szMsg);
 				ZGetGameInterface()->ResumeGame();

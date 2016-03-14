@@ -5503,7 +5503,7 @@ void ZGameInterface::ReserveLeaveStagePreGame()
 void ZGameInterface::PauseGame()
 {
 	paused = true;
-	timePause = timeGetTime() + 60000;
+	timePause = timeGetTime() + 60000*2;
 }
 
 void ZGameInterface::ResumeGame()
@@ -5958,32 +5958,28 @@ void ZGameInterface::InitLadderUI(bool bLadderEnable)
 
 void ZGameInterface::OnArrangedTeamGameUI(bool bFinding, bool isvote)
 {
-	//mlog("FUCKING GOT THE CLAN WAR MAP VOTE OKAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY\n");
+	
 	MWidget *pWidget;
 	if (isvote == true)
 	{
-		//mlog("FUCKING GOT THE CLAN WAR MAP VOTE OKAYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY\n");
+		FlashWindow(FindWindow(0, APPLICATION_NAME), 1);
 		pWidget = m_IDLResource.FindWidget("ArrangedTeamGame");
 		if (pWidget) {
-			//mlog("ArrangedTeamGame not null\n");
 			pWidget->Show(false);
 		}
 
 		pWidget= m_IDLResource.FindWidget( "ArrangedTeamGameWarmUp" );
 		if(pWidget) { 
 			pWidget->Show(false);
-			//mlog("ArrangedTeamGameWarmUp not null\n");
 		}
 
 		pWidget = m_IDLResource.FindWidget("LobbyFindClanTeam");
 		if (pWidget != NULL){
 			pWidget->Show(false);
-			//mlog("LobbyFindClanTeam not null\n");
 		}
 		pWidget = m_IDLResource.FindWidget("PlayerWarsMapVote");
 		if (pWidget)
 		{
-			//mlog("PlayerWarsMapVote not null\n");
 			pWidget->Show(bFinding);
 			pWidget->SetText("Clan War Map Voter");
 		}

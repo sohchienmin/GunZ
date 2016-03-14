@@ -793,7 +793,7 @@ void MMatchServer::SaveClanPoint(MMatchClan* pWinnerClan, MMatchClan* pLoserClan
 
 	int nPoint = MMatchFormula::GetClanBattlePoint(nWinnerClanPoint, nLoserClanPoint, nOneTeamMemberCount);
 
-	nAddedWinnerPoint = nPoint;
+	nAddedWinnerPoint = nPoint * 2;
 
 	if (nOneTeamMemberCount == MLADDERTYPE_NORMAL_4VS4 || nOneTeamMemberCount == MLADDERTYPE_NORMAL_5VS5 || nOneTeamMemberCount == MLADDERTYPE_NORMAL_6VS6 || nOneTeamMemberCount == MLADDERTYPE_NORMAL_7VS7 || nOneTeamMemberCount == MLADDERTYPE_NORMAL_8VS8) // 4v4인전 포인트가 두배
 		nAddedWinnerPoint = nAddedWinnerPoint * 2;	

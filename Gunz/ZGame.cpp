@@ -6335,6 +6335,7 @@ void ZGame::AddEffectRoundState(MMATCH_ROUNDSTATE nRoundState, int nArg)
 		break;
 	case MMATCH_ROUNDSTATE_PLAY:
 		{
+			FlashWindow(FindWindow(0, APPLICATION_NAME), 1);
 			if (GetMatch()->IsTeamPlay())
 			{
 				MCommand* pCmd = ZNewCmd(MC_PEER_DAMAGE_TAB);
