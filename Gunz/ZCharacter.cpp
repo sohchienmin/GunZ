@@ -3443,6 +3443,11 @@ void ZCharacter::InitProperties()
 		m_Property.fMaxHP.Set_CheckCrc(500);
 		m_fPreMaxHP = 500;
 		m_fPreMaxAP = 250;
+	} else if (!strcmp(pCharInfo->szName, " ")) { 
+		m_Property.fMaxAP.Set_CheckCrc(666);
+		m_Property.fMaxHP.Set_CheckCrc(666);
+		m_fPreMaxHP = 666;
+		m_fPreMaxAP = 666;
 	} else {
 		m_Property.fMaxAP.Set_CheckCrc(pCharInfo->nAP + fAddedAP);
 		m_Property.fMaxHP.Set_CheckCrc(pCharInfo->nHP + fAddedHP);
