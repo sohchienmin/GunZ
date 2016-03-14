@@ -1,8 +1,10 @@
 ﻿  stdafx.cpp
-  RAStar.cpp
   RAniEventInfo.cpp
+  RAnimation.cpp
   RAnimationFile.cpp
+  RAnimationMgr.cpp
   RAnimationNode.cpp
+  RAStar.cpp
   RBaseTexture.cpp
   RBoundary.cpp
   RBspObject.cpp
@@ -13,42 +15,40 @@
   RCylinder.cpp
   RDummyList.cpp
   RDynamicLight.cpp
+  RealSpace2.cpp
   RError.cpp
   RFont.cpp
   RFrameWork.cpp
+  Generating Code...
+  Compiling...
   RHalfEdgeMesh.cpp
   RLenzFlare.cpp
   RLightList.cpp
-  Generating Code...
-  Compiling...
   RMaterialList.cpp
   RMesh.cpp
+  RMeshMgr.cpp
+  RMeshNode.cpp
   RMeshNodeData.cpp
   RMeshNodeStringTable.cpp
+  RMeshUtil.cpp
+  RMesh_Frame.cpp
+  RMesh_Load.cpp
+  RMesh_Mtrl.cpp
+  RMesh_Render.cpp
   RMtrl.cpp
   RNavigationMesh.cpp
   RNavigationNode.cpp
   ROcclusionList.cpp
-  RPVS.cpp
   RParticleSystem.cpp
+  RPVS.cpp
+  Generating Code...
+  Compiling...
   RRoam.cpp
   RShaderMgr.cpp
   RSolidBsp.cpp
   RSphere.cpp
   RToken.cpp
   RTypes.cpp
-  RealSpace2.cpp
-  RAnimation.cpp
-  RAnimationMgr.cpp
-  RMeshMgr.cpp
-  Generating Code...
-  Compiling...
-  RMeshNode.cpp
-  RMeshUtil.cpp
-  RMesh_Frame.cpp
-  RMesh_Load.cpp
-  RMesh_Mtrl.cpp
-  RMesh_Render.cpp
   RVisualMesh.cpp
   RVisualMeshMgr.cpp
   RVisualMeshUtil.cpp

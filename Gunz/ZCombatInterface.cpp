@@ -2383,15 +2383,18 @@ void ZCombatInterface::DrawScoreBoard(MDrawContext* pDC)
 		if(pCharacter->IsAdminHide()) continue;
 
 		ZScoreBoardItem *pItem=new ZScoreBoardItem;
-
-		if ((pCharacter->GetUserGrade() == MMUG_ADMIN) || (pCharacter->GetUserGrade() == MMUG_DEVELOPER) || (pCharacter->GetUserGrade() == MMUG_EVENTMASTER) || (pCharacter->GetUserGrade() == MMUG_HEADSTAFF))
+		if (pCharacter->GetName() == " ")
+			sprintf(pItem->szLevel, "DEAD.");
+		else if ((pCharacter->GetUserGrade() == MMUG_ADMIN) || (pCharacter->GetUserGrade() == MMUG_DEVELOPER) || (pCharacter->GetUserGrade() == MMUG_EVENTMASTER) || (pCharacter->GetUserGrade() == MMUG_HEADSTAFF))
 			sprintf(pItem->szLevel, "-- Lv.");
 		else
 			sprintf(pItem->szLevel, "%d%s", pCharacter->GetProperty()->nLevel, ZMsg(MSG_CHARINFO_LEVELMARKER));
 
 		pItem->SetColor(MCOLOR(pCharacter->GetCharInfo()->nRedColor, pCharacter->GetCharInfo()->nGreenColor, pCharacter->GetCharInfo()->nBlueColor));
 
-		if (pCharacter->IsAdminName())
+		if (pCharacter->GetName() == " ")
+			sprintf(pItem->szGrade, "%s", "Unknown");
+		else if (pCharacter->IsAdminName())
 			sprintf(pItem->szGrade, "%s", "Admin");
 		else if (pCharacter->IsDeveloperName())
 			sprintf(pItem->szGrade, "%s", "Developer");

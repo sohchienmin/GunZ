@@ -430,7 +430,8 @@ public:
 
 	// 온게임넷 짱 아이콘
 	void AddStarEffect(ZObject* pObj);
-
+	void AddDeathEffect(ZObject* pObj);
+	void AddWingsEffect(ZObject* pObj);
 	// 일반적인 이펙트
 	void Add(const char* szName,const rvector& pos, const rvector& dir,const MUID& uidOwner,int nLifeTime);
 	void AddSp(const char* szName,int nCnt,const rvector& pos, const rvector& dir,const MUID& uidOwner);

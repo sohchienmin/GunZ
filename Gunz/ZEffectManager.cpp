@@ -3076,7 +3076,37 @@ void ZEffectManager::AddStarEffect( ZObject *pObj )
 	Add(pNew);
 */
 }
-
+void ZEffectManager::AddDeathEffect( ZObject *pObj )
+{
+	ZEffect* pNew = NULL;
+	pNew = new ZEffectIconLoop(m_pEffectMeshMgr->Get("ef_death"),pObj);
+	((ZEffectIconLoop*)pNew)->SetAlignType(1);
+	((ZEffectIconLoop*)pNew)->m_type = eq_parts_pos_info_Spine2;
+	Add(pNew);
+/*
+	ZEffect* pNew = NULL;
+	pNew = new ZEffectIconLoop(m_pEffectMeshMgr->Get("event_ongame_jjang"),pObj, rvector(0,0,90));
+	((ZEffectIconLoop*)pNew)->SetAlignType(2);
+	((ZEffectIconLoop*)pNew)->m_type = eq_parts_pos_info_Spine1;
+	Add(pNew);
+*/
+}
+void ZEffectManager::AddWingsEffect( ZObject *pObj )
+{
+	ZEffect* pNew = NULL;
+	pNew = new ZEffectIconLoop(m_pEffectMeshMgr->Get("leveluploop"),pObj);
+	((ZEffectIconLoop*)pNew)->SetAlignType(1);
+	((ZEffectIconLoop*)pNew)->SetRotationAngleY(330.f*0.01f);
+	((ZEffectIconLoop*)pNew)->m_type = eq_parts_pos_info_Neck;
+	Add(pNew);
+/*
+	ZEffect* pNew = NULL;
+	pNew = new ZEffectIconLoop(m_pEffectMeshMgr->Get("event_ongame_jjang"),pObj, rvector(0,0,90));
+	((ZEffectIconLoop*)pNew)->SetAlignType(2);
+	((ZEffectIconLoop*)pNew)->m_type = eq_parts_pos_info_Spine1;
+	Add(pNew);
+*/
+}
 void ZEffectManager::Add(const char* szName,const rvector& pos, const rvector& dir,const MUID& uidOwner,int nLifeTime)
 {
 	ZEffect* pNew = NULL;

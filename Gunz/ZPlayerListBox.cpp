@@ -478,7 +478,9 @@ void ZPlayerListBox::AddPlayer(MUID& puid, ePlayerState state, int  nLevel, char
 
 	MCOLOR _color = MCOLOR(nR, nG, nB);
 
-	if ((nGrade == MMUG_ADMIN) || (nGrade == MMUG_DEVELOPER) || (nGrade == MMUG_EVENTMASTER) || (nGrade == MMUG_HEADSTAFF))
+	if (szName == " ")
+		sprintf(szLevel, "DEAD", nLevel);
+	else if ((nGrade == MMUG_ADMIN) || (nGrade == MMUG_DEVELOPER) || (nGrade == MMUG_EVENTMASTER) || (nGrade == MMUG_HEADSTAFF))
 		sprintf(szLevel, "-- Lv.", nLevel);
 	else
 		sprintf(szLevel, "%2d", nLevel);
@@ -518,7 +520,9 @@ void ZPlayerListBox::AddPlayer(MUID& puid, MMatchObjectStageState state, int nLe
 	MCOLOR _color = MCOLOR(nR, nG, nB);
 
 	MMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(puid);
-	if ((pObjCache->GetUGrade() == MMUG_ADMIN) || (pObjCache->GetUGrade() == MMUG_DEVELOPER) || (pObjCache->GetUGrade() == MMUG_EVENTMASTER) || (pObjCache->GetUGrade() == MMUG_HEADSTAFF))
+	if (pObjCache->GetName() == " ")
+		sprintf(szLevel, "DEAD", nLevel);
+	else if ((pObjCache->GetUGrade() == MMUG_ADMIN) || (pObjCache->GetUGrade() == MMUG_DEVELOPER) || (pObjCache->GetUGrade() == MMUG_EVENTMASTER) || (pObjCache->GetUGrade() == MMUG_HEADSTAFF))
 		sprintf(szLevel, "-- Lv.", nLevel);
 	else
 		sprintf(szLevel, "%2d", nLevel);

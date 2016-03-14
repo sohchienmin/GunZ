@@ -39,3 +39,5 @@ RealSpace2/Release_publish/RealSpace2.log
 *.tlh
 cml/Release/msxml.tli
 *.vcxproj
+*.obj
+cml/lib/cml.lib
