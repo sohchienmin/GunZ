@@ -166,6 +166,7 @@ private:
 	RELAY_MAP_REPEAT_COUNT	m_RelayMapRepeatCountRemained;	// 앞으로 남은 반복 수
 	bool					m_bIsLastRelayMap;
 	bool					m_bIsAntiLeading;
+	string					pauseOwner;
 
 	void SetMasterUID(const MUID& uid)	{ m_StageSetting.SetMasterUID(uid);}
 	MMatchRule* CreateRule(MMATCH_GAMETYPE nGameType);
@@ -209,7 +210,8 @@ public:
 	bool CheckAutoTeamBalancing();	// true이면 팀원을 섞어야 한다.
 	void ShuffleTeamMembers();
 
-
+	void setPauseOwner(string player) { pauseOwner = player; }
+	string getPauseOwner() { return pauseOwner; }
 	const char* GetName()		{ return m_szStageName; }
 	const char* GetPassword()	{ return m_szStagePassword; }
 	void SetPassword(const char* pszPassword)	{ strcpy(m_szStagePassword, pszPassword); }

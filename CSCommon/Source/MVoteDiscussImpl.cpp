@@ -85,7 +85,7 @@ bool MVoteDiscussPause::OnJudge(bool bJudge)
 		MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_PAUSE, MUID(0,0));
 		pCmd->AddParameter(new MCmdParamStr(m_strTarget.c_str()));
 		MMatchServer::GetInstance()->RouteToStage(GetStageUID(), pCmd);
-		
+		pStage->setPauseOwner(m_strTarget);
 	}
 
 	return true;

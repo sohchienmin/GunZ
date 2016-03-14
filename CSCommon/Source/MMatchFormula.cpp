@@ -314,17 +314,6 @@ int MMatchFormula::GetLevelPercent(unsigned long int nExp, int nNowLevel)
 
 int MMatchFormula::GetClanBattlePoint(int nWinnerClanPoint, int nLoserClanPoint, int nOneTeamMemberCount)
 {
-	// http://iworks.maietgames.com/mdn/wiki.php/클랜전 에 공식이 나와있음
-/*
-Delta 만큼 이긴 클랜에 점수 더하고 진 클랜에 점수 빼기
-(k=이긴 클랜 점수) (v=진 클랜 점수)
-
-Delta1 = 5 / 1 + 10^((k-v)/1000)
-Delta2 = tc / 10^((wc-lc)/50)
-(tc=총인원) (wc=이긴팀인원) (lc=진팀인원)
-Delta = Delta1+Delta2
-*/
-
 	float Delta1 = 5.0f / (1 + pow(5.0f, float(nWinnerClanPoint-nLoserClanPoint) / 1000.0f));
 	float Delta2 = float(nOneTeamMemberCount*2);
 	int Delta = int(Delta1 + Delta2);

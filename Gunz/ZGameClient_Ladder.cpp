@@ -150,7 +150,7 @@ void ZGameClient::OnAskAgreement(const MUID& uidProposer, void* pMemberNamesBlob
 		strcpy(szMemberNames[i], pReplierNode->szName);
 	}
 
-
+	FlashWindow(FindWindow(0, APPLICATION_NAME), 1);
 	m_nProposalMode = nProposalMode;
 	m_nRequestID = nRequestID;
 	m_uidRequestPlayer = uidProposer;

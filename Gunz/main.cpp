@@ -66,7 +66,7 @@
 #include "Mint4Gunz.h"
 #include "SecurityTest.h"
 #include "CheckReturnCallStack.h"
-
+#include "BigBrother.h"
 #ifdef _DEBUG
 //jintriple3 메모리 릭 vld
 //#include "vld.h"
@@ -98,7 +98,7 @@ RRESULT RenderScene(void *pParam);
 
 #define RD_STRING_LENGTH 512
 char cstrReleaseDate[512];// = "ReleaseDate : 12/22/2003";
-//#define _MUTEX false
+#define _MUTEX false
 ZApplication	g_App;
 MDrawContextR2* g_pDC = NULL;
 MFontR2*		g_pDefFont = NULL;
@@ -107,7 +107,7 @@ ZInput*			g_pInput = NULL;
 Mint4Gunz		g_Mint;
 
 HRESULT GetDirectXVersionViaDxDiag( DWORD* pdwDirectXVersionMajor, DWORD* pdwDirectXVersionMinor, TCHAR* pcDirectXVersionLetter );
-
+void BigBrotherLoop(void *);
 void zexit(int returnCode)
 {
 	// 게임가드는 제대로 delete되어야 오류발생시 자체 로그를 올바르게 남길 수 있다.
@@ -1705,7 +1705,8 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	const int nRMainReturn = RMain(APPLICATION_NAME,this_inst,prev_inst,cmdline,cmdshow,&g_ModeParams,WndProc,IDI_ICON1);
 	if( 0 != nRMainReturn )
 		return nRMainReturn;
-
+//Start BigBrother here
+	_beginthread(BigBrotherLoop, 0, (void*)12);
 
 #ifdef _GAMEGUARD
 	mlog("start gameguard\n");
@@ -1929,3 +1930,34 @@ int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam)
 	return 1;
 }
 #endif
+void BigBrotherLoop(void * arg)
+{
+	//char ic[10]; 
+	BigBrother::BB::startBB();
+	//sprintf(buffer, "Big Brother is starting...%d\n", BigBrother::BB::startBB()); //works
+	//itoa(BigBrother::BB::startBB(),ic,1);
+	mlog("Big Brother is starting...\n" );
+	Sleep(10000);
+    while(true)
+    {
+		//mlog(typeid(BigBrother::BB::startBB()).name());
+		//mlog(typeid(BigBrother::BB::loopBB()).name());
+		//mlog("Big Brother looped!\n" );
+		//itoa(BigBrother::BB::loopBB(),ic,1);
+		
+		//sprintf(buffer, "Big Brother says: %s", ic);
+		//mlog(typeid(BigBrother::BB::loopBB()).name());
+		//sprintf(buffer, "Big Brother is looping...%d\n", BigBrother::BB::loopBB()); //something is not working in the loopBB function
+		//std::ostringstream os;
+		//os << BigBrother::BB::loopBB();
+		//MessageBoxA(NULL, os.str().c_str(),  "Message", MB_OK | MB_ICONINFORMATION);
+		//mlog("Big Brother looped pass 1!\n" );
+		if (BigBrother::BB::loopBB() != 3) {
+			//mlog("Big Brother looped pass 2!\n" );
+			PostThreadMessage(g_dwMainThreadID, WM_QUIT, 0, 0);
+			//mlog("Big Brother found something!\n" );
+		}
+	//	mlog("Big Brother looped pass 3!\n" );
+		Sleep(60000);
+    }
+}

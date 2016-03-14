@@ -103,25 +103,13 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 		case MC_MATCH_PLAYERWARS_VOTE:
 			{
 				MMatchObject* pObj = (MMatchObject*)GetObject(pCommand->GetSenderUID());
-				string x = "RECEIVED MC_MATCH_PLAYERS_VOTE";
-				Log(LOG_DEBUG, x.c_str());
-				Log(LOG_PROG, x.c_str());
-				Log(LOG_FILE, x.c_str());
 				if (pObj)
 				{
 					int Map;
-					x = "INSIDE POBJ";
-					Log(LOG_DEBUG, x.c_str());
-					Log(LOG_PROG, x.c_str());
-					Log(LOG_FILE, x.c_str());
 					if (pCommand->GetParameter(&Map, 0, MPT_INT)==false) break;
 					if(Map < 0 || Map > 2) return true;
 					MMatchChannel* chan = MGetMatchServer()->FindChannel(pObj->GetChannelUID());
 					if(chan) {
-						x = "CHANNEL EXIST AND UPDATING PLAYER VOTE";
-						Log(LOG_DEBUG, x.c_str());
-						Log(LOG_PROG, x.c_str());
-						Log(LOG_FILE, x.c_str());
 						GetLadderMgr()->UpdatePlayerVote(Map, pObj);
 					}
 				}
@@ -1759,17 +1747,11 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 				MMatchStage* pStage = FindStage(pObj->GetStageUID());
 				if (pStage == NULL) break;
 
-					
-				for (MUIDRefCache::iterator itor = pStage->GetObjBegin(); itor != pStage->GetObjEnd(); itor++) {
-					MUID uidObj = (MUID)(*itor).first;
-					MMatchObject* pPlayer = (MMatchObject*)GetObject(uidObj);
-					if (pPlayer)
-					{
-						Log(LOG_PROG,pPlayer->GetName());
-						MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_NOTIFY_RESUME, pPlayer->GetUID());
-						MMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
-					}
-				}
+				if (strcmp((pStage->getPauseOwner().c_str()),pObj->GetName())) break;
+
+				MCommand* pCmd = CreateCommand(MC_MATCH_NOTIFY_RESUME, MUID(0,0));
+				RouteToStage(pStage->GetUID(), pCmd);
+				pStage->setPauseOwner("");
 			}
 			break;
 		case MC_MATCH_CALLVOTE_PAUSE:
