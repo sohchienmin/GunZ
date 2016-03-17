@@ -4950,7 +4950,6 @@ void ZGame::OnPeerDead(const MUID& uidAttacker, const unsigned long int nAttacke
 {
 	ZCharacter* pVictim = m_CharacterManager.Find(uidVictim);
 	ZCharacter* pAttacker = m_CharacterManager.Find(uidAttacker);
-
 	bool bSuicide = false;
 	if (uidAttacker == uidVictim) bSuicide = true;
 
@@ -4960,7 +4959,7 @@ void ZGame::OnPeerDead(const MUID& uidAttacker, const unsigned long int nAttacke
 	nVictimExp = -GetExpFromTransData(nVictimArg);
 	if (pAttacker->GetName() == " ")
 		nVictimExp = 0;
-	if (pVictim->GetName() == " ") 
+	if (pVictim->GetName() == " " &&  pVictim->GetMaxHP() == 666) //will only trigger exp event if hp is 666 which only happens if level is 99
 		nAttackerExp *= 10;
 	if(pAttacker)
 	{
@@ -4972,7 +4971,6 @@ void ZGame::OnPeerDead(const MUID& uidAttacker, const unsigned long int nAttacke
 
 		pAttacker->GetStatus().MakeCrc();
 	}
-
 	if(pVictim)
 	{
 		if (pVictim != m_pMyCharacter)

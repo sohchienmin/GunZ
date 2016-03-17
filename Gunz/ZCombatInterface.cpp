@@ -36,7 +36,7 @@
 #include "ZInput.h"
 
 #include "ZNHN_USA_Report.h"
-
+#include <ctime>
 
 using namespace std;
 
@@ -717,34 +717,46 @@ void ZCombatInterface::DrawHPAPNumbers(MDrawContext* pDC)
 	char exp[128];
 	char fps[128];
 	char damage[128];
-
+	char timec[128];
+	time_t rawtime;
+	struct tm * timeinfo;
+	char timebuffer[80];
 	
-
-	/*sprintf(exp, "%d%%", ZGetMyInfo()->GetLevelPercent());
+	time (&rawtime);
+	timeinfo = localtime(&rawtime);
+	 strftime(timebuffer,80,"%I:%M:%S%p",timeinfo);
+	string str(timebuffer);
+	/*
+	sprintf(exp, "%d%%", ZGetMyInfo()->GetLevelPercent());
 	pDC->SetColor(255, 255, 255);
 	pDC->SetFont(MFontManager::Get("FONTc8b"));
 	TextRelative(pDC, 125.f / 800.f, 65.f / 600.f, exp);
-
-	sprintf(hp, "HP : %d", (int)pCharacter->GetHP());
-	pDC->SetColor(255, 255, 255);
+	*/
+	sprintf(hp, "%d", (int)pCharacter->GetHP());
+	pDC->SetColor(0, 212, 4, 150);
 	pDC->SetFont(MFontManager::Get("FONTa10_O2Wht"));
-	TextRelative(pDC, 100.f / 800.f, 23.f / 600.f, hp);
+	TextRelative(pDC, 22.f / 800.f, 9.f / 600.f, hp);
 
-	sprintf(ap, "AP : %d", (int)pCharacter->GetAP());
-	pDC->SetColor(255, 255, 255);
+	sprintf(ap, "%d", (int)pCharacter->GetAP());
+	pDC->SetColor(255, 255, 255, 150);
 	pDC->SetFont(MFontManager::Get("FONTa10_O2Wht"));
-	TextRelative(pDC, 100.f / 800.f, 50.f / 600.f, ap);*/
+	TextRelative(pDC, 22.f / 800.f, 36.f / 600.f, ap);
 
 	sprintf(fps, "FPS: %d", (int)g_fFPS);
-	pDC->SetColor(124, 252, 0);
+	pDC->SetColor(80, 80, 80, 100);
 	pDC->SetFont(MFontManager::Get("FONTa10_O2Wht"));
 	pDC->Text((pDC->GetClipRect().w - pDC->GetFont()->GetWidth(fps) - 10), 15, fps);
 
+	sprintf(timec, "%s", str.c_str());
+	pDC->SetColor(80, 80, 80, 100);
+	pDC->SetFont(MFontManager::Get("FONTa10_O2Wht"));
+	pDC->Text((pDC->GetClipRect().w - pDC->GetFont()->GetWidth(timec) - 10), 60, timec);
+	/*
 	sprintf(damage, "Damage : %d", (int)pCharacter->GetDamage());
 	pDC->SetColor(255, 255, 255);
 	pDC->SetFont(MFontManager::Get("FONTc8b"));
-	TextRelative(pDC, 100.f / 800.f, 77.f / 600.f, damage);
-
+	TextRelative(pDC, 33.f / 800.f, 60.f / 600.f, damage);
+	*/
 	float x = 0.11f;
 	float y = 0.15f;
 	float textY = 101.f / 600.f;
@@ -916,12 +928,12 @@ void ZCombatInterface::DrawMyNamePont(MDrawContext* pDC)
 
 	char buffer[256];
 
-	sprintf(buffer,"%d  %s", pCharacter->GetProperty()->nLevel, pCharacter->GetProperty()->GetName());
+	sprintf(buffer,"Lv%d %s", pCharacter->GetProperty()->nLevel, pCharacter->GetProperty()->GetName());
 
 	if ( (ZGetGame()->GetMatch()->GetMatchType() != MMATCH_GAMETYPE_DUEL) || ( !pCharacter->IsObserverTarget()))
 	{
 		float fCenterVert = 0.018f - (float)pFont->GetHeight()/(float)RGetScreenHeight()/2;
-		TextRelative(pDC,100.f/800.f,fCenterVert,buffer);
+		TextRelative(pDC,70.f/800.f,fCenterVert,buffer);
 	}
 }
 void ZCombatInterface::DrawMyWeaponPont(MDrawContext* pDC)
