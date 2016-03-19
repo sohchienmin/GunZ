@@ -678,7 +678,7 @@ unsigned long MLadderMgr::GetChecksum(int nFirstIndex, int nGroupCount)
 }
 
 void MLadderMgr::DebugTest()
-{
+{/*
 #ifdef _DEBUG
 	OutputDebugString("Ahehheh \n");
 
@@ -700,5 +700,5 @@ void MLadderMgr::DebugTest()
 	Challenge(pGroupA);
 	Challenge(pGroupB);
 
-#endif
+#endif*/
 }

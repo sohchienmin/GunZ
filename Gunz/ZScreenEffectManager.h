@@ -97,6 +97,13 @@ private:
 	RMesh*	m_pExpMinusEffect;
 	RMesh*	m_pExpNumberEffect[10];
 
+	RBaseTexture*  m_pexpGaugeTexture;
+	RBaseTexture*  m_peexpGaugeTexture;
+	RBaseTexture*  m_peAPGaugeTexture;
+	RBaseTexture*  m_pAPGaugeTexture;
+	RBaseTexture*  m_pHPGaugeTexture;
+	RBaseTexture*  m_peHPGaugeTexture;
+
 	RMesh*	m_pPraiseEffect[ZCI_END];
 
 	/*

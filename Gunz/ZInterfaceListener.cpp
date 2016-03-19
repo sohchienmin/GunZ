@@ -1132,7 +1132,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetShowCreateCharacterButtonListener, MBTN_CLK_MSG)
 		MLabel* pColorLabel = (MLabel*)pResource->FindWidget("LabelNameColor");
 		pColorLabel->SetText("");
 		pColorLabel = (MLabel*)pResource->FindWidget("PreviewLabel");
-		pColorLabel->SetText("Buy VIP grade to unlock!");
+		//pColorLabel->SetText("Buy VIP grade to unlock!");
 	}
 	else
 	{
