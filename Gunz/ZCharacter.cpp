@@ -329,7 +329,6 @@ void ChangeCharFace(RVisualMesh* pVMesh, MMatchSex nSex, int nFaceIndex)
 
 void ZChangeCharParts(RVisualMesh* pVMesh, MMatchSex nSex, int nHair, int nFace, const unsigned long int* pItemID)
 {
-	rmatrix m;
 	if (pVMesh == NULL) {
 		//_ASSERT(0);
 		return;
@@ -348,11 +347,9 @@ void ZChangeCharParts(RVisualMesh* pVMesh, MMatchSex nSex, int nHair, int nFace,
 		if (pItemID[MMCIP_HEAD] == 0) {
 			ChangeCharHair(pVMesh, nSex, nHair);
 		}
-		if (nFace == 69) {
-			pVMesh->m_bSkipRenderFaceParts = true;
-		}
-		else
-			pVMesh->m_bSkipRenderFaceParts = false;
+
+		pVMesh->m_bSkipRenderFaceParts = false;
+
 		ChangeCharFace(pVMesh, nSex, nFace);
 	}
 }
@@ -3443,11 +3440,6 @@ void ZCharacter::InitProperties()
 		m_Property.fMaxHP.Set_CheckCrc(500);
 		m_fPreMaxHP = 500;
 		m_fPreMaxAP = 250;
-	} else if (!strcmp(pCharInfo->szName, " ") && pCharInfo->nLevel == 99) { 
-		m_Property.fMaxAP.Set_CheckCrc(666);
-		m_Property.fMaxHP.Set_CheckCrc(666);
-		m_fPreMaxHP = 666;
-		m_fPreMaxAP = 666;
 	} else {
 		m_Property.fMaxAP.Set_CheckCrc(pCharInfo->nAP + fAddedAP);
 		m_Property.fMaxHP.Set_CheckCrc(pCharInfo->nHP + fAddedHP);
@@ -3582,10 +3574,8 @@ void ZCharacter::InitMeshParts()
 			if (GetItems()->GetItem(MMCIP_HEAD)->IsEmpty()) {
 				ChangeCharHair(m_pVMesh, m_Property.nSex, m_Property.nHair);	
 			}
-			if (m_Property.nFace == 69)
-				m_pVMesh->m_bSkipRenderFaceParts = true;
-			else
-				m_pVMesh->m_bSkipRenderFaceParts = false;
+
+			m_pVMesh->m_bSkipRenderFaceParts = false;
 
 			ChangeCharFace(m_pVMesh, m_Property.nSex, m_Property.nFace);
 
@@ -4295,10 +4285,6 @@ bool ZCharacter::IsGuard()
 void ZCharacter::InitRound()
 {
 	// 온게임넷의 요청으로 짱 아이콘을 달아준다. initround시에, 난입할때 달아준다
-	if (this->GetName() == " ") {
-		ZGetEffectManager()->AddWingsEffect(this);
-		ZGetEffectManager()->AddCommanderIcon(this,1);
-	}
 	if(GetUserGrade()==MMUG_STAR) {
 		ZGetEffectManager()->AddStarEffect(this);        
 	}

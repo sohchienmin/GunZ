@@ -314,8 +314,8 @@ bool ZGameInput::OnEvent(MEvent* pEvent)
 				return true;
 			case ZACTION_MOVING_PICTURE:
 				{	// µ¿¿µ»ó Ä¸ÃÄ...2008.10.02
-					//if (ZGetGameInterface()->GetBandiCapturer() != NULL)  //Monckey100 kills bandicrap api cause kamir is a shit dev who added way too many dlls
-					//	ZGetGameInterface()->GetBandiCapturer()->ToggleStart();
+					if (ZGetGameInterface()->GetBandiCapturer() != NULL)
+						ZGetGameInterface()->GetBandiCapturer()->ToggleStart();
 				}
 				return true;
 			case ZACTION_TOGGLE_CHAT:

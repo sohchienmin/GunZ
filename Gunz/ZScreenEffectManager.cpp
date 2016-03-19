@@ -10,7 +10,6 @@
 #include "ZMyInfo.h"
 #include "ZQuest.h"
 #include "ZRuleDuel.h"
-#include <math.h>
 
 void DrawGauge(float x,float y,float fWidth,float fHeight,float fLeanDir,DWORD color);
 
@@ -336,13 +335,7 @@ ZScreenEffectManager::ZScreenEffectManager()
 	m_WeaponType = MWT_NONE;
 	m_SelectItemDesc = NULL;
 
-	m_pGaugeTexture    = NULL;
-	m_pHPGaugeTexture  = NULL;
-	m_peHPGaugeTexture = NULL;
-	m_pAPGaugeTexture  = NULL;
-	m_peAPGaugeTexture = NULL;
-	m_pexpGaugeTexture = NULL;
-	m_peexpGaugeTexture = NULL;
+	m_pGaugeTexture = NULL;
 
 	m_pHPPanel = NULL;
 	m_pScorePanel = NULL;
@@ -382,34 +375,12 @@ void ZScreenEffectManager::Destroy()
 {
 	Clear();
 
-	if (m_pGaugeTexture) {
+	if(m_pGaugeTexture)
+	{
 		RDestroyBaseTexture(m_pGaugeTexture);
 		m_pGaugeTexture=NULL;
 	}
-	if (m_pHPGaugeTexture) {
-		RDestroyBaseTexture(m_pHPGaugeTexture);
-		m_pHPGaugeTexture=NULL;
-	}
-	if (m_peHPGaugeTexture) {
-		RDestroyBaseTexture(m_peHPGaugeTexture);
-		m_peHPGaugeTexture=NULL;
-	}
-	if (m_pAPGaugeTexture) {
-		RDestroyBaseTexture(m_pAPGaugeTexture);
-		m_pAPGaugeTexture=NULL;
-	}
-	if (m_peAPGaugeTexture) {
-		RDestroyBaseTexture(m_peAPGaugeTexture);
-		m_peAPGaugeTexture=NULL;
-	}
-	if (m_pexpGaugeTexture) {
-		RDestroyBaseTexture(m_pexpGaugeTexture);
-		m_pexpGaugeTexture=NULL;
-	}
-	if (m_peexpGaugeTexture) {
-		RDestroyBaseTexture(m_peexpGaugeTexture);
-		m_peexpGaugeTexture=NULL;
-	}
+
 	SAFE_DELETE(m_pSpectator);
 
 	SAFE_DELETE(m_pHPPanel);
@@ -613,13 +584,7 @@ bool ZScreenEffectManager::Create()
 
 	m_CurrentComboLevel=ZCL_NONE;
 
-	m_pHPGaugeTexture=RCreateBaseTexture("Interface/Default/COMBAT/hpgauge.tga");
-	m_peHPGaugeTexture=RCreateBaseTexture("Interface/Default/COMBAT/e_hpgauge.tga");
 	m_pGaugeTexture=RCreateBaseTexture("Interface/Default/COMBAT/gauge.tga");
-	m_pAPGaugeTexture=RCreateBaseTexture("Interface/Default/COMBAT/apgauge.tga");
-	m_peAPGaugeTexture=RCreateBaseTexture("Interface/Default/COMBAT/e_apgauge.tga");
-	m_pexpGaugeTexture=RCreateBaseTexture("Interface/Default/COMBAT/expgauge.tga");
-	m_peexpGaugeTexture=RCreateBaseTexture("Interface/Default/COMBAT/e_expgauge.tga");
 
 	m_fGaugeHP=m_fGaugeAP=m_fGaugeEXP=0.f;
 	m_fCurGaugeHP=m_fCurGaugeAP=-1.f;
@@ -681,7 +646,8 @@ void DrawGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, DW
 
 	HRESULT hr = RGetDevice()->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, ver, sizeof(TLVERTEX));
 }
-void DrawEXPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, DWORD color, float currexp)
+//NEW HP BAR
+void DrawHPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, DWORD color)
 {
 #ifndef _EXTRESOLUTION
 	if (RGetIsWidthScreen())
@@ -702,6 +668,8 @@ void DrawEXPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir,
 #define SETVERTEX(_a,_x,_y,_z,_u,_v,_color) { ver[_a].x=_x;ver[_a].y=_y;ver[_a].z=_z;ver[_a].u=_u;ver[_a].v=_v;ver[_a].color=_color;  ver[_a].w=.1f; }
 
 	float fLean = fHeight*(float)MGetWorkspaceHeight()*fLeanDir;
+	float fLeanTop = fHeight*(float)MGetWorkspaceWidth()*(-1.f/4);
+	float fYTop = fHeight*(float)MGetWorkspaceWidth()*(-1.f/14);
 
 	int x1, y1, x2, y2;
 	x1 = x*(float)MGetWorkspaceWidth();
@@ -709,96 +677,10 @@ void DrawEXPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir,
 	x2 = (x + fWidth)*(float)MGetWorkspaceWidth();
 	y2 = (y + fHeight)*(float)MGetWorkspaceHeight();
 
-	SETVERTEX(0, x1, y1, 0, 0, 0, color);
-	SETVERTEX(1, x2, y1, 0, currexp, 0, color);
+	SETVERTEX(0, x1, y1+fLeanTop, 0, 0, 0, color);
+	SETVERTEX(1, x2, y1+fYTop, 0, 1, 0, color);
 	SETVERTEX(2, x1 + fLean, y2, 0, 0, 1, color);
-	SETVERTEX(3, x2 + fLean, y2, 0, currexp, 1, color);
-
-	HRESULT hr = RGetDevice()->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, ver, sizeof(TLVERTEX));
-}
-//NEW HP BAR
-void DrawHPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, DWORD color) //old hp bar min made
-{
-#ifndef _EXTRESOLUTION
-	if (RGetIsWidthScreen())
-	{
-		x = (x * 800 + 80) / 960;
-		//fWidth = fWidth * 800 / 960;
-	}
-#endif
-
-	struct TLVERTEX {
-		float x, y, z, w;
-		DWORD color;
-		float u, v;
-	};
-
-	TLVERTEX ver[4];
-
-#define SETVERTEX(_a,_x,_y,_z,_u,_v,_color) { ver[_a].x=_x;ver[_a].y=_y;ver[_a].z=_z;ver[_a].u=_u;ver[_a].v=_v;ver[_a].color=_color;  ver[_a].w=.1f; }
-
-	float fLean = fHeight*(float)MGetWorkspaceHeight()*fLeanDir;
-	float fLeanTop = fHeight*(float)MGetWorkspaceWidth()*(-1.f/4);
-	float fYTop = fHeight*(float)MGetWorkspaceWidth()*(-1.f/14);
-
-	int x1, y1, x2, y2;
-	x1 = x*(float)MGetWorkspaceWidth();
-	y1 = y*(float)MGetWorkspaceHeight();
-	x2 = (x + fWidth)*(float)MGetWorkspaceWidth(); // (x + fWidth)*(float)MGetWorkspaceWidth();
-	y2 = (y + fHeight)*(float)MGetWorkspaceHeight();
-
-	SETVERTEX(0, x1, y1+fLeanTop,0, 0, 0, color); //top left corner
-	SETVERTEX(1, x2, y1+fYTop,   0, 1, 0, color); //top right corner
-	SETVERTEX(2, x1 + fLean, y2, 0, 0, 1, color); //bottom left corner
-	SETVERTEX(3, x2 + fLean, y2, 0, 1, 1, color); //bottom right corner, texture gets centered instead of far left
-	RGetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, true); // Alpha mother fucker, fixed but wrecked the colors
-	RGetDevice()->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	RGetDevice()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-
-	//RGetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG1 , D3DTA_TEXTURE );
-	//RGetDevice()->SetTextureStageState( 0, D3DTSS_COLORARG2 , D3DTA_TFACTOR );
-
-	RGetDevice()->SetTextureStageState( 0, D3DTSS_ALPHAARG1 , D3DTA_TEXTURE );
-	RGetDevice()->SetTextureStageState( 0, D3DTSS_ALPHAOP , D3DTOP_SELECTARG1 );
-
-	RGetDevice()->SetTextureStageState( 1, D3DTSS_COLOROP	, D3DTOP_DISABLE );
-	RGetDevice()->SetTextureStageState( 1, D3DTSS_ALPHAOP , D3DTOP_DISABLE );
-	HRESULT hr = RGetDevice()->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, ver, sizeof(TLVERTEX));
-}
-void DrawHPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, DWORD color, float currhp)
-{
-#ifndef _EXTRESOLUTION
-	if (RGetIsWidthScreen())
-	{
-		x = (x * 800 + 80) / 960;
-		//fWidth = fWidth * 800 / 960;
-	}
-#endif
-
-	struct TLVERTEX {
-		float x, y, z, w;
-		DWORD color;
-		float u, v;
-	};
-
-	TLVERTEX ver[4];
-
-#define SETVERTEX(_a,_x,_y,_z,_u,_v,_color) { ver[_a].x=_x;ver[_a].y=_y;ver[_a].z=_z;ver[_a].u=_u;ver[_a].v=_v;ver[_a].color=_color;  ver[_a].w=.1f; }
-
-	float fLean = fHeight*(float)MGetWorkspaceHeight()*fLeanDir;
-	float fLeanTop = fHeight*(float)MGetWorkspaceWidth()*(-1.f/4);
-	float fYTop = fHeight*(float)MGetWorkspaceWidth()*(-1.f/14);
-
-	int x1, y1, x2, y2;
-	x1 = x*(float)MGetWorkspaceWidth();
-	y1 = y*(float)MGetWorkspaceHeight();
-	x2 = (x + fWidth)*(float)MGetWorkspaceWidth(); // (x + fWidth)*(float)MGetWorkspaceWidth();
-	y2 = (y + fHeight)*(float)MGetWorkspaceHeight();
-
-	SETVERTEX(0, x1, y1,0, 0, 0, color); //top left corner
-	SETVERTEX(1, x2, y1,   0, currhp, 0, color); //top right corner
-	SETVERTEX(2, x1 + fLean, y2, 0, 0, 1, color); //bottom left corner
-	SETVERTEX(3, x2 + fLean, y2, 0, currhp, 1, color); //bottom right corner, texture gets centered instead of far left
+	SETVERTEX(3, x2 + fLean, y2, 0, 1, 1, color);
 	RGetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, true); // Alpha mother fucker, fixed but wrecked the colors
 	RGetDevice()->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
 	RGetDevice()->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
@@ -814,7 +696,7 @@ void DrawHPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, 
 	HRESULT hr = RGetDevice()->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, ver, sizeof(TLVERTEX));
 }
 // draw ap gauge
-void DrawAPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, DWORD color, float currap)
+void DrawAPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, DWORD color)
 {
 #ifndef _EXTRESOLUTION
 	if (RGetIsWidthScreen())
@@ -848,9 +730,9 @@ void DrawAPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, 
 	y2 = (y + fHeight)*(float)MGetWorkspaceHeight();
 
 	SETVERTEX(0, x1, y1, 0, 0, 0, color);
-	SETVERTEX(1, x2, y1, 0, currap, 0, color);
-	SETVERTEX(2, x1, y2, 0, 0, 1, color);
-	SETVERTEX(3, x2 + fLeanBack, y2, 0, currap, 1, color);
+	SETVERTEX(1, x2, y1, 0, 1, 0, color);
+	SETVERTEX(2, x1 + fLeanFront, y2 + fLeanBottom, 0, 0, 1, color);
+	SETVERTEX(3, x2 + fLeanBack, y2 + fYBottom, 0, 1, 1, color);
 
 	HRESULT hr = RGetDevice()->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, ver, sizeof(TLVERTEX));
 }
@@ -945,8 +827,8 @@ int ZScreenEffectManager::DrawResetGauges()
 	////////////////////////////////////////////
 
 	// 하드코드 HP 게이지 !
-	if(m_pHPGaugeTexture)
-		RGetDevice()->SetTexture(0,m_pHPGaugeTexture->GetTexture());
+	if(m_pGaugeTexture)
+		RGetDevice()->SetTexture(0,m_pGaugeTexture->GetTexture());
 	else
 		RGetDevice()->SetTexture(0,NULL);
 			RGetDevice()->SetRenderState(D3DRS_ALPHABLENDENABLE, true); // Alpha mother fucker
@@ -970,21 +852,19 @@ int ZScreenEffectManager::DrawResetGauges()
 	*/
 	color = D3DCOLOR_ARGB(255,  0,128,255);
 
-	DrawHPGauge(46.f/800.f , 18.f/600.f , min(1.f,m_fGaugeHP) * 180.f/800.f, 18.f/600.f , 0.f ,color, min(1.f,m_fGaugeHP));// ?,? ,?,height 
+	DrawHPGauge(70.f/800.f , 23.f/600.f , min(1.f,_hp) * 138.f/800.f , 13.f/600.f , 1.f ,color);
+
 	// ap
-	RGetDevice()->SetTexture(0,NULL);
+
 	color = D3DCOLOR_ARGB(255, 68,193, 62);
 
-	DrawAPGauge(37.f/800.f , 36.f/600.f , min(1.f,_ap) * 181.f/800.f , 18.f/600.f , 0.f ,color, min(1.f,_ap));
+	DrawAPGauge(84.f/800.f , 50.f/600.f , min(1.f,_ap) * 138.f/800.f , 13.f/600.f , -1.f ,color);
 
 	// exp
-	if(m_pGaugeTexture)
-		RGetDevice()->SetTexture(0,m_pGaugeTexture->GetTexture());
-	else
-		RGetDevice()->SetTexture(0,NULL);
+
 	color = D3DCOLOR_ARGB(255,200,200,200);
 
-	DrawEXPGauge(33.f/800.f , 52.f/600.f , min(1.f,m_fGaugeEXP) * 90.f/800.f , 8.f/600.f , 0.f ,color, m_fGaugeEXP);
+	DrawGauge(66.f/800.f , 70.f/600.f , min(1.f,m_fGaugeEXP) * 138.f/800.f , 4.f/600.f , -1.f ,color);
 
 	if(_hp > 1.0f) // 종료
 	{
@@ -1033,63 +913,31 @@ void ZScreenEffectManager::DrawGauges()
 		m_fCurGaugeAP = m_fGaugeAP;
 	}
 
-	if(m_peHPGaugeTexture)
-		RGetDevice()->SetTexture(0,m_peHPGaugeTexture->GetTexture());
-	else
-		RGetDevice()->SetTexture(0,NULL);
-	color = D3DCOLOR_ARGB(255,80,80,80);
-	DrawHPGauge(46.f/800.f , 18.f/600.f , 180.f/800.f, 18.f/600.f , 0.f ,color, 1.0f);
+
 	// 하드코드 HP 게이지 !
-	if(m_pHPGaugeTexture)
-		RGetDevice()->SetTexture(0,m_pHPGaugeTexture->GetTexture());
+	if(m_pGaugeTexture)
+		RGetDevice()->SetTexture(0,m_pGaugeTexture->GetTexture());
 	else
 		RGetDevice()->SetTexture(0,NULL);
 	// hp
-	if(m_fGaugeHP == 1.0f )		color = D3DCOLOR_ARGB(255, 19,196, 52);//GREEN
-	else {
-		short R,G,B;
-		R = floor((255 - 19) - 255*m_fGaugeHP);
-		G = floor(196*m_fGaugeHP);
-		B = floor(52*m_fGaugeHP);
-		color = D3DCOLOR_ARGB(255,R,G,B);
-	}
-	//else if(m_fGaugeHP > 0.7f)	color = D3DCOLOR_ARGB(255, 69,177,186);
-	//else if(m_fGaugeHP > 0.3f)	color = D3DCOLOR_ARGB(255,231,220, 24);
-	//else						color = D3DCOLOR_ARGB(255,233, 44, 22);
-	DrawHPGauge(46.f/800.f , 18.f/600.f , min(1.f,m_fGaugeHP) * 180.f/800.f, 18.f/600.f , 0.f ,color, min(1.f,m_fGaugeHP));// ?,? ,?,height 
-	// ap
-	if(m_peAPGaugeTexture)
-		RGetDevice()->SetTexture(0,m_peAPGaugeTexture->GetTexture());
-	else
-		RGetDevice()->SetTexture(0,NULL);
-	color = D3DCOLOR_ARGB(255,80,80,80);//white
-	DrawAPGauge(37.f/800.f , 36.f/600.f , 181.f/800.f , 18.f/600.f , 0.f ,color, 1.0f);
-	if(m_pAPGaugeTexture)
-		RGetDevice()->SetTexture(0,m_pAPGaugeTexture->GetTexture());
-	else
-		RGetDevice()->SetTexture(0,NULL);
-	color = D3DCOLOR_ARGB(255,255,255,255);//white
+	if(m_fGaugeHP == 1.0f )		color = D3DCOLOR_ARGB(255, 68,193, 62);//GREEN
+	else if(m_fGaugeHP > 0.7f)	color = D3DCOLOR_ARGB(255, 69,177,186);
+	else if(m_fGaugeHP > 0.3f)	color = D3DCOLOR_ARGB(255,231,220, 24);
+	else						color = D3DCOLOR_ARGB(255,233, 44, 22);
 
-	DrawAPGauge(37.f/800.f , 36.f/600.f , min(1.f,m_fGaugeAP) * 181.f/800.f , 18.f/600.f , 0.f ,color, min(1.f,m_fGaugeAP));
+	DrawHPGauge(73.f/800.f , 23.f/600.f , min(1.f,m_fGaugeHP) * 156.f/800.f , 13.f/600.f , -1.f ,color);// ?,? ,?,height 
+
+	// ap
+
+	color = D3DCOLOR_XRGB(255,255, 255);//white
+
+	DrawAPGauge(48.f/800.f , 40.f/600.f , min(1.f,m_fGaugeAP) * 165.f/800.f , 13.f/600.f , -1.f ,color);
 
 	// exp
-	/*if(m_pGaugeTexture)
-		RGetDevice()->SetTexture(0,m_pGaugeTexture->GetTexture());
-	else
-		RGetDevice()->SetTexture(0,NULL);*/
-	if(m_peexpGaugeTexture)
-		RGetDevice()->SetTexture(0,m_peexpGaugeTexture->GetTexture());
-	else
-		RGetDevice()->SetTexture(0,NULL);
-	color = D3DCOLOR_ARGB(255,80,80,80);
-	DrawEXPGauge(33.f/800.f , 53.f/600.f , 90.f/800.f , 8.f/600.f , 0.f ,color, 1.0f);
-	if(m_pexpGaugeTexture)
-		RGetDevice()->SetTexture(0,m_pexpGaugeTexture->GetTexture());
-	else
-		RGetDevice()->SetTexture(0,NULL);
+
 	color = D3DCOLOR_ARGB(255,200,200,200);
 
-	DrawEXPGauge(33.f/800.f , 53.f/600.f , min(1.f,m_fGaugeEXP) * 90.f/800.f , 8.f/600.f , 0.f ,color, m_fGaugeEXP);
+	//DrawGauge(66.f/800.f , 70.f/600.f , min(1.f,m_fGaugeEXP) * 138.f/800.f , 4.f/600.f , -1.f ,color);
 
 	// alpha
 
@@ -1109,20 +957,20 @@ void ZScreenEffectManager::DrawGauges()
 
 		color = 0x60ef0000;
 
-		float x = min(1.f,m_fGaugeHP) * 180.f/800.f;
-		float w = (m_fCurGaugeHP-m_fGaugeHP) * 180.f/800.f;
+		float x = min(1.f,m_fGaugeHP) * 138.f/800.f;
+		float w = (m_fCurGaugeHP-m_fGaugeHP) * 138.f/800.f;
 
-		DrawHPGauge(46.f/800.f , 18.f/600.f , min(1.f,m_fGaugeHP) * 180.f/800.f, 18.f/600.f , 0.f ,color, m_fCurGaugeHP);// ?,? ,?,height 
+		DrawHPGauge( 70.f/800.f+x, 23.f/600.f , w , 13.f/600.f , 1.f ,color);
 	}	
 
 	if(render_cur_ap) {
 
 		color = 0x60ef0000;
 
-		float x = min(1.f,m_fGaugeAP) * 181.f/800.f;	
-		float w = (m_fCurGaugeAP-m_fGaugeAP) * 181.f/800.f;
+		float x = min(1.f,m_fGaugeAP) * 138.f/800.f;	
+		float w = (m_fCurGaugeAP-m_fGaugeAP) * 138.f/800.f;
 
-		DrawAPGauge(37.f/800.f+x , 36.f/600.f , w , 18.f/600.f , 0.f ,color, (m_fCurGaugeHP-m_fGaugeHP));
+		DrawAPGauge(84.f/800.f+x , 50.f/600.f , w , 13.f/600.f , -1.f ,color);
 	}
 
 	RGetDevice()->SetRenderState( D3DRS_ALPHABLENDENABLE, TRUE);

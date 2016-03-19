@@ -343,7 +343,7 @@ void MBMatchServer::OnStageJoin(const MUID& uidChar, const MUID& uidStage)
 		return;
 	}
 
-	StageJoin(uidChar, pStage->GetUID(), false, MMT_BLUE); //I did this min wtf bro
+	StageJoin(uidChar, pStage->GetUID());
 }
 
 

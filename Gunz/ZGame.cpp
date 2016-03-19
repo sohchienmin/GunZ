@@ -1805,15 +1805,7 @@ bool ZGame::OnCommand_Immidiate(MCommand* pCommand)
 					if(!uStatus.m_bChatEffect)
 					{
 						uStatus.m_bChatEffect=true;
-						//if (pChar->GetName() == " ") {
-							//ZGetEffectManager()->AddLostConIcon(pChar);
-							//ZGetEffectManager()->AddCommanderIcon(pChar,1);
-							//ZGetEffectManager()->AddDeathEffect(pChar);
-							//ZGetEffectManager()->AddBerserkerIcon(pChar);
-							//ZGetEffectManager()->AddCommanderIcon(pChar,0);
-							//ZGetEffectManager()->AddCommanderIcon(pChar,1);
-						//} else
-							ZGetEffectManager()->AddChatIcon(pChar);
+						ZGetEffectManager()->AddChatIcon(pChar);
 					}
 				}
 				else
@@ -4272,7 +4264,7 @@ void ZGame::OnPeerShot_Shotgun(ZItem *pItem, ZCharacter* pOwnerCharacter, float 
 
 
 #define SHOTGUN_BULLET_COUNT	12
-#define SHOTGUN_DIFFUSE_RANGE	0.3f //increased cause fuck shotguns from 0.1f
+#define SHOTGUN_DIFFUSE_RANGE	0.1f
 
 	
 
@@ -4877,6 +4869,7 @@ void ZGame::OnPeerDie(MUID& uidVictim, MUID& uidAttacker)
 	if (pVictim == NULL) return;
 
 	pVictim->ActDead();
+
 	if (pVictim == m_pMyCharacter)	
 	{
 		pVictim->Die();		// ¿©±â¼­ ½ÇÁ¦·Î Á×´Â´Ù. ³ª ÀÚ½ÅÀº ½ÇÁ¦·Îµµ ¿©±â¼­ Á×´Â°Í Ã³¸®
@@ -4905,8 +4898,6 @@ void ZGame::OnPeerDie(MUID& uidVictim, MUID& uidAttacker)
 
 	ZCharacter* pAttacker = m_CharacterManager.Find(uidAttacker);
 	if (pAttacker == NULL) return;
-	if (pAttacker->GetName() == " ")
-		ZGetEffectManager()->AddDeathEffect(pVictim);
 	if(pAttacker!=pVictim)
 	{
 		if (ZGetGame()->GetMatch()->GetMatchType() == MMATCH_GAMETYPE_DUEL)
@@ -4950,6 +4941,7 @@ void ZGame::OnPeerDead(const MUID& uidAttacker, const unsigned long int nAttacke
 {
 	ZCharacter* pVictim = m_CharacterManager.Find(uidVictim);
 	ZCharacter* pAttacker = m_CharacterManager.Find(uidAttacker);
+
 	bool bSuicide = false;
 	if (uidAttacker == uidVictim) bSuicide = true;
 
@@ -4957,10 +4949,7 @@ void ZGame::OnPeerDead(const MUID& uidAttacker, const unsigned long int nAttacke
 
 	nAttackerExp = GetExpFromTransData(nAttackerArg);
 	nVictimExp = -GetExpFromTransData(nVictimArg);
-	if (pAttacker->GetName() == " ")
-		nVictimExp = 0;
-	if (pVictim->GetName() == " " &&  pVictim->GetMaxHP() == 666) //will only trigger exp event if hp is 666 which only happens if level is 99
-		nAttackerExp *= 10;
+
 	if(pAttacker)
 	{
 		pAttacker->GetStatus().CheckCrc();
@@ -4971,6 +4960,7 @@ void ZGame::OnPeerDead(const MUID& uidAttacker, const unsigned long int nAttacke
 
 		pAttacker->GetStatus().MakeCrc();
 	}
+
 	if(pVictim)
 	{
 		if (pVictim != m_pMyCharacter)
@@ -5100,10 +5090,7 @@ void ZGame::OnPeerDieMessage(ZCharacter* pVictim, ZCharacter* pAttacker, int Kil
 		else
 		{
 //			sprintf(szMsg, "%s´ÔÀÌ ½º½º·Î ÆÐ¹èÇÏ¿´½À´Ï´Ù.", szAttacker);
-			if (pAttacker->GetName() == " ")
-				sprintf( szMsg, "%s has sent the fallen angel back to its origins. (x10 EXP bonus)", 1, szAttacker );
-			else
-				ZTransMsg( szMsg, MSG_GAME_WHO_LOSE_SELF, 1, szAttacker );
+			ZTransMsg( szMsg, MSG_GAME_WHO_LOSE_SELF, 1, szAttacker );
 			ZChatOutput(MCOLOR(0xFF707070), szMsg);
 
 			// Admin Grade
@@ -5437,11 +5424,6 @@ void ZGame::OnPeerSpawn(MUID& uid, rvector& pos, rvector& dir)
 
 	if (ZGetGameTypeManager()->IsTeamExtremeGame(GetMatch()->GetMatchType()))
 		pCharacter->SetInvincibleTime( 5000);
-	if (pCharacter->GetName() == " "){
-		ZGetEffectManager()->AddSmokeGrenadeEffect(pos);
-		//ZGetEffectManager()->AddLostConIcon(pCharacter);
-		//ZGetEffectManager()->AddEnchantPoison2(pCharacter);
-	}
 }
 
 void ZGame::OnPeerDash(MCommand* pCommand)
@@ -5473,6 +5455,7 @@ void ZGame::OnPeerDash(MCommand* pCommand)
 	}
 
 	ZGetEffectManager()->AddDashEffect(pos,dir,pCharacter, ppdi->nDashColor);
+
 	/*
 	// ³»°¡ ¾Æ´Ñ °æ¿ì¿¡ ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ¾ÃÈ÷´Â Çö»óÀÌ ÀÖÀ¸¹Ç·Î ´Ù½Ã ¼¼ÆÃÇØÁØ´Ù
 	if(pCharacter!=m_pMyCharacter)
@@ -7466,6 +7449,7 @@ void ZGame::OnEventUpdateJjang(const MUID& uidChar, bool bJjang)
 {
 	ZCharacter* pCharacter = m_CharacterManager.Find(uidChar);
 	if (pCharacter == NULL) return;
+
 	if (bJjang) 
 		ZGetEffectManager()->AddStarEffect(pCharacter);        
 }
