@@ -33,7 +33,6 @@ MDatabase/Release/MDatabase.log
 *.tlh
 *.log
 *.log
-*.h
 RealSpace2/Release_publish/RealSpace2.log
 *.log
 *.tlh
