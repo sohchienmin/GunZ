@@ -681,6 +681,7 @@ void DrawGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, DW
 
 	HRESULT hr = RGetDevice()->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, ver, sizeof(TLVERTEX));
 }
+<<<<<<< HEAD
 void DrawEXPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, DWORD color, float currexp)
 {
 #ifndef _EXTRESOLUTION
@@ -855,6 +856,8 @@ void DrawAPGauge(float x, float y, float fWidth, float fHeight, float fLeanDir, 
 	HRESULT hr = RGetDevice()->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, ver, sizeof(TLVERTEX));
 }
 
+=======
+>>>>>>> parent of 41e0fcf... added HP/AP bar new
 void ZScreenEffectManager::ReSetHpPanel()
 {
 	if(m_pHPPanel->GetVMesh()) {
@@ -970,12 +973,21 @@ int ZScreenEffectManager::DrawResetGauges()
 	*/
 	color = D3DCOLOR_ARGB(255,  0,128,255);
 
+<<<<<<< HEAD
 	DrawHPGauge(46.f/800.f , 18.f/600.f , min(1.f,m_fGaugeHP) * 180.f/800.f, 18.f/600.f , 0.f ,color, min(1.f,m_fGaugeHP));// ?,? ,?,height 
+=======
+	DrawGauge(70.f/800.f , 23.f/600.f , min(1.f,_hp) * 138.f/800.f , 13.f/600.f , 1.f ,color);
+
+>>>>>>> parent of 41e0fcf... added HP/AP bar new
 	// ap
 	RGetDevice()->SetTexture(0,NULL);
 	color = D3DCOLOR_ARGB(255, 68,193, 62);
 
+<<<<<<< HEAD
 	DrawAPGauge(37.f/800.f , 36.f/600.f , min(1.f,_ap) * 181.f/800.f , 18.f/600.f , 0.f ,color, min(1.f,_ap));
+=======
+	DrawGauge(84.f/800.f , 50.f/600.f , min(1.f,_ap) * 138.f/800.f , 13.f/600.f , -1.f ,color);
+>>>>>>> parent of 41e0fcf... added HP/AP bar new
 
 	// exp
 	if(m_pGaugeTexture)
@@ -1045,6 +1057,7 @@ void ZScreenEffectManager::DrawGauges()
 	else
 		RGetDevice()->SetTexture(0,NULL);
 	// hp
+<<<<<<< HEAD
 	if(m_fGaugeHP == 1.0f )		color = D3DCOLOR_ARGB(255, 19,196, 52);//GREEN
 	else {
 		short R,G,B;
@@ -1057,6 +1070,16 @@ void ZScreenEffectManager::DrawGauges()
 	//else if(m_fGaugeHP > 0.3f)	color = D3DCOLOR_ARGB(255,231,220, 24);
 	//else						color = D3DCOLOR_ARGB(255,233, 44, 22);
 	DrawHPGauge(46.f/800.f , 18.f/600.f , min(1.f,m_fGaugeHP) * 180.f/800.f, 18.f/600.f , 0.f ,color, min(1.f,m_fGaugeHP));// ?,? ,?,height 
+=======
+
+	if(m_fGaugeHP == 1.0f )		color = D3DCOLOR_ARGB(255,  0,128,255);
+	else if(m_fGaugeHP > 0.7f)	color = D3DCOLOR_ARGB(255, 69,177,186);
+	else if(m_fGaugeHP > 0.3f)	color = D3DCOLOR_ARGB(255,231,220, 24);
+	else						color = D3DCOLOR_ARGB(255,233, 44, 22);
+
+	DrawGauge(70.f/800.f , 23.f/600.f , min(1.f,m_fGaugeHP) * 138.f/800.f , 13.f/600.f , 1.f ,color);
+
+>>>>>>> parent of 41e0fcf... added HP/AP bar new
 	// ap
 	if(m_peAPGaugeTexture)
 		RGetDevice()->SetTexture(0,m_peAPGaugeTexture->GetTexture());
@@ -1070,7 +1093,13 @@ void ZScreenEffectManager::DrawGauges()
 		RGetDevice()->SetTexture(0,NULL);
 	color = D3DCOLOR_ARGB(255,255,255,255);//white
 
+<<<<<<< HEAD
 	DrawAPGauge(37.f/800.f , 36.f/600.f , min(1.f,m_fGaugeAP) * 181.f/800.f , 18.f/600.f , 0.f ,color, min(1.f,m_fGaugeAP));
+=======
+	color = D3DCOLOR_ARGB(255, 68,193, 62);
+
+	DrawGauge(84.f/800.f , 50.f/600.f , min(1.f,m_fGaugeAP) * 138.f/800.f , 13.f/600.f , -1.f ,color);
+>>>>>>> parent of 41e0fcf... added HP/AP bar new
 
 	// exp
 	/*if(m_pGaugeTexture)
@@ -1089,7 +1118,11 @@ void ZScreenEffectManager::DrawGauges()
 		RGetDevice()->SetTexture(0,NULL);
 	color = D3DCOLOR_ARGB(255,200,200,200);
 
+<<<<<<< HEAD
 	DrawEXPGauge(33.f/800.f , 53.f/600.f , min(1.f,m_fGaugeEXP) * 90.f/800.f , 8.f/600.f , 0.f ,color, m_fGaugeEXP);
+=======
+	DrawGauge(66.f/800.f , 70.f/600.f , min(1.f,m_fGaugeEXP) * 138.f/800.f , 4.f/600.f , -1.f ,color);
+>>>>>>> parent of 41e0fcf... added HP/AP bar new
 
 	// alpha
 
