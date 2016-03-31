@@ -34,7 +34,7 @@ protected:
 	void UpdateMapCountDown(unsigned long int NowTime);
 	inline MLadderGroupMap* GetWaitGroupContainer(MLADDERTYPE nLadderType);
 
-	void AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup, bool warmUp);
+	void AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup, bool warmUp, int nDuel);
 	int MakeMatch(MLADDERTYPE nLadderType);
 	void LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB);
 	void LaunchWarmUp(MLADDERTYPE nLadderType, int nGroupA);
@@ -50,7 +50,7 @@ public:
 	bool Init();
 	MLadderGroup* CreateLadderGroup();
 	MLadderGroup* FindLadderGroup(int nGroupID);
-	bool Challenge(MLadderGroup* pGroup, bool warmUp);
+	bool Challenge(MLadderGroup* pGroup, bool warmUp, int nDuel);
 	void CancelChallenge(int nGroupID, const char* pszCancelName);
 	void CancelChallengeNew(int nGroupID, const char* pszCancelName);
 

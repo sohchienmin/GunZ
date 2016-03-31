@@ -49,40 +49,43 @@ bool MLadderMgr::Init()
 	return true;
 }
 
-void MLadderMgr::AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup, bool warmUp)
+void MLadderMgr::AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup, bool warmUp, int nDuel)
 {
 	pGroup->SetLadderType(nLadderType);
 
-	MLadderGroupMap* pGroupMap = GetWaitGroupContainer(nLadderType);
-	if (pGroupMap == NULL) return;
-
-	pGroupMap->Add(pGroup);
-	m_GroupList.push_back(pGroup);
-
 	// Ladder 상대 찾는중 알림(for UI)
 	if (!warmUp) {
-		LaunchDuelWhileWait(nLadderType, pGroup->GetID());
-		/*for (list<MUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
-		{
-			MUID uidPlayer = (*i);
-			MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_SEARCH_RIVAL, uidPlayer);
-		
-			MMatchObject* pObj = MMatchServer::GetInstance()->GetObject(uidPlayer);
-			if (!IsEnabledObject(pObj))
-			{
-				delete pCmd;
-				continue;
-			}
+		MLadderGroupMap* pGroupMap = GetWaitGroupContainer(nLadderType);
+		if (pGroupMap == NULL) return;
 
-			MMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
-		}*/
+		pGroupMap->Add(pGroup);
+		m_GroupList.push_back(pGroup);
+		if (nDuel) {
+			LaunchDuelWhileWait(nLadderType, pGroup->GetID());
+		}
+		else {
+			for (list<MUID>::iterator i=pGroup->GetPlayerListBegin(); i!= pGroup->GetPlayerListEnd(); i++)
+			{
+				MUID uidPlayer = (*i);
+				MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_MATCH_LADDER_SEARCH_RIVAL, uidPlayer);
+		
+				MMatchObject* pObj = MMatchServer::GetInstance()->GetObject(uidPlayer);
+				if (!IsEnabledObject(pObj))
+				{
+					delete pCmd;
+					continue;
+				}
+
+				MMatchServer::GetInstance()->RouteToListener(pObj, pCmd);
+			}
+		}
 	}
 	else {
 		LaunchWarmUp(nLadderType, pGroup->GetID());
 	}
 }
 
-bool MLadderMgr::Challenge(MLadderGroup* pGroup, bool warmUp)
+bool MLadderMgr::Challenge(MLadderGroup* pGroup, bool warmUp, int nDuel)
 {
 	
 	int nPlayerCount = (int)pGroup->GetPlayerCount();
@@ -94,7 +97,7 @@ bool MLadderMgr::Challenge(MLadderGroup* pGroup, bool warmUp)
 			if (nPlayerCount == GetNeedMemberCount(MLADDERTYPE(i)))
 			{
 				
-				AddGroup(MLADDERTYPE(i), pGroup, warmUp);
+				AddGroup(MLADDERTYPE(i), pGroup, warmUp, nDuel);
 			}
 		}
 

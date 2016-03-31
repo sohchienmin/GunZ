@@ -265,12 +265,13 @@ void ZGameClient::OnReplyAgreement(const MUID& uidProposer,
 				nCount++;
 
 				// Balance ¿É¼Ç
-				int nBalancedMatching = 0;
+				//int nBalancedMatching = 0;
+				int nDuel = 0;
 				ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-				MButton* pButton = (MButton*)pResource->FindWidget("BalancedMatchingCheckBox");
+				MButton* pButton = (MButton*)pResource->FindWidget("DuelCheckBox");
 				if ((pButton) && (pButton->GetCheck()))
 				{
-					nBalancedMatching = 1;
+					nDuel = 1;
 				}
 
 				int nAntiLead = 0; // anti-lead by default
@@ -289,7 +290,7 @@ void ZGameClient::OnReplyAgreement(const MUID& uidProposer,
 
 				MButton* pButton2 = (MButton*)pResource->FindWidget("AntiLeadCheckBox");
 				
-				ZPostLadderRequestChallenge(ppMember, nCount, nBalancedMatching, nAntiLead, nDodge, false);
+				ZPostLadderRequestChallenge(ppMember, nCount, nDuel, nAntiLead, nDodge, false);
 			}
 			break;
 		case MPROPOSAL_CLAN_WARMUP_INVITE:

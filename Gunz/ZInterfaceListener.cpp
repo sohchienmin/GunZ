@@ -1115,7 +1115,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetShowCreateCharacterButtonListener, MBTN_CLK_MSG)
 	
 	if (ZGetMyInfo()->GetUGradeID() == MMUG_FREE)
 	{
-		ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
+		/*ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 		MSlider* pRedColor, *pGreenColor, *pBlueColor;
 		pRedColor = (MSlider*)pResource->FindWidget("RedColor");
 		pGreenColor = (MSlider*)pResource->FindWidget("GreenColor");
@@ -1132,7 +1132,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetShowCreateCharacterButtonListener, MBTN_CLK_MSG)
 		MLabel* pColorLabel = (MLabel*)pResource->FindWidget("LabelNameColor");
 		pColorLabel->SetText("");
 		pColorLabel = (MLabel*)pResource->FindWidget("PreviewLabel");
-		//pColorLabel->SetText("Buy VIP grade to unlock!");
+		//pColorLabel->SetText("Buy VIP grade to unlock!");*/
 	}
 	else
 	{
@@ -1146,13 +1146,23 @@ BEGIN_IMPLEMENT_LISTENER(ZGetShowCreateCharacterButtonListener, MBTN_CLK_MSG)
 		pGreenColor->SetMinMax(0, 255);
 		pBlueColor->SetMinMax(0, 255);
 		pRedColor->Enable(true);
+		pRedColor->SetVisible(true);
 		pGreenColor->Enable(true);
+		pGreenColor->SetVisible(true);
 		pBlueColor->Enable(true);
+		pBlueColor->SetVisible(true);
 		MLabel* pColorLabel = (MLabel*)pResource->FindWidget("LabelNameColor");
 		pColorLabel->SetText(pEdit->GetText());
+		pColorLabel->SetVisible(true);
 		pColorLabel->SetTextColor(MCOLOR(pRedColor->GetValue(), pGreenColor->GetValue(), pBlueColor->GetValue()));
 		pColorLabel = (MLabel*)pResource->FindWidget("PreviewLabel");
 		pColorLabel->SetText("Preview");
+		MLabel* pLabel = (MLabel*)pResource->FindWidget("RLabel");
+		pLabel->SetVisible(true);
+		pLabel = (MLabel*)pResource->FindWidget("GLabel");
+		pLabel->SetVisible(true);
+		pLabel = (MLabel*)pResource->FindWidget("BLabel");
+		pLabel->SetVisible(true);
 	}
 	ZGetGameInterface()->SetState(GUNZ_CHARCREATION);
 END_IMPLEMENT_LISTENER()

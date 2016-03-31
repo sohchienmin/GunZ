@@ -28,6 +28,7 @@
 #include "MHackingCharList.h"
 #include "../MMatchObjectCommandHistory.h"
 #include "../MConnectHistory.h"
+//#include "cxr_inc.h"
 
 
 #include "MMatchBRMachine.h"

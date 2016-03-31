@@ -516,14 +516,14 @@ void MMatchServer::OnLadderRequestChallenge(const MUID& uidRequestMember, void* 
 
 	// balancedMatching ¼³Á
 
-	if (nOptions == 1)
+	/*if (nOptions == 1)
 	{
 		pGroup->SetBalancedMatching(true);
 	}
 	else
-	{
+	{*/
 		pGroup->SetBalancedMatching(false);	
-	}
+	//}
 	if (nAntiLead == 1)
 	{
 		pGroup->SetAntiLeadMatching(true);
@@ -552,7 +552,7 @@ void MMatchServer::OnLadderRequestChallenge(const MUID& uidRequestMember, void* 
 		pGroup->AddPlayer( pMemberObjects[i] );
 	}
 	
-	GetLadderMgr()->Challenge(pGroup, warmUp);
+	GetLadderMgr()->Challenge(pGroup, warmUp, nOptions);
 }
 
 void MMatchServer::OnLadderRequestCancelChallenge(const MUID& uidPlayer)
