@@ -4272,10 +4272,9 @@ void ZGame::OnPeerShot_Shotgun(ZItem *pItem, ZCharacter* pOwnerCharacter, float 
 
 
 #define SHOTGUN_BULLET_COUNT	12
-#define SHOTGUN_DIFFUSE_RANGE	0.3f //increased cause fuck shotguns from 0.1f
+#define SHOTGUN_DIFFUSE_RANGE	0.1f //decreased cause fuck shotguns from 0.1f
 
 	
-
 	if (pOwnerCharacter == NULL) return;
 
 	// ¸ðµç»ç¶÷ÀÌ °°Àº random seed ¸¦ °®µµ·Ï °°Àº°ªÀ¸·Î ÃÊ±âÈ­ ÇØÁØ´Ù
