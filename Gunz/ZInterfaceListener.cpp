@@ -1916,7 +1916,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetPlayerWarsVote0, MBTN_CLK_MSG)
 	MLabel* pLabel = (MLabel*)pResource->FindWidget("PlayerWarsVote0");
 	if (pLabel)
 	pLabel->SetTextColor(MCOLOR(102, 205, 0));
-	mlog("PLAYER FUCKING VOTED");
+
 	ZPostPlayerWarsVote(0);
 END_IMPLEMENT_LISTENER();
 
@@ -1934,7 +1934,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetPlayerWarsVote1, MBTN_CLK_MSG)
 	MLabel* pLabel = (MLabel*)pResource->FindWidget("PlayerWarsVote1");
 	if (pLabel)
 	pLabel->SetTextColor(MCOLOR(102, 205, 0));
-	mlog("PLAYER FUCKING VOTED");
+
 	ZPostPlayerWarsVote(1);
 END_IMPLEMENT_LISTENER();
 
@@ -1952,7 +1952,7 @@ BEGIN_IMPLEMENT_LISTENER(ZGetPlayerWarsVote2, MBTN_CLK_MSG)
 	MLabel* pLabel = (MLabel*)pResource->FindWidget("PlayerWarsVote2");
 	if (pLabel)
 		pLabel->SetTextColor(MCOLOR(102, 205, 0));
-	mlog("PLAYER FUCKING VOTED");
+
 	ZPostPlayerWarsVote(2);
 END_IMPLEMENT_LISTENER();
 

@@ -154,12 +154,21 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			pCommand->GetParameter(&nRandomIndex[2], 2, MPT_INT);
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 			char Name[100];
+			char Text[100];
 			for(int i = 0; i < 3; i++)
 			{
 				sprintf(Name, "PlayerWarsMap%d", i );
 				MLabel* pLabel = (MLabel*)pResource->FindWidget(Name);
 				if ( pLabel)
 					pLabel->SetText(MGetMapDescMgr()->GetMapName(nRandomIndex[i]));
+
+				sprintf(Name, "PlayerWarsVote%d", i);
+				sprintf(Text, "Votes: %d", 0);
+				pLabel = (MLabel*)pResource->FindWidget(Name);
+				if (pLabel)
+					pLabel->SetText(Text);
+
+
 			}
 			ZGetGameInterface()->OnArrangedTeamGameUI(true, true);
 		}
@@ -171,15 +180,22 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			pCommand->GetParameter(&nRandomIndex[2], 2, MPT_INT);
 			ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 			char Name[100];
+			char Text[100];
 			for(int i = 0; i < 3; i++)
 			{
 				sprintf(Name, "PlayerWarsMap%d", i );
 				MLabel* pLabel = (MLabel*)pResource->FindWidget(Name);
 				if ( pLabel)
 					pLabel->SetText(MGetMapDescMgr()->GetMapName(nRandomIndex[i]));
+
+				sprintf(Name, "PlayerWarsVote%d", i);
+				sprintf(Text, "Votes: %d", 0);
+				pLabel = (MLabel*)pResource->FindWidget(Name);
+				if (pLabel)
+					pLabel->SetText(Text);
+
 			}
 		
-			//ZGetGameInterface()->OnArrangedTeamGameUI(true, true);
 			ZGetGameInterface()->ReserveLeaveStagePreGame();
 			ZGetGameClient()->inPreGame = false;
 		}

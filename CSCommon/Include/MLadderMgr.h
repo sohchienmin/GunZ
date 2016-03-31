@@ -37,7 +37,7 @@ protected:
 	void AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup, bool warmUp, int nDuel);
 	int MakeMatch(MLADDERTYPE nLadderType);
 	void LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB);
-	void LaunchWarmUp(MLADDERTYPE nLadderType, int nGroupA);
+	void LaunchWarmUp(MLADDERTYPE nLadderType, int nGroupA, MLadderGroup* pGroup);
 	void LaunchDuelWhileWait(MLADDERTYPE nLadderType, int nGroupA);
 	void RemoveFromGroupList(MLadderGroup* pGroup);
 	void CleaningGarbages();

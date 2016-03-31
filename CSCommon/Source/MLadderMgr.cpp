@@ -81,7 +81,7 @@ void MLadderMgr::AddGroup(MLADDERTYPE nLadderType, MLadderGroup* pGroup, bool wa
 		}
 	}
 	else {
-		LaunchWarmUp(nLadderType, pGroup->GetID());
+		LaunchWarmUp(nLadderType, pGroup->GetID(),pGroup);
 	}
 }
 
@@ -383,24 +383,8 @@ void MLadderMgr::LaunchLadder(MLADDERTYPE nLadderType, int nGroupA, int nGroupB)
 }
 */
 // WITH MAP VOTING
-void MLadderMgr::LaunchWarmUp(MLADDERTYPE nLadderType, int nGroupA)
+void MLadderMgr::LaunchWarmUp(MLADDERTYPE nLadderType, int nGroupA, MLadderGroup* pGroupA)
 {
-	
-	MLadderGroupMap* pGroupMap = GetWaitGroupContainer(nLadderType);
-	if (pGroupMap == NULL) {
-		return;
-	}
-
-	MLadderGroup* pGroupA = pGroupMap->Find(nGroupA);
-
-	if ((pGroupA == NULL)) {
-		return;
-	}
-
-	pGroupMap->Remove(nGroupA);
-
-	RemoveFromGroupList(pGroupA);
-
 	LadderGameMapVoteInfo* m = new LadderGameMapVoteInfo();
 	m->warmUp = true;
 	for(int i = 0; i < 3; i++)
