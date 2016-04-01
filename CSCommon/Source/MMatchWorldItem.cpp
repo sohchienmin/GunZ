@@ -341,11 +341,11 @@ void MMatchWorldItemManager::OnStageBegin(MMatchStageSetting* pStageSetting)
 				for (int i = 0; i < nSpawnCount; i++)
 				{
 					MMatchWorldItemSpawnInfo SpawnInfos;
-					SpawnInfos.x = pSpawnInfoSet->SoloSpawnInfo[i].x;
-					SpawnInfos.y = pSpawnInfoSet->SoloSpawnInfo[i].y;
-					SpawnInfos.z = pSpawnInfoSet->SoloSpawnInfo[i].z;
-					SpawnInfos.nCoolTime = pSpawnInfoSet->SoloSpawnInfo[i].nCoolTime;
-					SpawnInfos.nItemID = pSpawnInfoSet->SoloSpawnInfo[i].nItemID;
+					SpawnInfos.x = pSpawnInfoSet->TeamSpawnInfo[i].x;
+					SpawnInfos.y = pSpawnInfoSet->TeamSpawnInfo[i].y;
+					SpawnInfos.z = pSpawnInfoSet->TeamSpawnInfo[i].z;
+					SpawnInfos.nCoolTime = pSpawnInfoSet->TeamSpawnInfo[i].nCoolTime;
+					SpawnInfos.nItemID = pSpawnInfoSet->TeamSpawnInfo[i].nItemID;
 					m_SpawnInfos.push_back(SpawnInfos);
 				}
 			}
