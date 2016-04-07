@@ -159,7 +159,7 @@ protected:
 	void OnResponseFriendList(void* pBlob, int nCount);
 	void OnResponseIgnoreList(void* pBlob, int nCount);
 	void OnChannelPlayerList(int nTotalPlayerCount, int nPage, void* pBlob, int nCount);
-	void OnChannelAllPlayerList(const MUID& uidChannel, void* pBlob, int nBlobCount);
+	void OnChannelAllPlayerList(const MUID& uidChannel, void* pBlob, int nBlobCount, bool listAll);
 	void OnResponseStageSetting(const MUID& uidStage, void* pStageBlob, int nStageCount, void* pCharBlob, 
 		                        int nCharCount, STAGE_STATE nStageState, const MUID& uidMaster);
 	void OnResponseRecommandedChannel(const MUID& uidChannel);
@@ -211,6 +211,13 @@ protected:
 		                void* pMemberNamesBlob, 
 						const MMatchProposalMode nProposalMode, 
 						const int nRequestID);
+	void OnAskObserve(const string &proposerName, 
+						const MMatchProposalMode nProposalMode, 
+						const int nRequestID,
+						const MUID& uidProposer);
+	void OnObserveAgreement(const MUID& uidProposer, 
+		                const MUID& uidChar, 
+						const char* szReplierName);
 	void OnReplyAgreement(const MUID& uidProposer, 
 		                  const MUID& uidChar, 
 						  const char* szReplierName, 
@@ -307,6 +314,7 @@ public:
 	// 동의 관련
 	void RequestProposal(const MMatchProposalMode nProposalMode, char** ppReplierCharNames, const int nReplierCount);
 	void ReplyAgreement(bool bAgreement);
+	void ObserveAgreement();
 public:	// 투표관련
 	bool IsVoteInProgress()				{ return m_bVoteInProgress;	}
 	void SetVoteInProgress(bool bVal)	{ m_bVoteInProgress = bVal; }

@@ -652,15 +652,17 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 		case MC_MATCH_CHANNEL_RESPONSE_ALL_PLAYER_LIST:
 			{
 				MUID uidChannel;
+				bool listAll;
 
 				pCommand->GetParameter(&uidChannel, 0, MPT_UID);
+				pCommand->GetParameter(&listAll, 2, MPT_BOOL);
 
 				MCommandParameter* pParam = pCommand->GetParameter(1);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 				int nCount = MGetBlobArrayCount(pBlob);
 
-				OnChannelAllPlayerList(uidChannel, pBlob, nCount);
+				OnChannelAllPlayerList(uidChannel, pBlob, nCount, listAll);
 			}
 			break;
 		case MC_MATCH_RESPONSE_FRIENDLIST:
@@ -1127,7 +1129,11 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				}
 			}
 			break;
-
+		case MC_MATCH_OBSERVERS_JOIN:
+			{
+				ZPostStageRequestObserve();
+			}
+			break;
 		case MC_MATCH_INFORMATION_CLOTHES:
 			{
 				char szSenderName[128] = "";
@@ -1608,6 +1614,22 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				OnAskAgreement(uidProposer, pMemberNamesBlob, MMatchProposalMode(nProposalMode), nRequestID);
 			}
 			break;
+		case MC_MATCH_ASK_OBSERVE:
+			{
+				string proposerName;
+				MUID uidProposer;
+				int nProposalMode, nRequestID;
+				
+				pCommand->GetParameter(&proposerName,		0, MPT_STR);
+				pCommand->GetParameter(&nProposalMode,		1, MPT_INT);
+				pCommand->GetParameter(&nRequestID,			2, MPT_INT);
+				pCommand->GetParameter(&uidProposer,		3, MPT_UID);
+
+				mlog(proposerName.c_str());
+				mlog("\n");
+				OnAskObserve(proposerName, MMatchProposalMode(nProposalMode), nRequestID, uidProposer);
+			}
+			break;
 		case MC_MATCH_REPLY_AGREEMENT:
 			{
 				MUID uidProposer, uidChar;
@@ -1628,6 +1650,18 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			}
 
 			break;
+		case MC_MATCH_OBSERVE_AGREEMENT:
+			{
+				MUID uidProposer, uidChar;
+				char szReplierName[256];
+
+				pCommand->GetParameter(&uidProposer,		0, MPT_UID);
+				pCommand->GetParameter(&uidChar,			1, MPT_UID);
+				pCommand->GetParameter(szReplierName,		2, MPT_STR, sizeof(szReplierName) );
+		
+				OnObserveAgreement(uidProposer, uidChar, szReplierName);
+
+			}
 
 		// 레더 커맨드
 		case MC_MATCH_LADDER_SEARCH_RIVAL:	// 검색 시작

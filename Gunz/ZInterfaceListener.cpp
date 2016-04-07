@@ -1971,6 +1971,9 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamGameListener, MBTN_CLK_MSG)
 
 		ZPostRequestChannelAllPlayerList(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetChannelUID(),nPlaceFilter,
 			MCP_MATCH_CHANNEL_REQUEST_ALL_PLAYER_LIST_MYCLAN);
+
+		ZPostRequestChannelAllPlayerList(ZGetGameClient()->GetPlayerUID(), ZGetGameClient()->GetChannelUID(),nPlaceFilter,
+			MCP_MATCH_CHANNEL_REQUEST_ALL_PLAYER_LIST_NORMAL);
 	}
 END_IMPLEMENT_LISTENER();
 
@@ -1979,12 +1982,6 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 	MWidget* pWidget = pResource->FindWidget("ArrangedTeamGameDialog");
 	if(pWidget!=NULL)
 		pWidget->Show(false);
-
-//	pWidget = pResource->FindWidget("LobbyFindClanTeam");
-//	if(pWidget!=NULL)
-//		pWidget->Show(true);
-
-	// 게임 초대 메시지를 발송한다
 
 	ZPlayerSelectListBox *pPlayerList = (ZPlayerSelectListBox*)pResource->FindWidget("ArrangedTeamSelect");
 	if(pPlayerList)
@@ -2084,6 +2081,34 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamDialogOkListener, MBTN_CLK_MSG)
 			}
 			break;
 		}
+
+	}
+
+	pPlayerList = (ZPlayerSelectListBox*)pResource->FindWidget("ArrangedTeamObserverSelect");
+	if(pPlayerList) {
+		const int nMaxInviteCount = 15;
+		char szNames[nMaxInviteCount][MATCHOBJECT_NAME_LENGTH];
+		char *ppNames[nMaxInviteCount];
+		int nCount = 0;
+		for(int i=0;i<pPlayerList->GetCount();i++)
+		{
+			MListItem *pItem = pPlayerList->Get(i);
+			if(pItem->m_bSelected) {
+				if(nCount>=nMaxInviteCount) {
+					nCount++;
+					break;
+				}
+				strcpy(szNames[nCount],pItem->GetString());
+				ppNames[nCount]=szNames[nCount];
+				nCount ++;
+			}
+
+			if(nCount > 0 && nCount<=nMaxInviteCount) {
+					ZGetGameClient()->RequestProposal(MPROPOSAL_CLAN_OBSERVER_INVITE, ppNames, nCount);
+			}
+		}
+
+
 	}
 END_IMPLEMENT_LISTENER();
 
@@ -2109,10 +2134,30 @@ BEGIN_IMPLEMENT_LISTENER(ZGetProposalAgreementWait_CancelButtonListener, MBTN_CL
 END_IMPLEMENT_LISTENER();
 
 BEGIN_IMPLEMENT_LISTENER(ZGetProposalAgreementConfirm_OKButtonListener, MBTN_CLK_MSG)
-	ZGetGameClient()->ReplyAgreement(true);
 
 	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
 	MWidget* pWidget = pResource->FindWidget("ProposalAgreementConfirm");
+	MTextArea* pTextEdit = (MTextArea*)pResource->FindWidget("ProposalAgreementConfirm_Textarea");
+	mlog("OBSERVE AGREEMENT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+	mlog(pWidget->GetText());
+	mlog("\naaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
+	if(pWidget!=NULL) {
+		char arr[256];
+		if(pTextEdit->GetText(arr,256));
+		string message(arr);
+
+		size_t found = message.find("spectate");
+
+		if (found != string::npos) {
+			ZGetGameClient()->ObserveAgreement();
+			mlog("SENT THE FUCKING OBSERVE AGREEMENT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			pWidget->Show(false);
+
+			return true;
+		}
+	}
+
+	ZGetGameClient()->ReplyAgreement(true);
 	if(pWidget!=NULL)
 	{
 		pWidget->Show(false);

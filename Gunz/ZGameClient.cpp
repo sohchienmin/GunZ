@@ -904,6 +904,8 @@ void ZGameClient::OnStageLaunch(const MUID& uidStage, const char* pszMapName)
 	SetAllowTunneling(false);
 
 	m_MatchStageSetting.SetMapName(const_cast<char*>(pszMapName));
+
+	ZPostAlertObservers();
 	
 	if (ZApplication::GetGameInterface()->GetState() != GUNZ_GAME) {
 		ZChangeGameState(GUNZ_GAME);		// thread safely
@@ -1325,7 +1327,7 @@ void ZGameClient::OnChannelPlayerList(int nTotalPlayerCount, int nPage, void* pB
 	pPlayerListBox->AddTestItems();
 }
 
-void ZGameClient::OnChannelAllPlayerList(const MUID& uidChannel, void* pBlob, int nBlobCount)
+void ZGameClient::OnChannelAllPlayerList(const MUID& uidChannel, void* pBlob, int nBlobCount, bool listAll)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
@@ -1337,9 +1339,16 @@ void ZGameClient::OnChannelAllPlayerList(const MUID& uidChannel, void* pBlob, in
 	if(pDialog && pDialog->IsVisible())
 		pListBox = (MListBox*)pResource->FindWidget("ClanSponsorSelect");
 
-	pDialog = pResource->FindWidget("ArrangedTeamGameDialog");
-	if(pDialog && pDialog->IsVisible())
-		pListBox = (MListBox*)pResource->FindWidget("ArrangedTeamSelect");
+	if (!listAll) {
+		pDialog = pResource->FindWidget("ArrangedTeamGameDialog");
+		if(pDialog && pDialog->IsVisible())
+			pListBox = (MListBox*)pResource->FindWidget("ArrangedTeamSelect");
+	}
+	else {
+		pDialog = pResource->FindWidget("ArrangedTeamGameDialog");
+		if(pDialog && pDialog->IsVisible())
+			pListBox = (MListBox*)pResource->FindWidget("ArrangedTeamObserverSelect");
+	}
 
 	pDialog = pResource->FindWidget("ArrangedTeamGameWarmUpDialog");
 	if(pDialog && pDialog->IsVisible())

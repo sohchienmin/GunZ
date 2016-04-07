@@ -173,7 +173,9 @@ void ZCommandUDPHackShield::Init()
 	AddDeniedCommand(MC_MATCH_REQUEST_PROPOSAL);
 	AddDeniedCommand(MC_MATCH_RESPONSE_PROPOSAL);
 	AddDeniedCommand(MC_MATCH_ASK_AGREEMENT);
+	AddDeniedCommand(MC_MATCH_ASK_OBSERVE);
 	AddDeniedCommand(MC_MATCH_REPLY_AGREEMENT);
+	AddDeniedCommand(MC_MATCH_OBSERVE_AGREEMENT);
 
 	AddDeniedCommand(MC_MATCH_LADDER_REQUEST_CHALLENGE);
 	AddDeniedCommand(MC_MATCH_LADDER_RESPONSE_CHALLENGE);
@@ -422,6 +424,8 @@ void ZCommandUDPHackShield::Init()
 	AddDeniedCommand(MC_MATCH_FLAG_EFFECT);
 	AddDeniedCommand(MC_MATCH_FLAG_CAP);
 	AddDeniedCommand(MC_MATCH_FLAG_STATE);
+
+	AddDeniedCommand(MC_MATCH_OBSERVERS_JOIN);
 }
 
 void ZCommandUDPHackShield::AddDeniedCommand(int nCommandID)
