@@ -115,7 +115,7 @@ bool MMatchServer::StageRemove(const MUID& uidStage, MMatchStageMap::iterator* p
 }
 
 
-bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage, bool rejoin, MMatchTeam Team)
+bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage, bool rejoin, MMatchTeam Team, bool spectate)
 {
 	MMatchObject* pObj = GetObject(uidPlayer);
 	if (!IsEnabledObject(pObj)) {
@@ -194,8 +194,17 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage, bool r
 		MCommand* pCmd = CreateCommand(MC_MATCH_LADDER_PREPARE, uidPlayer);
 		pCmd->AddParameter(new MCmdParamUID(uidStage));
 		pCmd->AddParameter(new MCmdParamInt((int)pObj->GetTeam()));
+		pCmd->AddParameter(new MCmdParamBool(spectate));
+
 		RouteToListener(pObj, pCmd);
 	}
+
+
+	if(spectate) {
+		MCommand* pCmd = CreateCommand(MC_MATCH_LADDER_SPECTATE, uidPlayer);
+		RouteToListener(pObj, pCmd);
+	}
+
 	// Cache Update
 	CacheBuilder.Reset();
 	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
@@ -958,7 +967,7 @@ void MMatchServer::OnStageCreate(const MUID& uidChar, char* pszStageName, bool b
 		RouteResponseToListener(pObj, MC_MATCH_RESPONSE_STAGE_CREATE, MERR_CANNOT_CREATE_STAGE);
 		return;
 	}
-	StageJoin(uidChar, uidStage, false, MMT_BLUE);
+	StageJoin(uidChar, uidStage, false, MMT_BLUE, false);
 
 	MMatchStage* pStage = FindStage(uidStage);
 	if (pStage)
@@ -1047,7 +1056,7 @@ void MMatchServer::OnPrivateStageJoin(const MUID& uidPlayer, const MUID& uidStag
 		}
 	}
 
-	StageJoin(uidPlayer, pStage->GetUID(), false, MMT_BLUE);
+	StageJoin(uidPlayer, pStage->GetUID(), false, MMT_BLUE, false);
 }
 
 void MMatchServer::OnStageFollow(const MUID& uidPlayer, const char* pszTargetName)
@@ -1093,7 +1102,7 @@ void MMatchServer::OnStageFollow(const MUID& uidPlayer, const char* pszTargetNam
 			RouteResponseToListener( pPlayerObj, MC_MATCH_RESPONSE_STAGE_FOLLOW, MERR_CANNOT_FOLLOW );
 #endif
 		} else {
-			StageJoin(uidPlayer, pTargetObj->GetStageUID(), false, MMT_BLUE);
+			StageJoin(uidPlayer, pTargetObj->GetStageUID(), false, MMT_BLUE, false);
 		}
 	}
 	else {
@@ -1832,6 +1841,7 @@ void MMatchServer::OnRequestSpawn(const MUID& uidChar, const MVector& pos, const
 			return;
 		}
 	}
+
 
 	pObj->ResetCustomItemUseCount();
 	pObj->SetAlive(true);

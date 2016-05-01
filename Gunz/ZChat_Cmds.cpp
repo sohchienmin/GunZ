@@ -103,6 +103,10 @@ void ChatCmd_AllCommandsNoTarget(const char* line, const int argc, char **const 
 void ChatCmd_AdminChat(const char* line, const int argc, char **const argv);
 
 void ChatCmd_Resume(const char* line, const int argc, char **const argv);
+void ChatCmd_Invite(const char* line, const int argc, char **const argv);
+void ChatCmd_Spectate(const char* line, const int argc, char **const argv);
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 
 void _AddCmdFromXml(ZChatCmdManager* pCmdManager, ZCmdXmlParser* pParser, 
@@ -135,6 +139,8 @@ void ZChat::InitCmds()
 	{
 		MLog("Error while Read Item Descriptor %s", "system/chatcmds.xml");
 	}
+	_CC_AC("spectate",					&ChatCmd_Spectate,		CCF_ALL, ARGVNoMin, ARGVNoMax, true, "/spectate", "");
+	_CC_AC("invite",					&ChatCmd_Invite,		CCF_GAME, ARGVNoMin, 1, true, "/invite", "");
 	_CC_AC("resume",					&ChatCmd_Resume,		CCF_GAME, ARGVNoMin, ARGVNoMax, true, "/resume", "");
 	_CC_AC("cancel",					&ChatCmd_Cancel,		CCF_ALL, ARGVNoMin, ARGVNoMax, true, "/cancel", "");
 	_CC_AC("rejoin",					&ChatCmd_StageRejoin,		CCF_LOBBY, ARGVNoMin, ARGVNoMax, true, "/rejoin", "");
@@ -1575,6 +1581,23 @@ void ChatCmd_Resume(const char* line, const int argc, char **const argv) {
 	}
 	ZGetCombatInterface()->isOwnerOfPause(false);
 	ZPOSTCMD0(MC_MATCH_RESUME);
+}
+
+void ChatCmd_Invite(const char* line, const int argc, char **const argv) {
+	if ( (argv[1] == NULL))
+	{
+		char szMsg[128];
+		sprintf(szMsg, "^2Please provide a player name.");
+		ZChatOutput(szMsg);
+		return;
+	}
+
+	ZPOSTCMD1(MC_MATCH_INVITE_SPECTATE,MCmdParamStr(argv[1]));
+}
+
+void ChatCmd_Spectate(const char* line, const int argc, char **const argv) {
+	
+	ZPOSTCMD0(MC_MATCH_STAGE_REQUEST_SPECTATE);
 }
 
 

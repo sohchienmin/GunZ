@@ -1129,11 +1129,6 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				}
 			}
 			break;
-		case MC_MATCH_OBSERVERS_JOIN:
-			{
-				ZPostStageRequestObserve();
-			}
-			break;
 		case MC_MATCH_INFORMATION_CLOTHES:
 			{
 				char szSenderName[128] = "";
@@ -1614,22 +1609,6 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				OnAskAgreement(uidProposer, pMemberNamesBlob, MMatchProposalMode(nProposalMode), nRequestID);
 			}
 			break;
-		case MC_MATCH_ASK_OBSERVE:
-			{
-				string proposerName;
-				MUID uidProposer;
-				int nProposalMode, nRequestID;
-				
-				pCommand->GetParameter(&proposerName,		0, MPT_STR);
-				pCommand->GetParameter(&nProposalMode,		1, MPT_INT);
-				pCommand->GetParameter(&nRequestID,			2, MPT_INT);
-				pCommand->GetParameter(&uidProposer,		3, MPT_UID);
-
-				mlog(proposerName.c_str());
-				mlog("\n");
-				OnAskObserve(proposerName, MMatchProposalMode(nProposalMode), nRequestID, uidProposer);
-			}
-			break;
 		case MC_MATCH_REPLY_AGREEMENT:
 			{
 				MUID uidProposer, uidChar;
@@ -1650,18 +1629,6 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 			}
 
 			break;
-		case MC_MATCH_OBSERVE_AGREEMENT:
-			{
-				MUID uidProposer, uidChar;
-				char szReplierName[256];
-
-				pCommand->GetParameter(&uidProposer,		0, MPT_UID);
-				pCommand->GetParameter(&uidChar,			1, MPT_UID);
-				pCommand->GetParameter(szReplierName,		2, MPT_STR, sizeof(szReplierName) );
-		
-				OnObserveAgreement(uidProposer, uidChar, szReplierName);
-
-			}
 
 		// 레더 커맨드
 		case MC_MATCH_LADDER_SEARCH_RIVAL:	// 검색 시작
@@ -1729,6 +1696,11 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 				OnLadderPrepare(uidStage, nTeam);
 			}break;
+		case MC_MATCH_LADDER_SPECTATE:
+			{
+				OnSpectate();
+			}
+			break;
 		case MC_MATCH_LADDER_LAUNCH:		// 게임 시작
 			{
 				MUID uidStage;
@@ -1818,6 +1790,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 				FlashWindow(FindWindow(0, APPLICATION_NAME), 1);
 
+
 				sprintf(szMsg, "^2The game has been resumed.");
 				ZChatOutput(szMsg);
 				ZGetGameInterface()->ResumeGame();
@@ -1826,6 +1799,23 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				ZGetGame()->m_pMyCharacter->GetStatus().CheckCrc();
 				ZGetGame()->m_pMyCharacter->GetStatus().Ref().Freeze = 0;
 				ZGetGame()->m_pMyCharacter->GetStatus().MakeCrc();
+			}
+			break;
+
+		case MC_MATCH_NOTIFY_INVITED:
+			{
+				char inviter[20];
+				char clan[20];
+				char szMsg[256];
+
+				pCommand->GetParameter(inviter, 0, MPT_STR, sizeof(inviter));
+				pCommand->GetParameter(clan, 1, MPT_STR, sizeof(clan));
+
+				sprintf(szMsg,"%s(%s) has invited you to spectate clan war.",inviter,clan);
+				ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), szMsg);
+
+				sprintf(szMsg, "Type /spectate to watch the game.");
+				ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), szMsg);
 			}
 			break;
 		case MC_MATCH_VOTE_RESPONSE:

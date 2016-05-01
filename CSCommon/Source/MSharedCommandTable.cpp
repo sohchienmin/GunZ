@@ -738,6 +738,7 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 		C(MC_MATCH_LADDER_PREPARE, "Ladder.Prepare", "Prepare Ladder Game", MCDT_MACHINE2MACHINE)
 			P(MPT_UID, "uidStage")
 			P(MPT_INT, "nTeam")
+
 		C(MC_MATCH_LADDER_LAUNCH, "Ladder.Launch", "Launch Ladder Game", MCDT_MACHINE2MACHINE)
 			P(MPT_UID, "uidStage")
 			P(MPT_STR, "MapName")
@@ -1843,6 +1844,16 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 
 	C(MC_MATCH_UPDATE_PREGAME, "PreGame", "PreGame", MCDT_MACHINE2MACHINE)
 		P(MPT_BOOL, "inPreGame");
+
+	C(MC_MATCH_STAGE_REQUEST_SPECTATE, "Stage.Request.Spectate", "Stage Spectate", MCDT_MACHINE2MACHINE | MCCT_NON_ENCRYPTED);
+
+	C(MC_MATCH_INVITE_SPECTATE, "SpectateInvite", "SpectateInvite", MCDT_MACHINE2MACHINE)
+		P(MPT_STR, "PlayerName");
+
+	C(MC_MATCH_NOTIFY_INVITED, "NotifyInvite", "NotifyInvite", MCDT_MACHINE2MACHINE)
+		P(MPT_STR, "InviterName");
+		P(MPT_STR, "ClanName");
+	C(MC_MATCH_LADDER_SPECTATE, "LadderSpectate", "LadderSpectate", MCDT_MACHINE2MACHINE)
 
 	END_CMD_DESC();
 }

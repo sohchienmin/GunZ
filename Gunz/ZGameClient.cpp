@@ -904,8 +904,6 @@ void ZGameClient::OnStageLaunch(const MUID& uidStage, const char* pszMapName)
 	SetAllowTunneling(false);
 
 	m_MatchStageSetting.SetMapName(const_cast<char*>(pszMapName));
-
-	ZPostAlertObservers();
 	
 	if (ZApplication::GetGameInterface()->GetState() != GUNZ_GAME) {
 		ZChangeGameState(GUNZ_GAME);		// thread safely
@@ -1950,7 +1948,8 @@ void ZGameClient::OnResponseGameInfo(const MUID& uidStage, void* pGameInfoBlob, 
 		ZCharacter* pCharacter = ZGetGame()->m_CharacterManager.Find(pPlayerInfo->uidPlayer);
 		if (pCharacter == NULL) continue;
 
-		if (pPlayerInfo->bAlive == true)
+
+		if (pPlayerInfo->bAlive)
 		{
 //			pCharacter->SetVisible(true);	// RAONHAJE: PeerOpened TEST
 			pCharacter->Revival();
@@ -1961,6 +1960,7 @@ void ZGameClient::OnResponseGameInfo(const MUID& uidStage, void* pGameInfoBlob, 
 			{
 				// 팀플일 경우 죽어있으면 그냥 보여주지 않는다. 
 				// - 함께 난입한 사람 0,0,0에 서있는것 안보이게 하려고..
+
 				pCharacter->ForceDie();
 				pCharacter->SetVisible(false);
 			}

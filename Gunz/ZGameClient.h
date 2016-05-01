@@ -136,6 +136,7 @@ protected:
 	void OnChannelResponseRule(const MUID& uidchannel, const char* pszRuleName);
 
 	void OnLadderPrepare(const MUID& uidStage, const int nTeam);
+	void OnSpectate();
 	void OnPreGame(bool status);
 	void OnLadderLaunch(const MUID& uidStage, const char* pszMapName);
 	void OnLadderResponseChallenge(const int nResult);
@@ -215,9 +216,6 @@ protected:
 						const MMatchProposalMode nProposalMode, 
 						const int nRequestID,
 						const MUID& uidProposer);
-	void OnObserveAgreement(const MUID& uidProposer, 
-		                const MUID& uidChar, 
-						const char* szReplierName);
 	void OnReplyAgreement(const MUID& uidProposer, 
 		                  const MUID& uidChar, 
 						  const char* szReplierName, 
@@ -314,7 +312,6 @@ public:
 	// 동의 관련
 	void RequestProposal(const MMatchProposalMode nProposalMode, char** ppReplierCharNames, const int nReplierCount);
 	void ReplyAgreement(bool bAgreement);
-	void ObserveAgreement();
 public:	// 투표관련
 	bool IsVoteInProgress()				{ return m_bVoteInProgress;	}
 	void SetVoteInProgress(bool bVal)	{ m_bVoteInProgress = bVal; }

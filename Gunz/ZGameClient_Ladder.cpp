@@ -242,15 +242,6 @@ void ZGameClient::OnAskObserve(const string &proposerName, const MMatchProposalM
 }
 
 
-void ZGameClient::OnObserveAgreement(const MUID& uidProposer, 
-		                const MUID& uidChar, 
-						const char* szReplierName) 
-{
-	ZPostStageObserve(uidChar);
-}
-
-
-
 void ZGameClient::OnReplyAgreement(const MUID& uidProposer, 
 		                const MUID& uidChar, 
 						const char* szReplierName, 
@@ -428,17 +419,14 @@ void ZGameClient::ReplyAgreement(bool bAgreement)
 }
 
 
-void ZGameClient::ObserveAgreement()
-{
-	char szCharName[MATCHOBJECT_NAME_LENGTH];
-	sprintf(szCharName, ZGetMyInfo()->GetCharName());
-	ZPostObserveAgreement(m_uidRequestPlayer, GetPlayerUID(), szCharName);
-
-}
-
 void ZGameClient::OnLadderPrepare(const MUID& uidStage, const int nTeam)
 {
 	m_uidStage = uidStage;
+}
+
+void ZGameClient::OnSpectate()
+{
+
 }
 
 void ZGameClient::OnPreGame(bool status)
