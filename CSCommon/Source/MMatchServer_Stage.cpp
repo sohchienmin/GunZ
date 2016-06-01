@@ -32,6 +32,7 @@
 #include "MCrashDump.h"
 
 #include "MAsyncDBJob_InsertGamePlayerLog.h"
+#include <algorithm>
 
 static bool StageShowInfo(MMatchServer* pServer, const MUID& uidPlayer, const MUID& uidStage, char* pszChat);
 
@@ -145,6 +146,12 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage, bool r
 		LOG(LOG_PROG, x.c_str());
 		return false;
 	}
+
+	if(spectate) {
+		MMatchRuleTeamDeath* pStageRule =  (MMatchRuleTeamDeath*)pStage->GetRule();
+		pStageRule->spectators.push_back(uidPlayer);
+	}
+
 	if(rejoin == true)
 	{
 		//GetDBMgr()->InsertRejoinLog(pStage->GetName(), pObj->GetCharInfo()->m_nCID, pStage->GetBlueCLID(), pStage->GetRedCLID(), (int)Team, pStage->GetUID().Low);
@@ -194,7 +201,6 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage, bool r
 		MCommand* pCmd = CreateCommand(MC_MATCH_LADDER_PREPARE, uidPlayer);
 		pCmd->AddParameter(new MCmdParamUID(uidStage));
 		pCmd->AddParameter(new MCmdParamInt((int)pObj->GetTeam()));
-		pCmd->AddParameter(new MCmdParamBool(spectate));
 
 		RouteToListener(pObj, pCmd);
 	}
@@ -1811,6 +1817,7 @@ void MMatchServer::OnDuelSetObserver(const MUID& uidChar)
 	RouteToBattle(pObj->GetStageUID(), pCmd);
 }
 
+
 void MMatchServer::OnRequestSpawn(const MUID& uidChar, const MVector& pos, const MVector& dir)
 {
 	MMatchObject* pObj = GetObject(uidChar);
@@ -1818,6 +1825,20 @@ void MMatchServer::OnRequestSpawn(const MUID& uidChar, const MVector& pos, const
 
 	// Do Not Spawn when AdminHiding
 	if (IsAdminGrade(pObj) && pObj->CheckPlayerFlags(MTD_PlayerFlags_AdminHide)) return;
+
+	/*
+	MMatchStage* pStage = FindStage(uidStage);
+	if (pStage == NULL) {
+		string x = "PSTAGE";
+		LOG(LOG_PROG, x.c_str());
+		return false;
+	}
+
+	if(spectate) {
+		MMatchRuleTeamDeath* pStageRule =  (MMatchRuleTeamDeath*)pStage->GetRule();
+		pStageRule->spectators.push_back(uidPlayer);
+	}
+	*/
 
 
 	// ¸¶Áö¸· Á×¾ú´ø ½Ã°£°ú »õ·Î ¸®½ºÆùÀ» ¿äÃ»ÇÑ ½Ã°£ »çÀÌ¿¡ 2ÃÊ ÀÌ»óÀÇ ½Ã°£ÀÌ ÀÖ¾ú´ÂÁö °Ë»çÇÑ´Ù.
@@ -1827,6 +1848,15 @@ void MMatchServer::OnRequestSpawn(const MUID& uidChar, const MVector& pos, const
 
 	MMatchStage* pStage = FindStage(pObj->GetStageUID());
 	if (pStage == NULL) return;
+
+	MMatchRuleTeamDeath* pStageRule = (MMatchRuleTeamDeath*)pStage->GetRule();
+	auto it = find(pStageRule->spectators.begin(),pStageRule->spectators.end(), uidChar);
+	if (it != pStageRule->spectators.end()) {
+		string x = "RETURNED FROM ONREQUEST SPAWN";
+		LOG(LOG_PROG, x.c_str());
+		return;
+	}
+
 	if ( (pStage->GetRule()->GetRoundState() != MMATCH_ROUNDSTATE_PREPARE) && (!pObj->IsEnabledRespawnDeathTime(GetTickTime())) )
 		 return;
 

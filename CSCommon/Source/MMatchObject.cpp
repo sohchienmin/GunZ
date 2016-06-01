@@ -434,6 +434,7 @@ void MMatchObject::OnLeaveBattle()
 
 void MMatchObject::OnInitRound()
 {
+
 	SetAlive(true);
 	SetKillCount(0);
 	SetDeathCount(0);

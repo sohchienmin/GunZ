@@ -5400,6 +5400,8 @@ void ZGame::OnPeerSpawn(MUID& uid, rvector& pos, rvector& dir)
 	ZCharacter* pCharacter = m_CharacterManager.Find(uid);
 	if (pCharacter == NULL) return;
 
+	//if (pCharacter->GetStatus().Ref().m_bSpectator) return;
+
 	bool isRespawn	= ( pCharacter->IsDie() == true ) ? true : false;
 
 	//	dir = rvector(-1.f,0,0);

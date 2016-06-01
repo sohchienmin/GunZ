@@ -33,6 +33,7 @@ protected:
 	virtual bool RoundCount();
 	virtual bool OnCheckEnableBattleCondition();
 public:
+	vector<MUID> spectators;
 	MMatchRuleTeamDeath(MMatchStage* pStage);
 	virtual ~MMatchRuleTeamDeath()				{}
 	virtual void CalcTeamBonus(MMatchObject* pAttacker, MMatchObject* pVictim,
