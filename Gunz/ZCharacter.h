@@ -296,7 +296,7 @@ struct ZCharacterStatus
 							m_fGaugeAP(0),
 							m_fGaugeHP(0),
 							m_fCurGaugeAP(0),
-							m_fCurGaugeHP(0),
+							m_fCurGaugeHP(0)
 							{  }
 
 	void AddKills(int nAddedKills = 1) { nKills += nAddedKills; }
