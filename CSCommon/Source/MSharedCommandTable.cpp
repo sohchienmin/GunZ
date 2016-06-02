@@ -1853,7 +1853,6 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 	C(MC_MATCH_NOTIFY_INVITED, "NotifyInvite", "NotifyInvite", MCDT_MACHINE2MACHINE)
 		P(MPT_STR, "InviterName");
 		P(MPT_STR, "ClanName");
-	C(MC_MATCH_LADDER_SPECTATE, "LadderSpectate", "LadderSpectate", MCDT_MACHINE2MACHINE)
 
 	END_CMD_DESC();
 }

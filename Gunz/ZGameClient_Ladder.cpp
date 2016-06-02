@@ -424,11 +424,6 @@ void ZGameClient::OnLadderPrepare(const MUID& uidStage, const int nTeam)
 	m_uidStage = uidStage;
 }
 
-void ZGameClient::OnSpectate()
-{
-
-}
-
 void ZGameClient::OnPreGame(bool status)
 {
 	inPreGame = status;

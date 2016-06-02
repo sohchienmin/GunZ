@@ -1696,11 +1696,6 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 				OnLadderPrepare(uidStage, nTeam);
 			}break;
-		case MC_MATCH_LADDER_SPECTATE:
-			{
-				OnSpectate();
-			}
-			break;
 		case MC_MATCH_LADDER_LAUNCH:		// 게임 시작
 			{
 				MUID uidStage;

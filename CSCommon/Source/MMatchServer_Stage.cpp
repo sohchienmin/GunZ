@@ -205,12 +205,6 @@ bool MMatchServer::StageJoin(const MUID& uidPlayer, const MUID& uidStage, bool r
 		RouteToListener(pObj, pCmd);
 	}
 
-
-	if(spectate) {
-		MCommand* pCmd = CreateCommand(MC_MATCH_LADDER_SPECTATE, uidPlayer);
-		RouteToListener(pObj, pCmd);
-	}
-
 	// Cache Update
 	CacheBuilder.Reset();
 	for (MUIDRefCache::iterator i=pStage->GetObjBegin(); i!=pStage->GetObjEnd(); i++) {
