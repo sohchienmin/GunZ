@@ -197,6 +197,8 @@ public:
 	/// 새로운 UID 얻어내기
 	virtual MUID UseUID(void);
 
+	ClanWarSpect* clanWarSpectateMap() { return &ClanWarSpectator; }
+
 	MMatchAuthBuilder* GetAuthBuilder()					{ return m_pAuthBuilder; }
 #ifndef NEW_AUTH_MODULE
 	void SetAuthBuilder(MMatchAuthBuilder* pBuilder)	{ m_pAuthBuilder = pBuilder; }
