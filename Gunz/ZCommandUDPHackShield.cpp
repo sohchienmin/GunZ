@@ -422,10 +422,6 @@ void ZCommandUDPHackShield::Init()
 	AddDeniedCommand(MC_MATCH_FLAG_EFFECT);
 	AddDeniedCommand(MC_MATCH_FLAG_CAP);
 	AddDeniedCommand(MC_MATCH_FLAG_STATE);
-
-	AddDeniedCommand(MC_MATCH_STAGE_REQUEST_SPECTATE);
-	AddDeniedCommand(MC_MATCH_INVITE_SPECTATE);
-	AddDeniedCommand(MC_MATCH_NOTIFY_INVITED);
 }
 
 void ZCommandUDPHackShield::AddDeniedCommand(int nCommandID)

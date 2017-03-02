@@ -1058,12 +1058,7 @@ void MMatchStage::OnInitRound()
 		MMatchObject* pObj = (MMatchObject*)(*i).second;
 		if (pObj->GetEnterBattle() == true)
 		{
-        
-			MMatchRuleTeamDeath* pStageRule = (MMatchRuleTeamDeath*)GetRule();
-			auto it = find(pStageRule->spectators.begin(),pStageRule->spectators.end(), pObj->GetUID());
-			if (it == pStageRule->spectators.end()) {
-				pObj->OnInitRound();
-			}
+            pObj->OnInitRound();
 
 			if (m_StageSetting.IsTeamPlay())
 			{

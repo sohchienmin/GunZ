@@ -1325,7 +1325,7 @@ void ZGameClient::OnChannelPlayerList(int nTotalPlayerCount, int nPage, void* pB
 	pPlayerListBox->AddTestItems();
 }
 
-void ZGameClient::OnChannelAllPlayerList(const MUID& uidChannel, void* pBlob, int nBlobCount, bool listAll)
+void ZGameClient::OnChannelAllPlayerList(const MUID& uidChannel, void* pBlob, int nBlobCount)
 {
 	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
 
@@ -1337,16 +1337,9 @@ void ZGameClient::OnChannelAllPlayerList(const MUID& uidChannel, void* pBlob, in
 	if(pDialog && pDialog->IsVisible())
 		pListBox = (MListBox*)pResource->FindWidget("ClanSponsorSelect");
 
-	if (!listAll) {
-		pDialog = pResource->FindWidget("ArrangedTeamGameDialog");
-		if(pDialog && pDialog->IsVisible())
-			pListBox = (MListBox*)pResource->FindWidget("ArrangedTeamSelect");
-	}
-	else {
-		pDialog = pResource->FindWidget("ArrangedTeamGameDialog");
-		if(pDialog && pDialog->IsVisible())
-			pListBox = (MListBox*)pResource->FindWidget("ArrangedTeamObserverSelect");
-	}
+	pDialog = pResource->FindWidget("ArrangedTeamGameDialog");
+	if(pDialog && pDialog->IsVisible())
+		pListBox = (MListBox*)pResource->FindWidget("ArrangedTeamSelect");
 
 	pDialog = pResource->FindWidget("ArrangedTeamGameWarmUpDialog");
 	if(pDialog && pDialog->IsVisible())
@@ -1948,8 +1941,7 @@ void ZGameClient::OnResponseGameInfo(const MUID& uidStage, void* pGameInfoBlob, 
 		ZCharacter* pCharacter = ZGetGame()->m_CharacterManager.Find(pPlayerInfo->uidPlayer);
 		if (pCharacter == NULL) continue;
 
-
-		if (pPlayerInfo->bAlive)
+		if (pPlayerInfo->bAlive == true)
 		{
 //			pCharacter->SetVisible(true);	// RAONHAJE: PeerOpened TEST
 			pCharacter->Revival();
@@ -1960,7 +1952,6 @@ void ZGameClient::OnResponseGameInfo(const MUID& uidStage, void* pGameInfoBlob, 
 			{
 				// 팀플일 경우 죽어있으면 그냥 보여주지 않는다. 
 				// - 함께 난입한 사람 0,0,0에 서있는것 안보이게 하려고..
-
 				pCharacter->ForceDie();
 				pCharacter->SetVisible(false);
 			}

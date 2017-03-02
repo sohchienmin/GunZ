@@ -431,6 +431,8 @@ void ZMatch::InitRound()
 		}
 	}
 
+//	m_nRoundKills = 0;
+
 	// AdminHide Ã³¸®
 	MMatchObjCache* pObjCache = ZGetGameClient()->FindObjCache(ZGetMyUID());
 	if (pObjCache && pObjCache->CheckFlag(MTD_PlayerFlags_AdminHide)) {
@@ -444,6 +446,7 @@ void ZMatch::InitRound()
 			ZGetGameInterface()->GetCombatInterface()->SetObserverMode(true);
 			ZGetGame()->ReserveObserver();
 			ZGetGame()->m_pMyCharacter->ForceDie();
+
 		}
 	}
 	memset(m_nTeamKillCount, 0, sizeof(m_nTeamKillCount));

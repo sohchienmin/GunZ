@@ -131,6 +131,7 @@ void ZGameInterface::LoadBitmaps(const char* szDir, const char* szSubDir, ZLoadi
 	for(int i=0; i<pfs->GetFileCount(); i++){
 		const char* szFileName = pfs->GetFileName(i);
 		const MZFILEDESC* desc = pfs->GetFileDesc(i);
+		if(!desc) continue;
 		int nLen = (int)strlen(szFileName);
 
 		for(int j=0;j<sizeof(loadExts)/sizeof(loadExts[0]);j++) {

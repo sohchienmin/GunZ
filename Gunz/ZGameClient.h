@@ -136,7 +136,6 @@ protected:
 	void OnChannelResponseRule(const MUID& uidchannel, const char* pszRuleName);
 
 	void OnLadderPrepare(const MUID& uidStage, const int nTeam);
-	void OnSpectate();
 	void OnPreGame(bool status);
 	void OnLadderLaunch(const MUID& uidStage, const char* pszMapName);
 	void OnLadderResponseChallenge(const int nResult);
@@ -160,7 +159,7 @@ protected:
 	void OnResponseFriendList(void* pBlob, int nCount);
 	void OnResponseIgnoreList(void* pBlob, int nCount);
 	void OnChannelPlayerList(int nTotalPlayerCount, int nPage, void* pBlob, int nCount);
-	void OnChannelAllPlayerList(const MUID& uidChannel, void* pBlob, int nBlobCount, bool listAll);
+	void OnChannelAllPlayerList(const MUID& uidChannel, void* pBlob, int nBlobCount);
 	void OnResponseStageSetting(const MUID& uidStage, void* pStageBlob, int nStageCount, void* pCharBlob, 
 		                        int nCharCount, STAGE_STATE nStageState, const MUID& uidMaster);
 	void OnResponseRecommandedChannel(const MUID& uidChannel);
@@ -212,10 +211,6 @@ protected:
 		                void* pMemberNamesBlob, 
 						const MMatchProposalMode nProposalMode, 
 						const int nRequestID);
-	void OnAskObserve(const string &proposerName, 
-						const MMatchProposalMode nProposalMode, 
-						const int nRequestID,
-						const MUID& uidProposer);
 	void OnReplyAgreement(const MUID& uidProposer, 
 		                  const MUID& uidChar, 
 						  const char* szReplierName, 

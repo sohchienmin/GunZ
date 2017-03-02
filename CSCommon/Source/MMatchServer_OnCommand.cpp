@@ -124,77 +124,12 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 					ClanReDef::iterator it = ClanRejoiner.find(pObj->GetCharInfo()->m_nCID);
 					if(it != ClanRejoiner.end())
 					{
-						if(!StageJoin(pObj->GetUID(), it->second->StageUID, true, it->second->Team, false))
+						if(!StageJoin(pObj->GetUID(), it->second->StageUID, true, it->second->Team))
 						{
 							NotifyMessage(pObj->GetUID(), MATCHNOTIFY_STAGE_NOT_EXIST);
 						}
 					}
 				} 
-			}
-			break;
-		case MC_MATCH_STAGE_REQUEST_SPECTATE:
-			{
-				//FUNCTION FOR PLAYER TO SPECTATE
-				MMatchObject* pObj = (MMatchObject*)GetObject(pCommand->GetSenderUID());
-				if (pObj)
-				{
-					ClanWarSpect::iterator it = ClanWarSpectator.find(pObj->GetCharInfo()->m_nCID);
-					LOG(LOG_PROG,to_string(pObj->GetCharInfo()->m_nCID).c_str());
-
-					if(it != ClanWarSpectator.end())
-					{
-						LOG(LOG_PROG, "found player in the map");
-						if(!StageJoin(pObj->GetUID(), it->second->StageUID, true, it->second->Team, true))
-						{
-							NotifyMessage(pObj->GetUID(), MATCHNOTIFY_STAGE_NOT_EXIST);
-						}
-					}
-					else {				
-						LOG(LOG_PROG, "not found");
-						NotifyMessage(pObj->GetUID(), MATCHNOTIFY_STAGE_NOT_EXIST);
-					}
-				}
-			}
-			break;
-		case MC_MATCH_INVITE_SPECTATE:
-			{
-				//FUNCTION TO NOTIFY A PLAYER HAS BEEN INVITED TO SPECTATE CLAN WAR, ADDS THE PLAYER TO THE MAP
-				char player[20];
-				pCommand->GetParameter(player,0, MPT_STR, 20);
-
-				MMatchObject* pObj = (MMatchObject*)GetObject(pCommand->GetSenderUID());
-				MMatchObject* pTargetObj = GetPlayerByName(player);
-
-				if(pTargetObj && pObj) {
-					MUID StageUID =  pObj->GetStageUID();
-					MMatchTeam nTeam = pObj->GetTeam();
-
-					ClanWarSpect::iterator it = ClanWarSpectator.find(pTargetObj->GetCharInfo()->m_nCID);
-					if(it != ClanWarSpectator.end()) {
-						LOG(LOG_PROG,"DELETING OLD ENTRY");
-						ClanWarSpectate* temp = it->second;
-						it->second = nullptr;
-						delete temp;
-						ClanWarSpectator.erase(it);
-					}
-
-					ClanWarSpectator[pTargetObj->GetCharInfo()->m_nCID] = new ClanWarSpectate(nTeam, StageUID);
-					LOG(LOG_PROG,"NEW DETAILS");
-					LOG(LOG_PROG,to_string(ClanWarSpectator.size()).c_str());
-					LOG(LOG_PROG,to_string(pObj->GetCharInfo()->m_nCID).c_str());
-
-					NotifyMessage(pObj->GetUID(), MATCHNOTIFY_USER_INVITED);
-					
-					MCommand* pTargetCmd = CreateCommand(MC_MATCH_NOTIFY_INVITED, MUID(0, 0));
-					pTargetCmd->AddParameter(new MCommandParameterString(pObj->GetCharInfo()->m_szName));
-					pTargetCmd->AddParameter(new MCommandParameterString(pObj->GetCharInfo()->m_ClanInfo.m_szClanName));
-
-					RouteToListener(pTargetObj, pTargetCmd);
-				}
-				else if (pObj){
-					NotifyMessage(pObj->GetUID(), MATCHNOTIFY_GENERAL_USER_NOTFOUND);
-				}
-
 			}
 			break;
 		case MC_REQUEST_NEWS:
@@ -1768,7 +1703,7 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 				void* pReplierNamesBlob = pReplierNamesParam->GetPointer();
 				if( NULL == pReplierNamesBlob )
 					break;
-				//////////////////////////////////////////////////////////////////////////////
+
 				OnRequestProposal(uidChar, nProposalMode, nRequestID, nReplierCount, pReplierNamesBlob);
 			}
 			break;

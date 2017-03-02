@@ -3483,7 +3483,6 @@ void ZCharacter::InitProperties()
 	//jintriple3 메모리 프록시...비트 패킹..
 	ZCharaterStatusBitPacking& uStatus = m_dwStatusBitPackingValue.Ref();
 
-
 	if (pObjCache && IsAdminGrade(pObjCache->GetUGrade()) && 
 		pObjCache->CheckFlag(MTD_PlayerFlags_AdminHide))
 		uStatus.m_bAdminHide = true;

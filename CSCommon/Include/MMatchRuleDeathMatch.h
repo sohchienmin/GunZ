@@ -33,26 +33,8 @@ protected:
 	virtual bool RoundCount();
 	virtual bool OnCheckEnableBattleCondition();
 public:
-	vector<MUID> spectators;
 	MMatchRuleTeamDeath(MMatchStage* pStage);
-	virtual ~MMatchRuleTeamDeath()				
-	{
-		//deleting spectators from map
-
-		for (int i = 0; i < spectators.size(); i++) {
-			MMatchServer* server = MMatchServer::GetInstance();
-			ClanWarSpect* ClanWarSpectator = server->clanWarSpectateMap();
-
-			MMatchObject* pObj = (MMatchObject*)server->GetObject(spectators[i]);
-			ClanWarSpect::iterator it = ClanWarSpectator->find(pObj->GetCharInfo()->m_nCID);
-			if(it != ClanWarSpectator->end() && it->second->StageUID ==  m_pStage->GetUID()) {
-				ClanWarSpectate* temp = it->second;
-				it->second = nullptr;
-				delete temp;
-				ClanWarSpectator->erase(it);
-			}
-		}
-	}
+	virtual ~MMatchRuleTeamDeath()				{}
 	virtual void CalcTeamBonus(MMatchObject* pAttacker, MMatchObject* pVictim,
 								int nSrcExp, int* poutAttackerExp, int* poutTeamExp);
 	virtual MMATCH_GAMETYPE GetGameType() { return MMATCH_GAMETYPE_DEATHMATCH_TEAM; }

@@ -652,17 +652,15 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 		case MC_MATCH_CHANNEL_RESPONSE_ALL_PLAYER_LIST:
 			{
 				MUID uidChannel;
-				bool listAll;
 
 				pCommand->GetParameter(&uidChannel, 0, MPT_UID);
-				pCommand->GetParameter(&listAll, 2, MPT_BOOL);
 
 				MCommandParameter* pParam = pCommand->GetParameter(1);
 				if(pParam->GetType()!=MPT_BLOB) break;
 				void* pBlob = pParam->GetPointer();
 				int nCount = MGetBlobArrayCount(pBlob);
 
-				OnChannelAllPlayerList(uidChannel, pBlob, nCount, listAll);
+				OnChannelAllPlayerList(uidChannel, pBlob, nCount);
 			}
 			break;
 		case MC_MATCH_RESPONSE_FRIENDLIST:
@@ -1129,6 +1127,7 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				}
 			}
 			break;
+
 		case MC_MATCH_INFORMATION_CLOTHES:
 			{
 				char szSenderName[128] = "";
@@ -1785,7 +1784,6 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 
 				FlashWindow(FindWindow(0, APPLICATION_NAME), 1);
 
-
 				sprintf(szMsg, "^2The game has been resumed.");
 				ZChatOutput(szMsg);
 				ZGetGameInterface()->ResumeGame();
@@ -1794,23 +1792,6 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				ZGetGame()->m_pMyCharacter->GetStatus().CheckCrc();
 				ZGetGame()->m_pMyCharacter->GetStatus().Ref().Freeze = 0;
 				ZGetGame()->m_pMyCharacter->GetStatus().MakeCrc();
-			}
-			break;
-
-		case MC_MATCH_NOTIFY_INVITED:
-			{
-				char inviter[20];
-				char clan[20];
-				char szMsg[256];
-
-				pCommand->GetParameter(inviter, 0, MPT_STR, sizeof(inviter));
-				pCommand->GetParameter(clan, 1, MPT_STR, sizeof(clan));
-
-				sprintf(szMsg,"%s(%s) has invited you to spectate clan war.",inviter,clan);
-				ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), szMsg);
-
-				sprintf(szMsg, "Type /spectate to watch the game.");
-				ZChatOutput(MCOLOR(ZCOLOR_CHAT_SYSTEM), szMsg);
 			}
 			break;
 		case MC_MATCH_VOTE_RESPONSE:

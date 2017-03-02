@@ -942,6 +942,7 @@ inline void ZPostReplyAgreement(const MUID& uidProposer, const MUID& uidChar, ch
 		MCmdParamStr(szReplierName), MCmdParamInt(nProposalMode), MCmdParamInt(nRequestID), MCmdParamBool(bAgreement));
 }
 
+
 // 래더게임 신청
 inline void ZPostLadderRequestChallenge(char** ppMemberCharNames, const int nMemberCount, unsigned long int nOptions, unsigned long int nAntiLead, unsigned long int bDodge, bool warmUp)	// 자신까지 포함
 {
@@ -1291,5 +1292,6 @@ inline void ZPostStageRequestRejoin()
 {
 	ZPOSTCMD0(MC_MATCH_STAGE_REQUEST_REJOIN);
 }
+
 
 #endif

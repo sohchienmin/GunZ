@@ -211,37 +211,6 @@ void ZGameClient::OnAskAgreement(const MUID& uidProposer, void* pMemberNamesBlob
 	}
 }
 
-void ZGameClient::OnAskObserve(const string &proposerName, const MMatchProposalMode nProposalMode, const int nRequestID, const MUID& uidProposer)
-{
-	FlashWindow(FindWindow(0, APPLICATION_NAME), 1);
-	mlog("inside the fucking onaskObserver\n");
-	mlog(proposerName.c_str());
-	mlog("\n");
-	m_uidRequestPlayer = uidProposer;
-	ZIDLResource* pResource = ZApplication::GetGameInterface()->GetIDLResource();
-	MTextArea* pTextEdit = (MTextArea*)pResource->FindWidget("ProposalAgreementConfirm_Textarea");
-	if (pTextEdit)
-	{
-		char message[256];
-		sprintf(message, "%s invited you to spectate a clan war.",proposerName);
-		pTextEdit->SetText(message);
-	}
-
-	MWidget* pWidget = pResource->FindWidget("ProposalAgreementConfirm");
-	if(pWidget!=NULL)
-	{
-		static ZCOUNTDOWN countDown = {PROPOSAL_AGREEMENT_TIMEOUT_SEC,
-										"ProposalAgreementConfirm_Remain",
-										"ProposalAgreementConfirm",
-										OnAskReplierAgreement_OnExpire};
-		countDown.nSeconds=PROPOSAL_AGREEMENT_TIMEOUT_SEC;	// static 이므로 재설정
-		ZApplication::GetTimer()->SetTimerEvent(0, &OnTimer_CountDown, &countDown, true);
-
-		pWidget->Show(true, true);
-	}
-}
-
-
 void ZGameClient::OnReplyAgreement(const MUID& uidProposer, 
 		                const MUID& uidChar, 
 						const char* szReplierName, 
@@ -355,7 +324,7 @@ void ZGameClient::OnReplyAgreement(const MUID& uidProposer,
 
 		// 거절한 사람 반환, 거절한 사람이 없을 경우는 그냥 마지막에 대답한 사람으로 정한다.
 		if (!m_AgreementBuilder.GetRejecter(szRejecter)) strcpy(szRejecter, szReplierName);
-		
+		mlog("FUCKING REJECTED OMFGGGGGGGGGGGGGGGGGG");
 		GunzState nGameState = ZApplication::GetGameInterface()->GetState();
 		if (nGameState == GUNZ_LOBBY) 
 		{
@@ -398,11 +367,8 @@ void ZGameClient::RequestProposal(const MMatchProposalMode nProposalMode, char**
 	}
 
 	m_nRequestID++;
-	
 	ZPostRequestProposal(GetPlayerUID(), int(nProposalMode), m_nRequestID, ppReplierCharNames, nReplierCount);
-	if (nProposalMode != MPROPOSAL_CLAN_OBSERVER_INVITE) {
-		m_AgreementBuilder.Proposal(nProposalMode, m_nRequestID, ppReplierCharNames, nReplierCount);
-	}
+	m_AgreementBuilder.Proposal(nProposalMode, m_nRequestID, ppReplierCharNames, nReplierCount);
 }
 
 void ZGameClient::ReplyAgreement(const MUID& uidProposer, const MMatchProposalMode nProposalMode, bool bAgreement)
@@ -417,7 +383,6 @@ void ZGameClient::ReplyAgreement(bool bAgreement)
 	ReplyAgreement(m_uidRequestPlayer, m_nProposalMode, bAgreement);
 
 }
-
 
 void ZGameClient::OnLadderPrepare(const MUID& uidStage, const int nTeam)
 {

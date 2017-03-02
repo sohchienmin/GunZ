@@ -38,7 +38,6 @@
 #define MATCHNOTIFY_USER_INVITE_REJECTED	311
 #define MATCHNOTIFY_USER_INVITE_IGNORED		312
 
-#define MATCHNOTIFY_USER_INVITED			313
 
 bool InitializeNotify(MZFileSystem *pfs);
 bool NotifyMessage(int nMsgID, string *out);

@@ -717,10 +717,5 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType);
 #define MC_MATCH_RESUME						60094
 #define MC_MATCH_NOTIFY_RESUME				60095
 
-#define MC_MATCH_STAGE_REQUEST_SPECTATE		60096
-#define MC_MATCH_INVITE_SPECTATE			60097
-#define MC_MATCH_NOTIFY_INVITED				60098
-
-
 
 #endif

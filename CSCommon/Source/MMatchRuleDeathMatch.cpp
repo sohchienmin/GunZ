@@ -27,10 +27,6 @@ bool MMatchRuleTeamDeath::OnRun()
 
 void MMatchRuleTeamDeath::OnRoundBegin()
 {
-	for (vector<MUID>::iterator i = spectators.begin(); i!=spectators.end();  ++i) {
-		MMatchServer::GetInstance()->OnDuelSetObserver(*i);	
-	}
-
 	MMatchRule::OnRoundBegin();
 }
 
