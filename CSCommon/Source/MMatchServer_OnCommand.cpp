@@ -137,7 +137,37 @@ bool MMatchServer::OnCommand(MCommand* pCommand)
 				GetDBMgr()->GetLatestNews(pCommand->GetSenderUID());
 			}
 			break;
-
+		case MC_REQUEST_CHALLENGE:
+			{
+				MUID uidPlayer = pCommand->GetSenderUID();
+				MMatchObject* pChar = GetObject(uidPlayer);
+				const int nAID = pChar->GetAccountInfo()->m_nAID;
+				string challenges = GetDBMgr()->GetChallenge(uidPlayer, nAID);
+				if (challenges == "no_challenge") {
+					GetDBMgr()->AssignChallenge(uidPlayer,nAID);
+					challenges = GetDBMgr()->GetChallenge(uidPlayer, nAID);	
+				}
+				int timeleft = GetDBMgr()->GetTimeChallenge(uidPlayer, nAID);
+				MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_RESPONSE_CHALLENGE, uidPlayer);
+				pCmd->AddParameter(new MCmdParamStr(challenges.c_str()));
+				pCmd->AddParameter(new MCmdParamInt(timeleft));
+				MMatchServer::GetInstance()->Post(pCmd);
+			}
+			break;
+		case MC_ACCEPT_CHALLENGE:
+			{
+				MUID uidPlayer = pCommand->GetSenderUID();
+				MMatchObject* pChar = GetObject(uidPlayer);
+				const int nAID = pChar->GetAccountInfo()->m_nAID;
+				GetDBMgr()->AcceptChallenge(uidPlayer, nAID);
+				string challenges = GetDBMgr()->GetChallenge(uidPlayer, nAID);
+				int timeleft = GetDBMgr()->GetTimeChallenge(uidPlayer, nAID);
+				MCommand* pCmd = MMatchServer::GetInstance()->CreateCommand(MC_RESPONSE_CHALLENGE, uidPlayer);
+				pCmd->AddParameter(new MCmdParamStr(challenges.c_str()));
+				pCmd->AddParameter(new MCmdParamInt(timeleft));
+				MMatchServer::GetInstance()->Post(pCmd);
+			}
+			break;
 		case MC_MATCH_LOGIN_NETMARBLE_JP:
 			{
 				char szLoginID[ MAX_USERID_STRING_LEN ];

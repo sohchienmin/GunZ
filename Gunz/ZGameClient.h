@@ -381,7 +381,6 @@ protected:
 
 
 
-
 bool ZPostCommand(MCommand* pCmd);
 
 // 내 플레이어의 uid

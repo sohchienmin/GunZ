@@ -1009,11 +1009,17 @@ bool ZGameInterface::InitInterfaceListener()
 	SetListenerWidget("CharacterZoomSlider", ZGetCharacterZoomSliderListener());
 	SetListenerWidget("DefaultCharacterZoom", ZGetDefaultCharacterZoomListener());
 	SetListenerWidget("ScreenShotCaller", ZGetScreenShotCallerButtonListener());
+
 	SetListenerWidget("ViewScreenShot", ZGetViewScreenShotCallerButtonListener());
 	SetListenerWidget("ExitScreenShotPicture", ZGetExitScreenShotPictureCallerButtonListener());
 	SetListenerWidget("ExitScreenShot", ZGetExitScreenShotCallerButtonListener());
 	SetListenerWidget("NextScreenShotPicture", ZGetNextScreenShotCallerButtonListener());
-	SetListenerWidget("PrevScreenShotPicture", ZGetPrevScreenShotCallerButtonListener());
+	SetListenerWidget("PrevScreenShotPicture", ZGetPrevScreenShotCallerButtonListener());	
+	
+	// DAILY CHALLENGE CODE
+	SetListenerWidget("ChallengeCaller", ZGetChallengeCallerButtonListener());
+	SetListenerWidget("ChallengeCloseButton", ZGetChallengeButtonCloseListener());
+	SetListenerWidget("ChallengeAcceptButton", ZGetChallengeButtonAcceptListener());
 #endif
 
 	MTabCtrl *pTab = (MTabCtrl*)m_IDLResource.FindWidget("PlayerListControl");

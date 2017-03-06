@@ -717,5 +717,10 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType);
 #define MC_MATCH_RESUME						60094
 #define MC_MATCH_NOTIFY_RESUME				60095
 
+// DAILY CHALLENGE CODE
+#define MC_RESPONSE_CHALLENGE				60096
+#define MC_REQUEST_CHALLENGE				60097
+#define MC_ACCEPT_CHALLENGE					60098
+
 
 #endif

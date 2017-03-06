@@ -314,4 +314,9 @@ DECLARE_LISTENER(ZGetExitScreenShotCallerButtonListener);
 DECLARE_LISTENER(ZGetNextScreenShotCallerButtonListener);
 DECLARE_LISTENER(ZGetPrevScreenShotCallerButtonListener);
 
+// DAILY CHALLENGE CODE
+DECLARE_LISTENER(ZGetChallengeCallerButtonListener);
+DECLARE_LISTENER(ZGetChallengeButtonCloseListener);
+DECLARE_LISTENER(ZGetChallengeButtonAcceptListener);
+
 #endif

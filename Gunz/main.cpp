@@ -98,7 +98,6 @@ RRESULT RenderScene(void *pParam);
 
 #define RD_STRING_LENGTH 512
 char cstrReleaseDate[512];// = "ReleaseDate : 12/22/2003";
-#define _MUTEX false
 ZApplication	g_App;
 MDrawContextR2* g_pDC = NULL;
 MFontR2*		g_pDefFont = NULL;
@@ -1210,8 +1209,6 @@ void UpgradeMrsFile()
 	file_list.UpgradeMrs();
 }
 
-HANDLE Mutex = 0;
-
 #ifdef _HSHIELD
 int __stdcall AhnHS_Callback(long lCode, long lParamSize, void* pParam);
 #endif
@@ -1321,14 +1318,7 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 
 #ifndef _GAMEGUARD
 	#ifdef _PUBLISH
-#ifdef _MUTEX
-		Mutex = CreateMutex(NULL, TRUE, "Gunz");
-		if (GetLastError() == ERROR_ALREADY_EXISTS)
-		{
-			zexit(-1);
-			return 0;
-		}
-	#endif
+
 #endif
 #endif
 
@@ -1484,14 +1474,6 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 	//#ifndef _DEBUG
 	#ifdef _PUBLISH
 		// GunzLock을 띄워놓고 Gunz.exe를 실행하면 종료직전 대기한다. (XProtector 프로세스이미지스캔 작업용)
-#ifdef _MUTEX
-		HANDLE hMutexGunzLock = CreateMutex(NULL, TRUE, "GunzLock");
-		if (GetLastError() == ERROR_ALREADY_EXISTS)
-		{
-			WaitForSingleObject(hMutexGunzLock, INFINITE);
-			CloseHandle(hMutexGunzLock);
-		}
-#endif
 	#endif
 #endif	// LOCALE_NHNUSA
 
@@ -1779,12 +1761,6 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 #ifdef _GAMEGUARD
 	#ifdef _PUBLISH
 		// 중복 실행 금지
-		Mutex = CreateMutex(NULL, TRUE, "Gunz");
-		if (GetLastError() == ERROR_ALREADY_EXISTS)
-		{
-			zexit(-1);
-			return 0;
-		}
 	#endif
 #endif
 
@@ -1848,9 +1824,6 @@ int PASCAL WinMain(HINSTANCE this_inst, HINSTANCE prev_inst, LPSTR cmdline, int 
 #endif
 
 #ifdef _PUBLISH
-#ifdef _MUTEX
-	if (Mutex != 0) CloseHandle(Mutex);
-#endif
 #endif
 
 //	CoUninitialize();

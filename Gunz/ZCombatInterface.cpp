@@ -751,6 +751,8 @@ void ZCombatInterface::DrawHPAPNumbers(MDrawContext* pDC)
 	pDC->SetColor(80, 80, 80, 100);
 	pDC->SetFont(MFontManager::Get("FONTa10_O2Wht"));
 	pDC->Text((pDC->GetClipRect().w - pDC->GetFont()->GetWidth(timec) - 10), 60, timec);
+
+
 	/*
 	sprintf(damage, "Damage : %d", (int)pCharacter->GetDamage());
 	pDC->SetColor(255, 255, 255);

@@ -119,6 +119,14 @@ public:
 		const int nAddedKillCount, const int nAddedDeathCount, const int nAddedPlayTime);
 
 	void GetLatestNews(MUID uidPlayer);
+
+	string GetChallenge(MUID uidPlayer, const int nAID);
+	int	GetTimeChallenge(MUID uidPlayer, const int nAID);
+	void AssignChallenge(MUID uidPlayer, const int nAID);
+	void AcceptChallenge(MUID uidPlayer, const int nAID);
+
+	bool checkHasChallenge(const int nAID);
+
 	int GetCurrentCash(int nAID);
 	bool UpdateCurrentCash(const int nAID, const int nCash);
 

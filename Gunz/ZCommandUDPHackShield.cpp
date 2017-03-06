@@ -422,6 +422,9 @@ void ZCommandUDPHackShield::Init()
 	AddDeniedCommand(MC_MATCH_FLAG_EFFECT);
 	AddDeniedCommand(MC_MATCH_FLAG_CAP);
 	AddDeniedCommand(MC_MATCH_FLAG_STATE);
+
+	AddDeniedCommand(MC_REQUEST_CHALLENGE);
+	AddDeniedCommand(MC_ACCEPT_CHALLENGE);
 }
 
 void ZCommandUDPHackShield::AddDeniedCommand(int nCommandID)

@@ -505,6 +505,11 @@ TCHAR g_szDB_GET_REWARD_CHAR_BR[] = _T("{CALL spRewardCharBattleTimeReward (%d, 
 //			@IsSpendable		INT
 
 
+TCHAR g_szDB_FIND_CHALLENGE[] = _T("{CALL spFindChallenge (%d)}");
+TCHAR g_szDB_ASSIGN_CHALLENGE[] = _T("{CALL spAssignChallenge (%d)}");
+TCHAR g_szDB_ACCEPT_CHALLENGE[] = _T("{CALL spAcceptChallenge (%d)}");
+TCHAR g_szDB_FIND_CHALLENGE_TIME[] = _T("{CALL spFindChallengeTime (%d)}");
+
 MMatchDBMgr::MMatchDBMgr()
 {
 	m_nExceptionCnt = 0;
@@ -1220,6 +1225,111 @@ void MMatchDBMgr::GetLatestNews(MUID uidPlayer)
 	return;
 }
 
+string MMatchDBMgr::GetChallenge(MUID uidPlayer, const int nAID) {
+	_STATUS_DB_START;
+
+	if (!CheckOpen()) return "";
+	CString strSQL;
+	CODBCRecordset rs(&m_DB);
+
+	bool bException = false;
+	try {
+		strSQL.Format(g_szDB_FIND_CHALLENGE, nAID);
+		rs.Open(strSQL, CRecordset::forwardOnly, CRecordset::readOnly);
+	}
+	catch (CDBException* e) {
+		bException = true;
+		ExceptionHandler(strSQL, e);
+		return "";
+	}
+
+	if (rs.IsOpen() == FALSE || rs.GetRecordCount() <= 0) { return "no_challenge"; }
+	string challenges = "";
+	int i = 1;
+	char buff[128];
+	for (; !rs.IsEOF(); rs.MoveNext()) {
+		strcpy(buff, rs.Field("CDescription").AsString());
+		challenges += to_string(i) + ".\t";
+		challenges += buff;
+		challenges += "\n \n \n";
+		i++;
+	}
+	_STATUS_DB_END(10);
+	
+	return challenges;
+}
+
+int MMatchDBMgr::GetTimeChallenge(MUID uidPlayer, const int nAID) {
+	_STATUS_DB_START;
+	if (!CheckOpen()) return -2;
+	CString strSQL;
+	CODBCRecordset rs(&m_DB);
+	bool bException = false;
+
+	try {
+		strSQL.Format(g_szDB_FIND_CHALLENGE_TIME, nAID);
+		rs.Open(strSQL, CRecordset::forwardOnly, CRecordset::readOnly);
+	}
+	catch (CDBException* e) {
+		bException = true;
+		ExceptionHandler(strSQL, e);
+		return -2;
+	}
+	if (rs.IsOpen() == FALSE || rs.GetRecordCount() <= 0) { return -2; }
+
+	int time_left = -1;
+	
+	if (rs.Field("TimeLeft").AsInt()) {
+		time_left = rs.Field("TimeLeft").AsInt();
+		if (time_left < 0) time_left = 0;
+	}
+	_STATUS_DB_END(10);
+
+	return time_left;
+}
+
+void MMatchDBMgr::AssignChallenge(MUID uidPlayer, const int nAID){
+	_STATUS_DB_START;
+
+	if (!CheckOpen()) return;
+	CString strSQL;
+	CODBCRecordset rs(&m_DB);
+
+	bool bException = false;
+	try {
+		strSQL.Format(g_szDB_ASSIGN_CHALLENGE, nAID);
+		rs.Open(strSQL, CRecordset::forwardOnly, CRecordset::readOnly);
+	}
+	catch (CDBException* e) {
+		bException = true;
+		ExceptionHandler(strSQL, e);
+		return;
+	}
+	_STATUS_DB_END(10);
+	return;
+}
+
+
+void MMatchDBMgr::AcceptChallenge(MUID uidPlayer, const int nAID){
+	_STATUS_DB_START;
+
+	if (!CheckOpen()) return;
+	CString strSQL;
+	CODBCRecordset rs(&m_DB);
+
+	bool bException = false;
+	try {
+		strSQL.Format(g_szDB_ACCEPT_CHALLENGE, nAID);
+		rs.Open(strSQL, CRecordset::forwardOnly, CRecordset::readOnly);
+	}
+	catch (CDBException* e) {
+		bException = true;
+		ExceptionHandler(strSQL, e);
+		return;
+	}
+	_STATUS_DB_END(10);
+	return;
+}
 
 bool MMatchDBMgr::GetCharItemInfo(MMatchCharInfo* pCharInfo)
 {

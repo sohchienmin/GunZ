@@ -1844,6 +1844,13 @@ void MAddSharedCommandTable(MCommandManager* pCommandManager, int nSharedType)
 	C(MC_MATCH_UPDATE_PREGAME, "PreGame", "PreGame", MCDT_MACHINE2MACHINE)
 		P(MPT_BOOL, "inPreGame");
 
+// DAILY CHALLENGE CODE
+	C(MC_REQUEST_CHALLENGE, "Challenge", "Challenge", MCDT_MACHINE2MACHINE);
+	C(MC_RESPONSE_CHALLENGE, "ResponseChallenge", "Response Challenge", MCDT_MACHINE2MACHINE)
+		P(MPT_STR, "1");
+		P(MPT_INT, "2");
+	C(MC_ACCEPT_CHALLENGE, "AccChallenge", "AccChallenge", MCDT_MACHINE2MACHINE);
+
 	END_CMD_DESC();
 }
 	

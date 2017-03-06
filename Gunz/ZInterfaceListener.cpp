@@ -2609,3 +2609,29 @@ BEGIN_IMPLEMENT_LISTENER(ZGetArrangedTeamWarmUpDialogCloseListener, MBTN_CLK_MSG
 	if(pWidget!=NULL)
 		pWidget->Show(false);
 END_IMPLEMENT_LISTENER();
+
+#include <time.h>
+void sleep(unsigned int mseconds)
+{
+    clock_t goal = mseconds + clock();
+    while (goal > clock());
+}
+
+// DAILY CHALLENGE CODE
+BEGIN_IMPLEMENT_LISTENER(ZGetChallengeCallerButtonListener,MBTN_CLK_MSG)
+	sleep(500);
+	ZPOSTCMD0(MC_REQUEST_CHALLENGE);
+END_IMPLEMENT_LISTENER();
+
+BEGIN_IMPLEMENT_LISTENER(ZGetChallengeButtonCloseListener, MBTN_CLK_MSG)
+	mlog("Pressed closeeeeeeeeeeee!");
+	ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
+	MFrame* pWidget = (MFrame*)pResource->FindWidget("ChallengeDialog");
+	if(pWidget!=NULL)
+		pWidget->Show(false,false);
+END_IMPLEMENT_LISTENER();
+
+BEGIN_IMPLEMENT_LISTENER(ZGetChallengeButtonAcceptListener, MBTN_CLK_MSG)
+	ZPOSTCMD0(MC_ACCEPT_CHALLENGE);
+END_IMPLEMENT_LISTENER();
+

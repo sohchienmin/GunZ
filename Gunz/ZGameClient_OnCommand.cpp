@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ZGameClient.h"
-
+#include "ZCountDown.h"
 
 
 /// ±ÍÂú¾Æ¼­ ±×³É ±Ü¾î¿ÔÀ½... -   _-);;
@@ -51,7 +51,11 @@
 #include "UPnP.h"
 #include "MMD5.h"
 #include "ZNPCInfoFromServer.h"
-
+ 
+void ShowChallengeTimeout()
+{
+	ZChatOutput("Daily Challenge is over.");
+}
 
 
 void OnQuestNPCList( void* pBlobNPCList, MMATCH_GAMETYPE eGameType )
@@ -1289,7 +1293,52 @@ bool ZGameClient::OnCommand(MCommand* pCommand)
 				}
 			}
 			break;
-		case MC_MATCH_CHATROOM_JOIN:
+		// DAILY CHALLENGE CODE
+		case MC_RESPONSE_CHALLENGE:
+			{
+				char challenges[1024]="";
+				int timeleft = 0;
+
+				pCommand->GetParameter(challenges, 0, MPT_STR, sizeof(challenges));
+				pCommand->GetParameter(&timeleft, 1, MPT_INT);
+				//sleep(500);
+				ZIDLResource* pResource = ZGetGameInterface()->GetIDLResource();
+				MTextArea* pTextArea = (MTextArea*)pResource->FindWidget("ChallengeLabel");
+				pTextArea->SetText(challenges);
+				pResource = ZGetGameInterface()->GetIDLResource();
+				MFrame* pWidget = (MFrame*)pResource->FindWidget("ChallengeDialog");
+				if(pWidget!=NULL) {
+					pWidget->Show(true,true);
+				}
+				if (timeleft != -1) {
+					MButton* pButton = (MButton*)pResource->FindWidget("ChallengeAcceptButton");
+					if(pButton != NULL) {
+						pButton->Show(false,false);
+					}
+					char buff[40] = "";
+					mlog("still time left");
+					itoa(timeleft,buff, 10);
+					mlog(buff);
+					ZCOUNTDOWN* countDown = new ZCOUNTDOWN();
+					countDown->nSeconds = timeleft;
+					countDown->pCallBack = ShowChallengeTimeout;
+					countDown->szLabelWidget = "ChallengeRemain";
+					countDown->szTargetWidget = "ChallengeDialog";
+					ZApplication::GetTimer()->SetTimerEvent(0, &OnTimer_CountDown_Challenge, countDown, true);
+				}
+				else {
+					MButton* pButton = (MButton*)pResource->FindWidget("ChallengeAcceptButton");
+					if(pButton != NULL) {
+						pButton->Show(true);
+					}
+					MButton* pButton2 = (MButton*)pResource->FindWidget("ChallengeCloseButton");
+					if(pButton2 != NULL) {
+						pButton2->Show(true);
+					}
+				}
+			}
+			break;
+		case MC_MATCH_CHATROOM_JOIN: 
 			{
 				char szPlayerName[128]="";
 				char szChatRoomName[128]="";

@@ -11,3 +11,4 @@ struct ZCOUNTDOWN {
 };
 
 void OnTimer_CountDown(void* pParam);
+void OnTimer_CountDown_Challenge(void* pParam);
